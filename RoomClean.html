@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realistic Cleaning Time Calculator</title>
+    <style>
+        /* Porch Light Design System - Consistent across all tools */
+        :root {
+            --primary: #2D3E50;
+            --accent: #4ECDC4;
+            --warm: #FFE66D;
+            --success: #52C41A;
+            --warning: #FFA940;
+            --danger: #FF4757;
+            --light-bg: #F8F9FA;
+            --border: #E8E8E8;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+        }
+
+        .calculator-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #3D5975 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .calculator-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .calculator-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .calculator-body {
+            padding: 2rem;
+        }
+
+        .room-selector {
+            margin-bottom: 2rem;
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .room-card {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .room-card input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .room-card label {
+            display: block;
+            padding: 1.5rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+
+        .room-card input[type="checkbox"]:checked + label {
+            border-color: var(--accent);
+            background: rgba(78, 205, 196, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78, 205, 196, 0.2);
+        }
+
+        .room-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .room-name {
+            font-weight: 600;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .room-time {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .room-details {
+            display: none;
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .detail-header {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .slider-group {
+            margin-bottom: 1rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .slider-value {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 8px rgba(78, 205, 196, 0.1);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .radio-option {
+            position: relative;
+            flex: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            border-color: var(--accent);
+            background: rgba(78, 205, 196, 0.1);
+            font-weight: 600;
+        }
+
+        .global-settings {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .global-settings h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+        }
+
+        .calculate-btn:hover {
+            background: #3DBDB4;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .calculate-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 2rem;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .total-time-display {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .time-large {
+            font-size: 3.5rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .time-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .time-unit {
+            text-align: center;
+        }
+
+        .time-number {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .time-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .room-breakdown {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .breakdown-header {
+            background: var(--light-bg);
+            padding: 1rem 1.5rem;
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .breakdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .breakdown-room {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .breakdown-icon {
+            font-size: 1.5rem;
+        }
+
+        .breakdown-time {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .reality-check {
+            background: rgba(255, 169, 64, 0.1);
+            border: 2px solid var(--warning);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .reality-check h3 {
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+        }
+
+        .cleaning-schedule {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .schedule-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .schedule-card {
+            padding: 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .schedule-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .schedule-time {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-desc {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--accent);
+            background: white;
+            color: var(--accent);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .newsletter-cta {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--warm);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .newsletter-cta h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .newsletter-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                margin: 1rem;
+            }
+            
+            .room-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .time-large {
+                font-size: 2.5rem;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>🧹 Realistic Cleaning Time Calculator</h1>
+            <p>Find out how long cleaning actually takes (spoiler: longer than you think!)</p>
+        </div>
+        
+        <div class="calculator-body">
+            <div class="room-selector">
+                <h2>Select Rooms to Clean</h2>
+                <div class="room-grid">
+                    <div class="room-card">
+                        <input type="checkbox" id="kitchen" value="kitchen">
+                        <label for="kitchen">
+                            <span class="room-icon">🍳</span>
+                            <span class="room-name">Kitchen</span>
+                            <span class="room-time">Base: 30-45 min</span>
+                        </label>
+                    </div>
+                    
+                    <div class="room-card">
+                        <input type="checkbox" id="bathroom" value="bathroom">
+                        <label for="bathroom">
+                            <span class="room-icon">🚿</span>
+                            <span class="room-name">Bathroom</span>
+                            <span class="room-time">Base: 25-35 min</span>
+                        </label>
+                    </div>
+                    
+                    <div class="room-card">
+                        <input type="checkbox" id="bedroom" value="bedroom">
+                        <label for="bedroom">
+                            <span class="room-icon">🛏️</span>
+                            <span class="room-name">Bedroom</span>
+                            <span class="room-time">Base: 20-30 min</span>
+                        </label>
+                    </div>
+                    
+                    <div class="room-card">
+                        <input type="checkbox" id="living" value="living">
+                        <label for="living">
+                            <span class="room-icon">🛋️</span>
+                            <span class="room-name">Living Room</span>
+                            <span class="room-time">Base: 20-30 min</span>
+                        </label>
+                    </div>
+                    
+                    <div class="room-card">
+                        <input type="checkbox" id="dining" value="dining">
+                        <label for="dining">
+                            <span class="room-icon">🪑</span>
+                            <span class="room-name">Dining Room</span>
+                            <span class="room-time">Base: 15-25 min</span>
+                        </label>
+                    </div>
+                    
+                    <div class="room-card">
+                        <input type="checkbox" id="office" value="office">
+                        <label for="office">
+                            <span class="room-icon">💼</span>
+                            <span class="room-name">Home Office</span>
+                            <span class="room-time">Base: 15-25 min</span>
+                        </label>
+                    </div>
+                    
+                    <div class="room-card">
+                        <input type="checkbox" id="entryway" value="entryway">
+                        <label for="entryway">
+                            <span class="room-icon">🚪</span>
+                            <span class="room-name">Entryway</span>
+                            <span class="room-time">Base: 10-15 min</span>
+                        </label>
+                    </div>
+                    
+                    <div class="room-card">
+                        <input type="checkbox" id="laundry" value="laundry">
+                        <label for="laundry">
+                            <span class="room-icon">🧺</span>
+                            <span class="room-name">Laundry Room</span>
+                            <span class="room-time">Base: 15-20 min</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="room-details-container"></div>
+            
+            <div class="global-settings">
+                <h3>Overall Conditions</h3>
+                
+                <div class="input-group">
+                    <label>Cleaning Type</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="quick-clean" name="clean-type" value="quick" checked>
+                            <label for="quick-clean">
+                                <strong>Quick Tidy</strong>
+                                <div style="font-size: 0.85rem; color: #666;">Surface cleaning</div>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="regular-clean" name="clean-type" value="regular">
+                            <label for="regular-clean">
+                                <strong>Regular Clean</strong>
+                                <div style="font-size: 0.85rem; color: #666;">Weekly routine</div>
+                            </label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="deep-clean" name="clean-type" value="deep">
+                            <label for="deep-clean">
+                                <strong>Deep Clean</strong>
+                                <div style="font-size: 0.85rem; color: #666;">Spring cleaning</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <label>Home Size Factor</label>
+                        <span class="slider-value" id="size-value">Medium</span>
+                    </div>
+                    <input type="range" id="home-size" min="0.8" max="1.5" value="1" step="0.1">
+                </div>
+                
+                <div class="slider-group">
+                    <div class="slider-label">
+                        <label>Number of People Cleaning</label>
+                        <span class="slider-value" id="people-value">1 person</span>
+                    </div>
+                    <input type="range" id="people-cleaning" min="1" max="4" value="1" step="1">
+                </div>
+                
+                <div class="input-group">
+                    <label>
+                        <input type="checkbox" id="include-breaks"> Include realistic breaks (every 45 min)
+                    </label>
+                </div>
+            </div>
+            
+            <button class="calculate-btn" onclick="calculateCleaningTime()">Calculate Realistic Time</button>
+            
+            <div class="results-container" id="results">
+                <div class="total-time-display">
+                    <h2>Total Cleaning Time</h2>
+                    <div class="time-large" id="total-time">0 hours</div>
+                    <div class="time-breakdown">
+                        <div class="time-unit">
+                            <div class="time-number" id="hours">0</div>
+                            <div class="time-label">hours</div>
+                        </div>
+                        <div class="time-unit">
+                            <div class="time-number" id="minutes">0</div>
+                            <div class="time-label">minutes</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reality-check" id="reality-check">
+                    <h3>⏱️ Reality Check</h3>
+                    <p id="reality-message"></p>
+                </div>
+                
+                <div class="room-breakdown">
+                    <div class="breakdown-header">Room-by-Room Breakdown</div>
+                    <div id="breakdown-list"></div>
+                </div>
+                
+                <div class="cleaning-schedule">
+                    <h3>Suggested Cleaning Schedules</h3>
+                    <div class="schedule-options" id="schedule-options"></div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="printSchedule()">🖨️ Print Schedule</button>
+                    <button class="action-btn" onclick="shareResults()">📤 Share Results</button>
+                </div>
+            </div>
+            
+            <div class="newsletter-cta">
+                <h3>🏠 Want a personalized cleaning routine that actually works?</h3>
+                <p>Join our 7-Day Reset newsletter and build sustainable cleaning habits</p>
+                <a href="/newsletter" class="newsletter-btn">Get Your Cleaning Reset →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Room base times in minutes
+        const roomBaseTimes = {
+            kitchen: { quick: 20, regular: 35, deep: 60 },
+            bathroom: { quick: 15, regular: 30, deep: 50 },
+            bedroom: { quick: 15, regular: 25, deep: 40 },
+            living: { quick: 15, regular: 25, deep: 40 },
+            dining: { quick: 10, regular: 20, deep: 30 },
+            office: { quick: 10, regular: 20, deep: 35 },
+            entryway: { quick: 5, regular: 10, deep: 20 },
+            laundry: { quick: 10, regular: 15, deep: 25 }
+        };
+        
+        const roomClutterFactors = {
+            minimal: 0.8,
+            average: 1.0,
+            cluttered: 1.3,
+            very_cluttered: 1.6
+        };
+        
+        // Track room-specific settings
+        let roomSettings = {};
+        
+        // Update sliders
+        document.getElementById('home-size').addEventListener('input', function(e) {
+            const value = parseFloat(e.target.value);
+            let sizeText = 'Medium';
+            if (value < 0.9) sizeText = 'Small';
+            else if (value > 1.2) sizeText = 'Large';
+            document.getElementById('size-value').textContent = sizeText;
+        });
+        
+        document.getElementById('people-cleaning').addEventListener('input', function(e) {
+            const value = parseInt(e.target.value);
+            document.getElementById('people-value').textContent = value === 1 ? '1 person' : `${value} people`;
+        });
+        
+        // Room selection handling
+        document.querySelectorAll('.room-card input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                updateRoomDetails();
+                updateCalculateButton();
+            });
+        });
+        
+        function updateRoomDetails() {
+            const container = document.getElementById('room-details-container');
+            const selectedRooms = Array.from(document.querySelectorAll('.room-card input[type="checkbox"]:checked'));
+            
+            container.innerHTML = '';
+            
+            selectedRooms.forEach(room => {
+                const roomId = room.value;
+                const roomName = room.nextElementSibling.querySelector('.room-name').textContent;
+                
+                if (!roomSettings[roomId]) {
+                    roomSettings[roomId] = {
+                        size: 'medium',
+                        clutter: 'average',
+                        tasks: []
+                    };
+                }
+                
+                const detailDiv = document.createElement('div');
+                detailDiv.className = 'room-details';
+                detailDiv.style.display = 'block';
+                detailDiv.innerHTML = `
+                    <div class="detail-header">${room.nextElementSibling.querySelector('.room-icon').textContent} ${roomName} Details</div>
+                    
+                    <div class="input-group">
+                        <label>Room Size</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="${roomId}-small" name="${roomId}-size" value="small" ${roomSettings[roomId].size === 'small' ? 'checked' : ''}>
+                                <label for="${roomId}-small">Small</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="${roomId}-medium" name="${roomId}-size" value="medium" ${roomSettings[roomId].size === 'medium' ? 'checked' : ''}>
+                                <label for="${roomId}-medium">Medium</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="${roomId}-large" name="${roomId}-size" value="large" ${roomSettings[roomId].size === 'large' ? 'checked' : ''}>
+                                <label for="${roomId}-large">Large</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <label>Clutter Level</label>
+                            <span class="slider-value" id="${roomId}-clutter-value">Average</span>
+                        </div>
+                        <input type="range" id="${roomId}-clutter" min="0.8" max="1.6" value="1" step="0.1">
+                    </div>
+                `;
+                
+                container.appendChild(detailDiv);
+                
+                // Add event listeners for room-specific controls
+                document.getElementById(`${roomId}-clutter`).addEventListener('input', function(e) {
+                    const value = parseFloat(e.target.value);
+                    let clutterText = 'Average';
+                    if (value < 0.9) clutterText = 'Minimal';
+                    else if (value > 1.2 && value <= 1.4) clutterText = 'Cluttered';
+                    else if (value > 1.4) clutterText = 'Very Cluttered';
+                    
+                    document.getElementById(`${roomId}-clutter-value`).textContent = clutterText;
+                    roomSettings[roomId].clutterFactor = value;
+                });
+                
+                // Size radio buttons
+                detailDiv.querySelectorAll(`input[name="${roomId}-size"]`).forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        roomSettings[roomId].size = this.value;
+                    });
+                });
+            });
+        }
+        
+        function updateCalculateButton() {
+            const selectedRooms = document.querySelectorAll('.room-card input[type="checkbox"]:checked');
+            const button = document.querySelector('.calculate-btn');
+            button.disabled = selectedRooms.length === 0;
+            if (selectedRooms.length === 0) {
+                button.textContent = 'Select at least one room';
+            } else {
+                button.textContent = `Calculate Time for ${selectedRooms.length} Room${selectedRooms.length > 1 ? 's' : ''}`;
+            }
+        }
+        
+        function calculateCleaningTime() {
+            const selectedRooms = Array.from(document.querySelectorAll('.room-card input[type="checkbox"]:checked'));
+            const cleanType = document.querySelector('input[name="clean-type"]:checked').value;
+            const homeSizeFactor = parseFloat(document.getElementById('home-size').value);
+            const peopleCleaning = parseInt(document.getElementById('people-cleaning').value);
+            const includeBreaks = document.getElementById('include-breaks').checked;
+            
+            let totalMinutes = 0;
+            let roomBreakdown = [];
+            
+            selectedRooms.forEach(room => {
+                const roomId = room.value;
+                const roomName = room.nextElementSibling.querySelector('.room-name').textContent;
+                const roomIcon = room.nextElementSibling.querySelector('.room-icon').textContent;
+                
+                // Get base time
+                let baseTime = roomBaseTimes[roomId][cleanType];
+                
+                // Apply room size factor
+                const roomSize = roomSettings[roomId]?.size || 'medium';
+                const sizeFactor = { small: 0.8, medium: 1, large: 1.3 }[roomSize];
+                
+                // Apply clutter factor
+                const clutterFactor = roomSettings[roomId]?.clutterFactor || 1;
+                
+                // Apply home size factor
+                let roomTime = baseTime * sizeFactor * clutterFactor * homeSizeFactor;
+                
+                // Add reality factors
+                // Moving items around adds 10%
+                roomTime *= 1.1;
+                
+                // Getting supplies and putting them away adds 5 minutes per room
+                roomTime += 5;
+                
+                // If deep cleaning, add extra time for detailed work
+                if (cleanType === 'deep') {
+                    roomTime *= 1.15; // Extra 15% for thoroughness
+                }
+                
+                totalMinutes += roomTime;
+                
+                roomBreakdown.push({
+                    name: roomName,
+                    icon: roomIcon,
+                    time: Math.round(roomTime)
+                });
+            });
+            
+            // Apply people cleaning factor (not perfectly linear - coordination overhead)
+            if (peopleCleaning === 2) {
+                totalMinutes *= 0.65; // 35% faster, not 50%
+            } else if (peopleCleaning === 3) {
+                totalMinutes *= 0.5; // 50% faster, not 66%
+            } else if (peopleCleaning === 4) {
+                totalMinutes *= 0.45; // Diminishing returns
+            }
+            
+            // Add breaks
+            if (includeBreaks) {
+                const numberOfBreaks = Math.floor(totalMinutes / 45);
+                totalMinutes += numberOfBreaks * 10; // 10-minute breaks
+            }
+            
+            // Display results
+            displayResults(totalMinutes, roomBreakdown, cleanType);
+        }
+        
+        function displayResults(totalMinutes, roomBreakdown, cleanType) {
+            const hours = Math.floor(totalMinutes / 60);
+            const minutes = Math.round(totalMinutes % 60);
+            
+            // Update time display
+            document.getElementById('total-time').textContent = hours > 0 ? 
+                `${hours} hour${hours !== 1 ? 's' : ''} ${minutes} min` : 
+                `${minutes} minutes`;
+            
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            
+            // Reality check message
+            const realityCheck = document.getElementById('reality-message');
+            if (cleanType === 'quick' && totalMinutes > 60) {
+                realityCheck.textContent = "That 'quick tidy' isn't so quick after all! This is why cleaning always takes longer than expected.";
+            } else if (cleanType === 'regular' && totalMinutes > 120) {
+                realityCheck.textContent = "No wonder cleaning feels like it takes all day! Consider breaking this into smaller daily tasks.";
+            } else if (cleanType === 'deep') {
+                realityCheck.textContent = "Deep cleaning is a marathon, not a sprint. Consider spreading this over a weekend or hiring help.";
+            } else {
+                realityCheck.textContent = "Pro tip: Add 20% to this estimate - something always comes up!";
+            }
+            
+            // Room breakdown
+            const breakdownList = document.getElementById('breakdown-list');
+            breakdownList.innerHTML = '';
+            
+            roomBreakdown.sort((a, b) => b.time - a.time).forEach(room => {
+                const item = document.createElement('div');
+                item.className = 'breakdown-item';
+                item.innerHTML = `
+                    <div class="breakdown-room">
+                        <span class="breakdown-icon">${room.icon}</span>
+                        <span>${room.name}</span>
+                    </div>
+                    <span class="breakdown-time">${room.time} min</span>
+                `;
+                breakdownList.appendChild(item);
+            });
+            
+            // Schedule suggestions
+            const scheduleOptions = document.getElementById('schedule-options');
+            scheduleOptions.innerHTML = '';
+            
+            if (totalMinutes <= 60) {
+                // Can do in one session
+                scheduleOptions.innerHTML = `
+                    <div class="schedule-card">
+                        <div class="schedule-time">One Session</div>
+                        <div class="schedule-desc">Knock it out in one go - perfect for a quick weekend clean</div>
+                    </div>
+                `;
+            } else if (totalMinutes <= 120) {
+                // Split into 2 sessions
+                scheduleOptions.innerHTML = `
+                    <div class="schedule-card">
+                        <div class="schedule-time">2 Sessions</div>
+                        <div class="schedule-desc">Split over morning and afternoon with a lunch break</div>
+                    </div>
+                    <div class="schedule-card">
+                        <div class="schedule-time">Daily 20min</div>
+                        <div class="schedule-desc">Spread over ${Math.ceil(totalMinutes / 20)} days for easy daily habits</div>
+                    </div>
+                `;
+            } else {
+                // Need multiple sessions
+                const dailySessions = Math.ceil(totalMinutes / 30);
+                const weekendSessions = Math.ceil(totalMinutes / 90);
+                
+                scheduleOptions.innerHTML = `
+                    <div class="schedule-card">
+                        <div class="schedule-time">Weekend Project</div>
+                        <div class="schedule-desc">${weekendSessions} sessions of 90 minutes each</div>
+                    </div>
+                    <div class="schedule-card">
+                        <div class="schedule-time">Daily Habit</div>
+                        <div class="schedule-desc">30 min/day for ${dailySessions} days</div>
+                    </div>
+                    <div class="schedule-card">
+                        <div class="schedule-time">Room by Room</div>
+                        <div class="schedule-desc">One room per day over ${roomBreakdown.length} days</div>
+                    </div>
+                `;
+            }
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            
+            // Scroll to results
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Track calculation
+            incrementCalculationCount();
+        }
+        
+        function printSchedule() {
+            window.print();
+        }
+        
+        function shareResults() {
+            const totalTime = document.getElementById('total-time').textContent;
+            const selectedRooms = document.querySelectorAll('.room-card input[type="checkbox"]:checked').length;
+            const text = `Just calculated my realistic cleaning time: ${totalTime} for ${selectedRooms} rooms! No wonder cleaning takes forever. Calculate yours at [YourDomain.com]`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Results copied to clipboard! Share to help others set realistic expectations.');
+            });
+        }
+        
+        function incrementCalculationCount() {
+            // This would connect to your backend to track usage
+            console.log('Cleaning time calculated for tracking');
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', () => {
+            updateCalculateButton();
+        });
+    </script>
+</body>
+</html>
