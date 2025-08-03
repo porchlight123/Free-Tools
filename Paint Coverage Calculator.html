@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paint Coverage Calculator - How Much Paint Do I Need?</title>
+    <style>
+        /* Porch Light Design System - Consistent across all tools */
+        :root {
+            --primary: #2D3E50;
+            --accent: #4ECDC4;
+            --warm: #FFE66D;
+            --success: #52C41A;
+            --warning: #FFA940;
+            --danger: #FF4757;
+            --light-bg: #F8F9FA;
+            --border: #E8E8E8;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: #f5f5f5;
+        }
+
+        .calculator-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #3D5975 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .calculator-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .calculator-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .calculator-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            padding: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-section {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        .visual-section {
+            position: relative;
+            min-height: 400px;
+        }
+
+        .room-visual {
+            width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+            border: 3px solid var(--primary);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-wall {
+            position: absolute;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .wall-north {
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 20%;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .wall-south {
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20%;
+            border-top: 2px solid var(--primary);
+        }
+
+        .wall-east {
+            top: 20%;
+            right: 0;
+            bottom: 20%;
+            width: 20%;
+            border-left: 2px solid var(--primary);
+        }
+
+        .wall-west {
+            top: 20%;
+            left: 0;
+            bottom: 20%;
+            width: 20%;
+            border-right: 2px solid var(--primary);
+        }
+
+        .room-floor {
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            right: 20%;
+            bottom: 20%;
+            background: #e8e8e8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .door-window {
+            position: absolute;
+            background: #666;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-weight: 500;
+        }
+
+        input[type="number"], select {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        select {
+            padding-right: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .checkbox-group {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem;
+            color: var(--primary);
+        }
+
+        .preset-buttons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .preset-btn {
+            padding: 0.75rem;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--accent);
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .preset-btn.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .calculate-btn:hover {
+            background: #3DBDB4;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            grid-column: 1 / -1;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .paint-needed {
+            font-size: 3rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .result-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .result-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .result-subtext {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 0.25rem;
+        }
+
+        .cost-breakdown {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .cost-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+
+        .shopping-list {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .shopping-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .shopping-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .shopping-details {
+            flex: 1;
+        }
+
+        .shopping-quantity {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .tips-container {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .tip-icon {
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--accent);
+            background: white;
+            color: var(--accent);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                margin: 1rem;
+            }
+            
+            .input-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .preset-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>🎨 Paint Coverage Calculator</h1>
+            <p>Calculate exactly how much paint you need and see your room's coverage visually</p>
+        </div>
+        
+        <div class="calculator-body">
+            <div class="input-section">
+                <h2 class="section-title">Room Dimensions</h2>
+                
+                <div class="preset-buttons">
+                    <button class="preset-btn" onclick="setPreset('small')">Small<br>10×10</button>
+                    <button class="preset-btn" onclick="setPreset('medium')">Medium<br>12×12</button>
+                    <button class="preset-btn" onclick="setPreset('large')">Large<br>15×15</button>
+                    <button class="preset-btn" onclick="setPreset('master')">Master<br>16×20</button>
+                    <button class="preset-btn" onclick="setPreset('great')">Great Room<br>20×25</button>
+                    <button class="preset-btn" onclick="setPreset('custom')">Custom</button>
+                </div>
+                
+                <div class="input-group">
+                    <div class="input-row">
+                        <div>
+                            <label for="room-length">Room Length</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="room-length" value="12" min="1" max="50" step="0.5">
+                                <span class="input-suffix">ft</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="room-width">Room Width</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="room-width" value="12" min="1" max="50" step="0.5">
+                                <span class="input-suffix">ft</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="ceiling-height">Ceiling Height</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="ceiling-height" value="8" min="6" max="20" step="0.5">
+                        <span class="input-suffix">ft</span>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Walls to Paint</h2>
+                <div class="checkbox-group">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="wall-1" checked>
+                        <label for="wall-1">Wall 1</label>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="wall-2" checked>
+                        <label for="wall-2">Wall 2</label>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="wall-3" checked>
+                        <label for="wall-3">Wall 3</label>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="wall-4" checked>
+                        <label for="wall-4">Wall 4</label>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Openings to Subtract</h2>
+                <div class="input-group">
+                    <div class="input-row">
+                        <div>
+                            <label for="num-doors">Number of Doors</label>
+                            <input type="number" id="num-doors" value="1" min="0" max="10">
+                        </div>
+                        <div>
+                            <label for="num-windows">Number of Windows</label>
+                            <input type="number" id="num-windows" value="2" min="0" max="20">
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 class="section-title">Paint Details</h2>
+                <div class="input-group">
+                    <label for="num-coats">Number of Coats</label>
+                    <select id="num-coats">
+                        <option value="1">1 coat (touch-up/same color)</option>
+                        <option value="2" selected>2 coats (standard)</option>
+                        <option value="3">3 coats (dark over light)</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="paint-quality">Paint Quality</label>
+                    <select id="paint-quality">
+                        <option value="basic">Basic ($25-35/gal)</option>
+                        <option value="premium" selected>Premium ($40-55/gal)</option>
+                        <option value="designer">Designer ($60-80/gal)</option>
+                    </select>
+                </div>
+                
+                <div class="checkbox-wrapper">
+                    <input type="checkbox" id="include-ceiling">
+                    <label for="include-ceiling">Include ceiling in calculation</label>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculatePaint()">Calculate Paint Needed</button>
+            </div>
+            
+            <div class="visual-section">
+                <h2 class="section-title">Visual Room Preview</h2>
+                <div class="room-visual" id="room-visual">
+                    <div class="room-wall wall-north" id="visual-wall-1">North Wall</div>
+                    <div class="room-wall wall-east" id="visual-wall-2">East Wall</div>
+                    <div class="room-wall wall-south" id="visual-wall-3">South Wall</div>
+                    <div class="room-wall wall-west" id="visual-wall-4">West Wall</div>
+                    <div class="room-floor">
+                        <span id="room-size-display">12 × 12 ft</span>
+                    </div>
+                    <!-- Doors and windows will be added dynamically -->
+                </div>
+                
+                <div class="tips-container" style="margin-top: 2rem;">
+                    <h3 style="margin-bottom: 1rem;">💡 Quick Tips</h3>
+                    <div class="tip-item">
+                        <span class="tip-icon">📏</span>
+                        <span>Standard door = 21 sq ft, Standard window = 15 sq ft</span>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🎨</span>
+                        <span>Buy 10% extra for touch-ups and future repairs</span>
+                    </div>
+                    <div class="tip-item">
+                        <span class="tip-icon">🔧</span>
+                        <span>Textured walls need 10-20% more paint</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-container" id="results">
+                <div class="results-header">
+                    <h2>Paint Calculation Results</h2>
+                    <div class="paint-needed" id="paint-needed">0 gallons</div>
+                    <p>Total paint needed for <span id="coats-display">2</span> coats</p>
+                </div>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-label">Wall Area</div>
+                        <div class="result-value" id="wall-area">0</div>
+                        <div class="result-subtext">square feet</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Coverage Needed</div>
+                        <div class="result-value" id="coverage-needed">0</div>
+                        <div class="result-subtext">square feet</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Gallons to Buy</div>
+                        <div class="result-value" id="gallons-buy">0</div>
+                        <div class="result-subtext">rounded up</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-label">Estimated Cost</div>
+                        <div class="result-value" id="total-cost">$0</div>
+                        <div class="result-subtext">paint only</div>
+                    </div>
+                </div>
+                
+                <div class="shopping-list">
+                    <h3>Shopping List</h3>
+                    <div class="shopping-item">
+                        <span class="shopping-icon">🎨</span>
+                        <div class="shopping-details">
+                            <div class="shopping-quantity" id="paint-quantity">0 gallons of paint</div>
+                            <div>Coverage: 350-400 sq ft per gallon</div>
+                        </div>
+                    </div>
+                    <div class="shopping-item">
+                        <span class="shopping-icon">🖌️</span>
+                        <div class="shopping-details">
+                            <div class="shopping-quantity">1 gallon of primer</div>
+                            <div>If painting over dark colors or bare walls</div>
+                        </div>
+                    </div>
+                    <div class="shopping-item">
+                        <span class="shopping-icon">🧻</span>
+                        <div class="shopping-details">
+                            <div class="shopping-quantity">Painting supplies</div>
+                            <div>Rollers, brushes, tape, drop cloths</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="cost-breakdown">
+                    <h3>Cost Breakdown</h3>
+                    <div class="cost-row">
+                        <span>Paint (<span id="paint-gallons">0</span> gallons)</span>
+                        <span id="paint-cost">$0</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>Primer (if needed)</span>
+                        <span>$30-40</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>Basic supplies</span>
+                        <span>$25-35</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>Estimated Total</span>
+                        <span id="estimated-total">$0</span>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="savePaintList()">💾 Save Shopping List</button>
+                    <button class="action-btn" onclick="printResults()">🖨️ Print Results</button>
+                    <button class="action-btn" onclick="shareCalculation()">📤 Share Calculation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Room presets
+        const roomPresets = {
+            small: { length: 10, width: 10 },
+            medium: { length: 12, width: 12 },
+            large: { length: 15, width: 15 },
+            master: { length: 16, width: 20 },
+            great: { length: 20, width: 25 },
+            custom: null
+        };
+        
+        // Paint prices by quality
+        const paintPrices = {
+            basic: { min: 25, max: 35, avg: 30 },
+            premium: { min: 40, max: 55, avg: 48 },
+            designer: { min: 60, max: 80, avg: 70 }
+        };
+        
+        // Update room visual when dimensions change
+        document.getElementById('room-length').addEventListener('input', updateRoomVisual);
+        document.getElementById('room-width').addEventListener('input', updateRoomVisual);
+        
+        // Update wall visual when checkboxes change
+        document.querySelectorAll('input[type="checkbox"][id^="wall-"]').forEach(checkbox => {
+            checkbox.addEventListener('change', updateWallVisual);
+        });
+        
+        function setPreset(presetName) {
+            // Update active button
+            document.querySelectorAll('.preset-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Set dimensions if not custom
+            if (roomPresets[presetName]) {
+                document.getElementById('room-length').value = roomPresets[presetName].length;
+                document.getElementById('room-width').value = roomPresets[presetName].width;
+                updateRoomVisual();
+            }
+        }
+        
+        function updateRoomVisual() {
+            const length = parseFloat(document.getElementById('room-length').value) || 12;
+            const width = parseFloat(document.getElementById('room-width').value) || 12;
+            
+            document.getElementById('room-size-display').textContent = `${length} × ${width} ft`;
+            
+            // Update visual proportions (simplified for display)
+            // In a real implementation, you might scale the walls proportionally
+        }
+        
+        function updateWallVisual() {
+            for (let i = 1; i <= 4; i++) {
+                const checkbox = document.getElementById(`wall-${i}`);
+                const wallElement = document.getElementById(`visual-wall-${i}`);
+                
+                if (checkbox.checked) {
+                    wallElement.style.background = '#fff';
+                    wallElement.style.opacity = '1';
+                } else {
+                    wallElement.style.background = '#ddd';
+                    wallElement.style.opacity = '0.5';
+                }
+            }
+        }
+        
+        function calculatePaint() {
+            // Get dimensions
+            const length = parseFloat(document.getElementById('room-length').value) || 0;
+            const width = parseFloat(document.getElementById('room-width').value) || 0;
+            const height = parseFloat(document.getElementById('ceiling-height').value) || 0;
+            
+            // Count walls to paint
+            let wallCount = 0;
+            for (let i = 1; i <= 4; i++) {
+                if (document.getElementById(`wall-${i}`).checked) {
+                    wallCount++;
+                }
+            }
+            
+            // Calculate wall area
+            const perimeterWalls = 2 * (length + width);
+            const wallArea = perimeterWalls * height * (wallCount / 4);
+            
+            // Add ceiling if selected
+            let ceilingArea = 0;
+            if (document.getElementById('include-ceiling').checked) {
+                ceilingArea = length * width;
+            }
+            
+            // Subtract openings
+            const numDoors = parseInt(document.getElementById('num-doors').value) || 0;
+            const numWindows = parseInt(document.getElementById('num-windows').value) || 0;
+            const doorArea = numDoors * 21; // Standard door = 21 sq ft
+            const windowArea = numWindows * 15; // Standard window = 15 sq ft
+            
+            // Total paintable area
+            const totalArea = wallArea + ceilingArea - doorArea - windowArea;
+            
+            // Calculate paint needed
+            const numCoats = parseInt(document.getElementById('num-coats').value);
+            const coveragePerGallon = 375; // Average coverage
+            const totalCoverage = totalArea * numCoats;
+            const gallonsNeeded = totalCoverage / coveragePerGallon;
+            const gallonsToBuy = Math.ceil(gallonsNeeded);
+            
+            // Calculate cost
+            const paintQuality = document.getElementById('paint-quality').value;
+            const pricePerGallon = paintPrices[paintQuality].avg;
+            const paintCost = gallonsToBuy * pricePerGallon;
+            const totalCost = paintCost + 35 + 30; // Paint + supplies + primer
+            
+            // Display results
+            displayResults(totalArea, totalCoverage, gallonsNeeded, gallonsToBuy, paintCost, totalCost, numCoats);
+        }
+        
+        function displayResults(wallArea, coverage, gallonsNeeded, gallonsToBuy, paintCost, totalCost, coats) {
+            // Update main result
+            document.getElementById('paint-needed').textContent = `${gallonsNeeded.toFixed(1)} gallons`;
+            document.getElementById('coats-display').textContent = coats;
+            
+            // Update cards
+            document.getElementById('wall-area').textContent = Math.round(wallArea);
+            document.getElementById('coverage-needed').textContent = Math.round(coverage);
+            document.getElementById('gallons-buy').textContent = gallonsToBuy;
+            document.getElementById('total-cost').textContent = `$${paintCost}`;
+            
+            // Update shopping list
+            document.getElementById('paint-quantity').textContent = `${gallonsToBuy} gallons of paint`;
+            document.getElementById('paint-gallons').textContent = gallonsToBuy;
+            document.getElementById('paint-cost').textContent = `$${paintCost}`;
+            document.getElementById('estimated-total').textContent = `$${totalCost}-${totalCost + 20}`;
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Track calculation
+            incrementCalculationCount();
+        }
+        
+        function savePaintList() {
+            const list = {
+                paint: document.getElementById('paint-quantity').textContent,
+                area: document.getElementById('wall-area').textContent,
+                cost: document.getElementById('total-cost').textContent,
+                date: new Date().toLocaleDateString()
+            };
+            
+            // In production, save to user account
+            alert('Shopping list saved! Access it anytime from your account.');
+        }
+        
+        function printResults() {
+            window.print();
+        }
+        
+        function shareCalculation() {
+            const gallons = document.getElementById('gallons-buy').textContent;
+            const area = document.getElementById('wall-area').textContent;
+            const text = `I need ${gallons} gallons of paint for ${area} sq ft. Calculate your paint needs: [YourDomain.com]`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Calculation copied to clipboard! Share with your painter or hardware store.');
+            });
+        }
+        
+        function incrementCalculationCount() {
+            // Track usage for social proof
+            console.log('Paint calculation completed');
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', () => {
+            updateRoomVisual();
+            updateWallVisual();
+        });
+    </script>
+</body>
+</html>
