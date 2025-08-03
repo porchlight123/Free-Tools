@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mulch Calculator - Soil & Garden Bed Coverage Calculator | Free Tool</title>
+    <meta name="description" content="Calculate exactly how much mulch, soil, or compost you need for your garden. Free calculator with visual guides, bag-to-bulk conversion, and cost estimates. Works for all garden bed shapes.">
+    <meta name="keywords" content="mulch calculator, soil calculator, garden calculator, how much mulch do I need, topsoil calculator, compost calculator, garden bed calculator, landscaping calculator">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Mulch & Soil Calculator - Get Exact Coverage Amounts">
+    <meta property="og:description" content="Stop overbuying or running short! Calculate exact mulch, soil, and compost needs for any garden project. Includes cost estimates and bag conversion.">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Garden Soil and Mulch Calculator",
+        "description": "Calculate mulch, soil, and compost requirements for garden beds and landscaping projects",
+        "url": "https://yoursite.com/tools/mulch-calculator",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2d6e3e;
+            --primary-dark: #1e4d2b;
+            --secondary: #81c784;
+            --accent: #ff6b35;
+            --background: #f5f7f6;
+            --card-bg: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #616161;
+            --border: #e0e0e0;
+            --success: #4caf50;
+            --warning: #ff9800;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(45, 110, 62, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 968px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+            gap: 12px;
+        }
+        
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--secondary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        h3 {
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        
+        .shape-selector {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        @media (max-width: 480px) {
+            .shape-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .shape-btn {
+            padding: 16px;
+            border: 2px solid var(--border);
+            background: var(--background);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .shape-btn:hover {
+            border-color: var(--secondary);
+            background: rgba(129, 199, 132, 0.1);
+        }
+        
+        .shape-btn.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .shape-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+            display: block;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+        
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .material-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .material-card {
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: var(--background);
+        }
+        
+        .material-card:hover {
+            border-color: var(--secondary);
+            transform: translateY(-1px);
+        }
+        
+        .material-card.active {
+            border-color: var(--primary);
+            background: rgba(45, 110, 62, 0.1);
+        }
+        
+        .material-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .material-info {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+        }
+        
+        .calculate-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(45, 110, 62, 0.3);
+        }
+        
+        .results-container {
+            background: linear-gradient(135deg, rgba(129, 199, 132, 0.1) 0%, rgba(45, 110, 62, 0.05) 100%);
+            border: 2px solid var(--secondary);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .result-item {
+            text-align: center;
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .conversion-table {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .table-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .table-row:last-child {
+            border-bottom: none;
+        }
+        
+        .table-header {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .info-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+        
+        .info-card {
+            padding: 24px;
+            background: var(--background);
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .info-card h4 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .depth-guide {
+            background: rgba(129, 199, 132, 0.1);
+            border: 1px solid var(--secondary);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+        }
+        
+        .depth-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(129, 199, 132, 0.3);
+        }
+        
+        .depth-item:last-child {
+            border-bottom: none;
+        }
+        
+        .warning {
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid var(--warning);
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .warning-icon {
+            color: var(--warning);
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .result-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Garden Soil & Mulch Calculator</h1>
+            <p class="subtitle">Calculate exactly how much mulch, topsoil, or compost you need for any garden project</p>
+        </header>
+        
+        <div class="calculator-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📐</div>
+                    <h2>Area Measurements</h2>
+                </div>
+                
+                <div class="shape-selector">
+                    <button class="shape-btn active" onclick="selectShape('rectangle')">
+                        <span class="shape-icon">▭</span>
+                        Rectangle
+                    </button>
+                    <button class="shape-btn" onclick="selectShape('circle')">
+                        <span class="shape-icon">○</span>
+                        Circle
+                    </button>
+                    <button class="shape-btn" onclick="selectShape('triangle')">
+                        <span class="shape-icon">△</span>
+                        Triangle
+                    </button>
+                    <button class="shape-btn" onclick="selectShape('custom')">
+                        <span class="shape-icon">⬟</span>
+                        Custom
+                    </button>
+                </div>
+                
+                <div id="rectangleInputs" class="shape-inputs">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="length">Length (feet)</label>
+                            <input type="number" id="length" value="10" min="0" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label for="width">Width (feet)</label>
+                            <input type="number" id="width" value="8" min="0" step="0.5">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="circleInputs" class="shape-inputs hidden">
+                    <div class="input-group">
+                        <label for="diameter">Diameter (feet)</label>
+                        <input type="number" id="diameter" value="10" min="0" step="0.5">
+                    </div>
+                </div>
+                
+                <div id="triangleInputs" class="shape-inputs hidden">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="base">Base (feet)</label>
+                            <input type="number" id="base" value="10" min="0" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label for="height">Height (feet)</label>
+                            <input type="number" id="height" value="8" min="0" step="0.5">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="customInputs" class="shape-inputs hidden">
+                    <div class="input-group">
+                        <label for="customArea">Total Area (square feet)</label>
+                        <input type="number" id="customArea" value="80" min="0" step="1">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="depth">Desired Depth</label>
+                    <select id="depth" onchange="updateDepthInfo()">
+                        <option value="1">1 inch - Light mulch refresh</option>
+                        <option value="2">2 inches - Standard mulch</option>
+                        <option value="3" selected>3 inches - Recommended mulch</option>
+                        <option value="4">4 inches - Heavy mulch/playground</option>
+                        <option value="6">6 inches - New garden beds</option>
+                        <option value="8">8 inches - Deep soil amendment</option>
+                        <option value="12">12 inches - Raised bed fill</option>
+                    </select>
+                </div>
+                
+                <div id="depthInfo" class="depth-guide">
+                    <strong>3 inches is ideal for:</strong>
+                    <ul style="margin-left: 20px; margin-top: 8px; color: var(--text-secondary);">
+                        <li>Weed suppression</li>
+                        <li>Moisture retention</li>
+                        <li>Temperature regulation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🌱</div>
+                    <h2>Material Selection</h2>
+                </div>
+                
+                <h3>Choose Your Material</h3>
+                <div class="material-grid">
+                    <div class="material-card active" onclick="selectMaterial('mulch')">
+                        <div class="material-name">Mulch</div>
+                        <div class="material-info">Wood chips, bark</div>
+                    </div>
+                    <div class="material-card" onclick="selectMaterial('topsoil')">
+                        <div class="material-name">Topsoil</div>
+                        <div class="material-info">Garden soil</div>
+                    </div>
+                    <div class="material-card" onclick="selectMaterial('compost')">
+                        <div class="material-name">Compost</div>
+                        <div class="material-info">Organic matter</div>
+                    </div>
+                    <div class="material-card" onclick="selectMaterial('gravel')">
+                        <div class="material-name">Gravel</div>
+                        <div class="material-info">Stone, pea gravel</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="pricePerUnit">Price per Cubic Yard (optional)</label>
+                    <input type="number" id="pricePerUnit" placeholder="$35" min="0" step="1">
+                </div>
+                
+                <div class="input-group">
+                    <label for="bagSize">Bag Size (if buying bagged)</label>
+                    <select id="bagSize">
+                        <option value="0">Calculate bulk only</option>
+                        <option value="1">1 cubic foot bags</option>
+                        <option value="1.5">1.5 cubic foot bags</option>
+                        <option value="2" selected>2 cubic foot bags</option>
+                        <option value="3">3 cubic foot bags</option>
+                    </select>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateMaterials()">
+                    Calculate Materials Needed
+                </button>
+            </div>
+        </div>
+        
+        <div id="results" class="hidden">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <h2>Your Results</h2>
+                </div>
+                
+                <div class="results-container">
+                    <div class="result-grid">
+                        <div class="result-item">
+                            <div class="result-value" id="cubicYards">0</div>
+                            <div class="result-label">Cubic Yards Needed</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="cubicFeet">0</div>
+                            <div class="result-label">Cubic Feet</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="coverage">0</div>
+                            <div class="result-label">Square Feet Coverage</div>
+                        </div>
+                    </div>
+                    
+                    <div id="bagResults" class="conversion-table">
+                        <h3 style="margin-bottom: 16px;">Bag Conversion</h3>
+                        <div class="table-row table-header">
+                            <div>Bag Size</div>
+                            <div>Bags Needed</div>
+                            <div>Cost Estimate</div>
+                        </div>
+                        <div id="bagConversions"></div>
+                    </div>
+                    
+                    <div id="costEstimate" class="warning hidden">
+                        <span class="warning-icon">💰</span>
+                        <div>
+                            <strong>Estimated Cost: </strong><span id="totalCost">$0</span>
+                            <br><small>Based on your price of $<span id="priceUsed">0</span> per cubic yard</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning">
+                    <span class="warning-icon">💡</span>
+                    <div>
+                        <strong>Pro Tip:</strong> Order 10% extra to account for compaction and settling, especially for mulch and soil projects.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>Complete Guide to Mulch & Soil Calculation</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 24px;">
+                Getting the right amount of material is crucial for your garden's success and your budget. Too little leaves gaps, too much wastes money.
+            </p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>📏 Recommended Depths by Project</h4>
+                    <div class="depth-item">
+                        <span>Mulch (weed control)</span>
+                        <strong>2-3 inches</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>Mulch (moisture retention)</span>
+                        <strong>3-4 inches</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>New flower beds</span>
+                        <strong>6-8 inches</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>Vegetable gardens</span>
+                        <strong>8-12 inches</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>Lawn top dressing</span>
+                        <strong>0.5-1 inch</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>Pathway gravel</span>
+                        <strong>2-3 inches</strong>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h4>🚚 Bulk vs. Bagged: When to Choose</h4>
+                    <p><strong>Choose Bulk When:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-secondary);">
+                        <li>Covering more than 3 cubic yards</li>
+                        <li>You have truck/trailer access</li>
+                        <li>Doing large landscaping projects</li>
+                        <li>Want to save 40-60% on cost</li>
+                    </ul>
+                    <p style="margin-top: 12px;"><strong>Choose Bagged When:</strong></p>
+                    <ul style="margin-left: 20px; color: var(--text-secondary);">
+                        <li>Small areas under 2 cubic yards</li>
+                        <li>No delivery access</li>
+                        <li>Spreading over multiple weekends</li>
+                        <li>Need specific colored mulch</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h4>🌿 Material Weight Guide</h4>
+                    <p style="color: var(--text-secondary); margin-bottom: 12px;">
+                        Important for transport and handling:
+                    </p>
+                    <div class="depth-item">
+                        <span>Mulch (dry)</span>
+                        <strong>400-800 lbs/yd³</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>Topsoil (dry)</span>
+                        <strong>2,000 lbs/yd³</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>Compost</span>
+                        <strong>1,200 lbs/yd³</strong>
+                    </div>
+                    <div class="depth-item">
+                        <span>Gravel</span>
+                        <strong>2,800 lbs/yd³</strong>
+                    </div>
+                    <div class="warning" style="margin-top: 12px;">
+                        <span class="warning-icon">⚠️</span>
+                        <small>Wet materials can weigh 50% more!</small>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h4>💡 Money-Saving Tips</h4>
+                    <ul style="margin-left: 20px; color: var(--text-secondary); line-height: 2;">
+                        <li>Many municipalities offer free mulch from tree services</li>
+                        <li>Buy in spring/fall for better prices</li>
+                        <li>Split bulk deliveries with neighbors</li>
+                        <li>Use newspapers under mulch to extend coverage</li>
+                        <li>Consider wood chips from local arborists</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="margin-top: 32px; padding: 24px; background: var(--background); border-radius: 12px;">
+                <h3>🧮 The Math Behind the Calculator</h3>
+                <p style="color: var(--text-secondary); margin-top: 12px;">
+                    <strong>Formula:</strong> Area (sq ft) × Depth (ft) ÷ 27 = Cubic Yards<br>
+                    <strong>Example:</strong> 100 sq ft × 0.25 ft (3 inches) ÷ 27 = 0.93 cubic yards
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Material data
+        const materials = {
+            mulch: {
+                name: 'Mulch',
+                defaultPrice: 35,
+                bagPrices: { 1: 3, 1.5: 4, 2: 5, 3: 7 }
+            },
+            topsoil: {
+                name: 'Topsoil',
+                defaultPrice: 25,
+                bagPrices: { 1: 2.5, 1.5: 3.5, 2: 4.5, 3: 6.5 }
+            },
+            compost: {
+                name: 'Compost',
+                defaultPrice: 40,
+                bagPrices: { 1: 4, 1.5: 5.5, 2: 7, 3: 10 }
+            },
+            gravel: {
+                name: 'Gravel',
+                defaultPrice: 45,
+                bagPrices: { 1: 5, 1.5: 7, 2: 9, 3: 13 }
+            }
+        };
+        
+        let currentShape = 'rectangle';
+        let currentMaterial = 'mulch';
+        
+        function selectShape(shape) {
+            currentShape = shape;
+            
+            // Update buttons
+            document.querySelectorAll('.shape-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.shape-btn').classList.add('active');
+            
+            // Show/hide inputs
+            document.querySelectorAll('.shape-inputs').forEach(input => {
+                input.classList.add('hidden');
+            });
+            document.getElementById(shape + 'Inputs').classList.remove('hidden');
+        }
+        
+        function selectMaterial(material) {
+            currentMaterial = material;
+            
+            // Update cards
+            document.querySelectorAll('.material-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.material-card').classList.add('active');
+            
+            // Update default price placeholder
+            const priceInput = document.getElementById('pricePerUnit');
+            priceInput.placeholder = '$' + materials[material].defaultPrice;
+        }
+        
+        function updateDepthInfo() {
+            const depth = document.getElementById('depth').value;
+            const depthInfo = document.getElementById('depthInfo');
+            
+            const depthGuides = {
+                '1': {
+                    title: '1 inch is ideal for:',
+                    uses: ['Light mulch refresh', 'Lawn top dressing', 'Minimal coverage']
+                },
+                '2': {
+                    title: '2 inches is ideal for:',
+                    uses: ['Basic weed control', 'Established beds', 'Annual touch-ups']
+                },
+                '3': {
+                    title: '3 inches is ideal for:',
+                    uses: ['Weed suppression', 'Moisture retention', 'Temperature regulation']
+                },
+                '4': {
+                    title: '4 inches is ideal for:',
+                    uses: ['Heavy mulch coverage', 'Playground areas', 'Slopes and hills']
+                },
+                '6': {
+                    title: '6 inches is ideal for:',
+                    uses: ['New garden beds', 'Killing grass/weeds', 'Major soil amendment']
+                },
+                '8': {
+                    title: '8 inches is ideal for:',
+                    uses: ['Deep soil improvement', 'Raised bed base', 'Heavy clay amendment']
+                },
+                '12': {
+                    title: '12 inches is ideal for:',
+                    uses: ['Raised bed filling', 'Complete soil replacement', 'Deep vegetable gardens']
+                }
+            };
+            
+            const guide = depthGuides[depth];
+            depthInfo.innerHTML = `
+                <strong>${guide.title}</strong>
+                <ul style="margin-left: 20px; margin-top: 8px; color: var(--text-secondary);">
+                    ${guide.uses.map(use => `<li>${use}</li>`).join('')}
+                </ul>
+            `;
+        }
+        
+        function calculateArea() {
+            let area = 0;
+            
+            switch(currentShape) {
+                case 'rectangle':
+                    const length = parseFloat(document.getElementById('length').value) || 0;
+                    const width = parseFloat(document.getElementById('width').value) || 0;
+                    area = length * width;
+                    break;
+                    
+                case 'circle':
+                    const diameter = parseFloat(document.getElementById('diameter').value) || 0;
+                    const radius = diameter / 2;
+                    area = Math.PI * radius * radius;
+                    break;
+                    
+                case 'triangle':
+                    const base = parseFloat(document.getElementById('base').value) || 0;
+                    const height = parseFloat(document.getElementById('height').value) || 0;
+                    area = (base * height) / 2;
+                    break;
+                    
+                case 'custom':
+                    area = parseFloat(document.getElementById('customArea').value) || 0;
+                    break;
+            }
+            
+            return area;
+        }
+        
+        function calculateMaterials() {
+            const area = calculateArea();
+            const depthInches = parseFloat(document.getElementById('depth').value);
+            const depthFeet = depthInches / 12;
+            
+            // Calculate volumes
+            const cubicFeet = area * depthFeet;
+            const cubicYards = cubicFeet / 27;
+            
+            // Get price
+            const priceInput = document.getElementById('pricePerUnit').value;
+            const pricePerYard = priceInput ? parseFloat(priceInput) : materials[currentMaterial].defaultPrice;
+            
+            // Update results
+            document.getElementById('cubicYards').textContent = cubicYards.toFixed(2);
+            document.getElementById('cubicFeet').textContent = Math.ceil(cubicFeet);
+            document.getElementById('coverage').textContent = Math.round(area);
+            
+            // Calculate bags
+            const bagSize = parseFloat(document.getElementById('bagSize').value);
+            const bagConversions = document.getElementById('bagConversions');
+            bagConversions.innerHTML = '';
+            
+            if (bagSize > 0) {
+                const bagsNeeded = Math.ceil(cubicFeet / bagSize);
+                const bagPrice = materials[currentMaterial].bagPrices[bagSize];
+                const bagCost = bagsNeeded * bagPrice;
+                
+                bagConversions.innerHTML = `
+                    <div class="table-row">
+                        <div>${bagSize} cu ft</div>
+                        <div>${bagsNeeded} bags</div>
+                        <div>$${bagCost.toFixed(2)}</div>
+                    </div>
+                `;
+            } else {
+                // Show all bag options
+                [1, 1.5, 2, 3].forEach(size => {
+                    const bagsNeeded = Math.ceil(cubicFeet / size);
+                    const bagPrice = materials[currentMaterial].bagPrices[size];
+                    const bagCost = bagsNeeded * bagPrice;
+                    
+                    bagConversions.innerHTML += `
+                        <div class="table-row">
+                            <div>${size} cu ft</div>
+                            <div>${bagsNeeded} bags</div>
+                            <div>$${bagCost.toFixed(2)}</div>
+                        </div>
+                    `;
+                });
+            }
+            
+            // Show cost estimate if price provided
+            if (priceInput) {
+                const totalCost = cubicYards * pricePerYard;
+                document.getElementById('totalCost').textContent = '$' + totalCost.toFixed(2);
+                document.getElementById('priceUsed').textContent = pricePerYard;
+                document.getElementById('costEstimate').classList.remove('hidden');
+            } else {
+                document.getElementById('costEstimate').classList.add('hidden');
+            }
+            
+            // Show results
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Initialize
+        updateDepthInfo();
+    </script>
+</body>
+</html>
