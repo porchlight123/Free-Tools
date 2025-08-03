@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tile Calculator - How Much Tile Do I Need? Pattern Layout Visualizer</title>
+    <meta name="description" content="Calculate exact tile needed for floors and walls. Free tile calculator with pattern visualizer, grout calculator, and waste factors. Supports subway, herringbone, and diagonal layouts.">
+    <meta name="keywords" content="tile calculator, how much tile do I need, tile pattern calculator, bathroom tile calculator, kitchen tile calculator, floor tile calculator, tile layout calculator">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Tile Calculator with Pattern Visualizer - Calculate Tile & Grout">
+    <meta property="og:description" content="Visualize your tile pattern and calculate exact amounts needed. Includes waste factors, grout calculator, and cost estimates for any tile project.">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Tile Calculator with Pattern Layout Visualizer",
+        "description": "Calculate tile requirements for floors and walls with pattern visualization, grout calculator, and cost estimation",
+        "url": "https://yoursite.com/tools/tile-calculator",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2c3e50;
+            --primary-dark: #1a252f;
+            --accent: #3498db;
+            --secondary: #95a5a6;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --border: #ecf0f1;
+            --tile: #34495e;
+            --grout: #bdc3c7;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(44, 62, 80, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 968px) {
+            .calculator-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .room-shape-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .shape-btn {
+            padding: 16px;
+            border: 2px solid var(--border);
+            background: var(--background);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .shape-btn:hover {
+            border-color: var(--accent);
+            background: white;
+            transform: translateY(-1px);
+        }
+        
+        .shape-btn.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+        
+        .shape-btn.active .shape-icon {
+            transform: scale(1.1);
+        }
+        
+        .shape-icon {
+            font-size: 28px;
+            display: block;
+            margin-bottom: 4px;
+            transition: transform 0.3s ease;
+        }
+        
+        .shape-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        input[type="number"], select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+        
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.1);
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .pattern-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .pattern-card {
+            padding: 20px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pattern-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .pattern-card.active {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(52, 152, 219, 0.02) 100%);
+        }
+        
+        .pattern-card.active::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .pattern-visual {
+            width: 100%;
+            height: 80px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--background);
+            position: relative;
+        }
+        
+        .pattern-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .pattern-waste {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        
+        .tile-size-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        
+        .size-preset {
+            padding: 10px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+        
+        .size-preset:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 18px 24px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.15rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.4);
+        }
+        
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .results-section {
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.05) 0%, rgba(44, 62, 80, 0.02) 100%);
+            border: 2px solid rgba(52, 152, 219, 0.2);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 24px;
+        }
+        
+        .results-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .results-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--success);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .main-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .result-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        
+        .result-detail {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        
+        .grout-results {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 20px;
+        }
+        
+        .cost-breakdown {
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid rgba(39, 174, 96, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .cost-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(39, 174, 96, 0.2);
+        }
+        
+        .cost-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 8px;
+            padding-top: 16px;
+            border-top: 2px solid rgba(39, 174, 96, 0.3);
+        }
+        
+        .info-box {
+            background: rgba(52, 152, 219, 0.1);
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .info-icon {
+            color: var(--accent);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .warning-box {
+            background: rgba(243, 156, 18, 0.1);
+            border: 1px solid rgba(243, 156, 18, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .warning-icon {
+            color: var(--warning);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .guide-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+        
+        .guide-card {
+            padding: 28px;
+            background: var(--background);
+            border-radius: 16px;
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+        
+        .guide-card:hover {
+            transform: translateX(4px);
+        }
+        
+        .guide-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .pattern-examples {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .pattern-example {
+            text-align: center;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .pattern-preview {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            background: var(--background);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Pattern Visualizations */
+        .straight-pattern {
+            background-image: repeating-linear-gradient(
+                0deg,
+                var(--tile) 0px,
+                var(--tile) 28px,
+                var(--grout) 28px,
+                var(--grout) 30px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                var(--tile) 0px,
+                var(--tile) 28px,
+                var(--grout) 28px,
+                var(--grout) 30px
+            );
+        }
+        
+        .subway-pattern {
+            background-image: repeating-linear-gradient(
+                0deg,
+                var(--tile) 0px,
+                var(--tile) 18px,
+                var(--grout) 18px,
+                var(--grout) 20px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                var(--tile) 0px,
+                var(--tile) 38px,
+                var(--grout) 38px,
+                var(--grout) 40px
+            );
+        }
+        
+        .diagonal-pattern {
+            background-image: repeating-linear-gradient(
+                45deg,
+                var(--tile) 0px,
+                var(--tile) 20px,
+                var(--grout) 20px,
+                var(--grout) 21px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                var(--tile) 0px,
+                var(--tile) 20px,
+                var(--grout) 20px,
+                var(--grout) 21px
+            );
+        }
+        
+        .herringbone-pattern {
+            background: 
+                linear-gradient(45deg, var(--tile) 25%, transparent 25%, transparent 75%, var(--tile) 75%, var(--tile)),
+                linear-gradient(-45deg, var(--tile) 25%, transparent 25%, transparent 75%, var(--tile) 75%, var(--tile));
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .pattern-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .room-shape-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .result-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tile Calculator</h1>
+            <p class="subtitle">Visualize patterns and calculate exact tile, grout, and costs for your project</p>
+        </header>
+        
+        <div class="calculator-grid">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📐</div>
+                    <h2>Room Dimensions</h2>
+                </div>
+                
+                <h3 style="margin-bottom: 16px; font-size: 1.1rem; color: var(--text-secondary);">Select Room Shape</h3>
+                <div class="room-shape-selector">
+                    <button class="shape-btn active" onclick="selectShape('rectangle')">
+                        <span class="shape-icon">▭</span>
+                        <span class="shape-name">Rectangle</span>
+                    </button>
+                    <button class="shape-btn" onclick="selectShape('lshape')">
+                        <span class="shape-icon">└</span>
+                        <span class="shape-name">L-Shape</span>
+                    </button>
+                    <button class="shape-btn" onclick="selectShape('custom')">
+                        <span class="shape-icon">⬟</span>
+                        <span class="shape-name">Custom</span>
+                    </button>
+                </div>
+                
+                <div id="rectangleInputs" class="shape-inputs">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="rectLength">Length (feet)</label>
+                            <input type="number" id="rectLength" value="12" min="0" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label for="rectWidth">Width (feet)</label>
+                            <input type="number" id="rectWidth" value="10" min="0" step="0.5">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="lshapeInputs" class="shape-inputs hidden">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="lLength1">Main Length (ft)</label>
+                            <input type="number" id="lLength1" value="15" min="0" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label for="lWidth1">Main Width (ft)</label>
+                            <input type="number" id="lWidth1" value="10" min="0" step="0.5">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label for="lLength2">Extension Length (ft)</label>
+                            <input type="number" id="lLength2" value="8" min="0" step="0.5">
+                        </div>
+                        <div class="input-group">
+                            <label for="lWidth2">Extension Width (ft)</label>
+                            <input type="number" id="lWidth2" value="6" min="0" step="0.5">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="customInputs" class="shape-inputs hidden">
+                    <div class="input-group">
+                        <label for="customArea">Total Square Footage</label>
+                        <input type="number" id="customArea" value="120" min="0" step="1">
+                    </div>
+                    <div class="info-box">
+                        <span class="info-icon">💡</span>
+                        <div>Measure your space and enter the total square footage. Don't forget to subtract permanent fixtures!</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="tileLength">Tile Length (inches)</label>
+                    <input type="number" id="tileLength" value="12" min="1" step="0.5">
+                    <div class="tile-size-grid" style="margin-top: 8px;">
+                        <button class="size-preset" onclick="setTileSize(12, 12)">12×12</button>
+                        <button class="size-preset" onclick="setTileSize(18, 18)">18×18</button>
+                        <button class="size-preset" onclick="setTileSize(24, 24)">24×24</button>
+                        <button class="size-preset" onclick="setTileSize(6, 6)">6×6</button>
+                        <button class="size-preset" onclick="setTileSize(3, 6)">3×6</button>
+                        <button class="size-preset" onclick="setTileSize(12, 24)">12×24</button>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="tileWidth">Tile Width (inches)</label>
+                    <input type="number" id="tileWidth" value="12" min="1" step="0.5">
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎨</div>
+                    <h2>Pattern & Details</h2>
+                </div>
+                
+                <h3 style="margin-bottom: 16px; font-size: 1.1rem; color: var(--text-secondary);">Select Tile Pattern</h3>
+                <div class="pattern-selector">
+                    <div class="pattern-card active" onclick="selectPattern('straight', 5)">
+                        <div class="pattern-visual straight-pattern"></div>
+                        <div class="pattern-name">Straight Lay</div>
+                        <div class="pattern-waste">5% waste factor</div>
+                    </div>
+                    <div class="pattern-card" onclick="selectPattern('subway', 10)">
+                        <div class="pattern-visual subway-pattern"></div>
+                        <div class="pattern-name">Subway/Brick</div>
+                        <div class="pattern-waste">10% waste factor</div>
+                    </div>
+                    <div class="pattern-card" onclick="selectPattern('diagonal', 15)">
+                        <div class="pattern-visual diagonal-pattern"></div>
+                        <div class="pattern-name">Diagonal</div>
+                        <div class="pattern-waste">15% waste factor</div>
+                    </div>
+                    <div class="pattern-card" onclick="selectPattern('herringbone', 20)">
+                        <div class="pattern-visual herringbone-pattern"></div>
+                        <div class="pattern-name">Herringbone</div>
+                        <div class="pattern-waste">20% waste factor</div>
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="groutWidth">Grout Line Width</label>
+                    <select id="groutWidth">
+                        <option value="0.0625">1/16 inch - Rectified tile</option>
+                        <option value="0.125" selected>1/8 inch - Standard</option>
+                        <option value="0.1875">3/16 inch - Rustic look</option>
+                        <option value="0.25">1/4 inch - Traditional</option>
+                        <option value="0.375">3/8 inch - Wide joint</option>
+                    </select>
+                </div>
+                
+                <div class="input-row">
+                    <div class="input-group">
+                        <label for="tilePrice">Tile Price per sq ft ($)</label>
+                        <input type="number" id="tilePrice" placeholder="3.50" min="0" step="0.01">
+                    </div>
+                    <div class="input-group">
+                        <label for="groutPrice">Grout Price per bag ($)</label>
+                        <input type="number" id="groutPrice" placeholder="15" min="0" step="0.01">
+                    </div>
+                </div>
+                
+                <div class="input-group">
+                    <label for="laborCost">Installation Cost per sq ft ($)</label>
+                    <input type="number" id="laborCost" placeholder="5.00" min="0" step="0.01">
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateTile()">
+                    <span>Calculate Materials</span>
+                    <span>📊</span>
+                </button>
+            </div>
+        </div>
+        
+        <div id="results" class="card hidden">
+            <div class="results-header">
+                <div class="results-icon">✓</div>
+                <h2>Your Tile Project Results</h2>
+            </div>
+            
+            <div class="results-section">
+                <div class="main-results">
+                    <div class="result-card">
+                        <div class="result-value" id="totalTiles">0</div>
+                        <div class="result-label">Tiles Needed</div>
+                        <div class="result-detail" id="tileBoxes">0 boxes</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-value" id="coverageArea">0</div>
+                        <div class="result-label">Coverage (sq ft)</div>
+                        <div class="result-detail">Including waste</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-value" id="wasteTiles">0</div>
+                        <div class="result-label">Extra Tiles</div>
+                        <div class="result-detail" id="wastePercent">0% waste</div>
+                    </div>
+                </div>
+                
+                <div class="grout-results">
+                    <h3 style="margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <span>🧱</span> Grout Requirements
+                    </h3>
+                    <div class="input-row">
+                        <div class="result-card" style="flex: 1;">
+                            <div class="result-value" id="groutBags" style="font-size: 2rem;">0</div>
+                            <div class="result-label">Bags of Grout</div>
+                            <div class="result-detail">25 lb bags</div>
+                        </div>
+                        <div class="result-card" style="flex: 1;">
+                            <div class="result-value" id="groutCoverage" style="font-size: 2rem;">0</div>
+                            <div class="result-label">Linear Feet</div>
+                            <div class="result-detail">of grout lines</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="costBreakdown" class="cost-breakdown hidden">
+                    <h3 style="margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                        <span>💰</span> Cost Estimate
+                    </h3>
+                    <div class="cost-row">
+                        <span>Tile Cost</span>
+                        <span id="tileCostTotal">$0</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>Grout Cost</span>
+                        <span id="groutCostTotal">$0</span>
+                    </div>
+                    <div class="cost-row">
+                        <span>Labor Cost</span>
+                        <span id="laborCostTotal">$0</span>
+                    </div>
+                    <div class="cost-row">
+                        <strong>Total Project Cost</strong>
+                        <strong id="totalCost">$0</strong>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="warning-box">
+                <span class="warning-icon">⚠️</span>
+                <div>
+                    <strong>Pro Tip:</strong> Always order 1-2 extra boxes for future repairs. Dye lots can vary between batches!
+                </div>
+            </div>
+        </div>
+        
+        <div class="guide-section">
+            <h2>Complete Tile Installation Guide</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 24px;">
+                Everything you need to know for a professional tile installation
+            </p>
+            
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <h3>
+                        <span>📐</span>
+                        Pattern Complexity Guide
+                    </h3>
+                    <div class="pattern-examples">
+                        <div class="pattern-example">
+                            <div class="pattern-preview straight-pattern"></div>
+                            <strong>Straight Lay</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                                Easiest • 5% waste<br>
+                                Best for beginners
+                            </p>
+                        </div>
+                        <div class="pattern-example">
+                            <div class="pattern-preview subway-pattern"></div>
+                            <strong>Subway/Brick</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                                Moderate • 10% waste<br>
+                                Classic look
+                            </p>
+                        </div>
+                        <div class="pattern-example">
+                            <div class="pattern-preview diagonal-pattern"></div>
+                            <strong>Diagonal</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                                Advanced • 15% waste<br>
+                                Makes rooms larger
+                            </p>
+                        </div>
+                        <div class="pattern-example">
+                            <div class="pattern-preview herringbone-pattern"></div>
+                            <strong>Herringbone</strong>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 4px;">
+                                Expert • 20% waste<br>
+                                Luxury appearance
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>
+                        <span>🛠️</span>
+                        Essential Tools Checklist
+                    </h3>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            ✓ Tile cutter or wet saw
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            ✓ Notched trowel (size varies by tile)
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            ✓ Tile spacers
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            ✓ Level (4ft recommended)
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            ✓ Grout float
+                        </li>
+                        <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            ✓ Sponges and buckets
+                        </li>
+                        <li style="padding: 8px 0;">
+                            ✓ Knee pads (trust us!)
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>
+                        <span>💡</span>
+                        Pro Installation Tips
+                    </h3>
+                    <ul style="list-style: none; margin: 0; padding: 0; color: var(--text-secondary);">
+                        <li style="padding: 8px 0;">
+                            <strong style="color: var(--text-primary);">Layout:</strong> Dry fit tiles before setting
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <strong style="color: var(--text-primary);">Start:</strong> Begin at room center, work outward
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <strong style="color: var(--text-primary);">Cuts:</strong> Hide cut tiles along walls
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <strong style="color: var(--text-primary);">Level:</strong> Check every few tiles
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <strong style="color: var(--text-primary);">Grout:</strong> Wait 24 hours before grouting
+                        </li>
+                        <li style="padding: 8px 0;">
+                            <strong style="color: var(--text-primary);">Seal:</strong> Seal grout after 72 hours
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>
+                        <span>📏</span>
+                        Grout Width Guidelines
+                    </h3>
+                    <div style="background: white; border-radius: 8px; padding: 16px; margin-top: 12px;">
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            <span><strong>1/16"</strong></span>
+                            <span style="color: var(--text-secondary);">Rectified tiles only</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            <span><strong>1/8"</strong></span>
+                            <span style="color: var(--text-secondary);">Standard for floors</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            <span><strong>3/16"</strong></span>
+                            <span style="color: var(--text-secondary);">Handmade tiles</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                            <span><strong>1/4"+</strong></span>
+                            <span style="color: var(--text-secondary);">Rustic/outdoor</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>
+                        <span>⏱️</span>
+                        Project Timeline
+                    </h3>
+                    <div style="background: rgba(52, 152, 219, 0.05); border-radius: 8px; padding: 16px; margin-top: 12px;">
+                        <strong>100 sq ft bathroom:</strong>
+                        <ul style="margin: 8px 0 0 20px; color: var(--text-secondary);">
+                            <li>Prep: 4-6 hours</li>
+                            <li>Tile setting: 6-8 hours</li>
+                            <li>Grouting: 3-4 hours</li>
+                            <li>Total: 2-3 days with drying</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 12px; font-size: 0.9rem; color: var(--text-secondary);">
+                        <strong>Note:</strong> Complex patterns add 50% more time
+                    </p>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>
+                        <span>🚫</span>
+                        Common Mistakes to Avoid
+                    </h3>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="padding: 8px 0; color: var(--danger);">
+                            ❌ Not checking floor level first
+                        </li>
+                        <li style="padding: 8px 0; color: var(--danger);">
+                            ❌ Wrong trowel size for tile
+                        </li>
+                        <li style="padding: 8px 0; color: var(--danger);">
+                            ❌ Grouting too soon
+                        </li>
+                        <li style="padding: 8px 0; color: var(--danger);">
+                            ❌ Not sealing natural stone
+                        </li>
+                        <li style="padding: 8px 0; color: var(--danger);">
+                            ❌ Ignoring expansion joints
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="info-box" style="margin-top: 32px;">
+                <span class="info-icon">💡</span>
+                <div>
+                    <strong>Buying Tip:</strong> Tiles are usually sold by the box. Check the coverage per box and round up to the nearest full box. Mix tiles from different boxes during installation to ensure color consistency.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentShape = 'rectangle';
+        let currentPattern = 'straight';
+        let wastePercent = 5;
+        
+        function selectShape(shape) {
+            currentShape = shape;
+            
+            // Update UI
+            document.querySelectorAll('.shape-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.shape-btn').classList.add('active');
+            
+            // Show/hide inputs
+            document.querySelectorAll('.shape-inputs').forEach(inputs => {
+                inputs.classList.add('hidden');
+            });
+            document.getElementById(shape + 'Inputs').classList.remove('hidden');
+        }
+        
+        function selectPattern(pattern, waste) {
+            currentPattern = pattern;
+            wastePercent = waste;
+            
+            // Update UI
+            document.querySelectorAll('.pattern-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.pattern-card').classList.add('active');
+        }
+        
+        function setTileSize(length, width) {
+            document.getElementById('tileLength').value = length;
+            document.getElementById('tileWidth').value = width;
+        }
+        
+        function calculateArea() {
+            let area = 0;
+            
+            switch(currentShape) {
+                case 'rectangle':
+                    const length = parseFloat(document.getElementById('rectLength').value) || 0;
+                    const width = parseFloat(document.getElementById('rectWidth').value) || 0;
+                    area = length * width;
+                    break;
+                    
+                case 'lshape':
+                    const l1 = parseFloat(document.getElementById('lLength1').value) || 0;
+                    const w1 = parseFloat(document.getElementById('lWidth1').value) || 0;
+                    const l2 = parseFloat(document.getElementById('lLength2').value) || 0;
+                    const w2 = parseFloat(document.getElementById('lWidth2').value) || 0;
+                    area = (l1 * w1) + (l2 * w2);
+                    break;
+                    
+                case 'custom':
+                    area = parseFloat(document.getElementById('customArea').value) || 0;
+                    break;
+            }
+            
+            return area;
+        }
+        
+        function calculateTile() {
+            // Get area
+            const roomArea = calculateArea();
+            
+            // Get tile dimensions
+            const tileLength = parseFloat(document.getElementById('tileLength').value) || 0;
+            const tileWidth = parseFloat(document.getElementById('tileWidth').value) || 0;
+            const tileAreaInches = tileLength * tileWidth;
+            const tileAreaFeet = tileAreaInches / 144; // Convert to sq ft
+            
+            // Calculate tiles needed
+            const tilesNeeded = Math.ceil(roomArea / tileAreaFeet);
+            const tilesWithWaste = Math.ceil(tilesNeeded * (1 + wastePercent / 100));
+            const wasteTiles = tilesWithWaste - tilesNeeded;
+            
+            // Calculate boxes (assuming 10-12 tiles per box for standard sizes)
+            let tilesPerBox = 12;
+            if (tileAreaInches > 200) tilesPerBox = 6;
+            if (tileAreaInches > 400) tilesPerBox = 4;
+            const boxesNeeded = Math.ceil(tilesWithWaste / tilesPerBox);
+            
+            // Calculate grout
+            const groutWidth = parseFloat(document.getElementById('groutWidth').value) || 0.125;
+            const groutLinearFeet = calculateGroutLinearFeet(roomArea, tileLength, tileWidth, groutWidth);
+            const groutBags = Math.ceil(groutLinearFeet / 200); // Approx 200 linear ft per 25lb bag
+            
+            // Update results
+            document.getElementById('totalTiles').textContent = tilesWithWaste;
+            document.getElementById('tileBoxes').textContent = `${boxesNeeded} boxes`;
+            document.getElementById('coverageArea').textContent = Math.ceil(roomArea * (1 + wastePercent / 100));
+            document.getElementById('wasteTiles').textContent = wasteTiles;
+            document.getElementById('wastePercent').textContent = `${wastePercent}% waste`;
+            document.getElementById('groutBags').textContent = groutBags;
+            document.getElementById('groutCoverage').textContent = Math.round(groutLinearFeet);
+            
+            // Calculate costs
+            const tilePrice = parseFloat(document.getElementById('tilePrice').value) || 0;
+            const groutPrice = parseFloat(document.getElementById('groutPrice').value) || 0;
+            const laborCost = parseFloat(document.getElementById('laborCost').value) || 0;
+            
+            if (tilePrice > 0 || groutPrice > 0 || laborCost > 0) {
+                const tileCost = roomArea * tilePrice * (1 + wastePercent / 100);
+                const groutCost = groutBags * groutPrice;
+                const laborTotal = roomArea * laborCost;
+                const totalCost = tileCost + groutCost + laborTotal;
+                
+                document.getElementById('tileCostTotal').textContent = '$' + tileCost.toFixed(2);
+                document.getElementById('groutCostTotal').textContent = '$' + groutCost.toFixed(2);
+                document.getElementById('laborCostTotal').textContent = '$' + laborTotal.toFixed(2);
+                document.getElementById('totalCost').textContent = '$' + totalCost.toFixed(2);
+                document.getElementById('costBreakdown').classList.remove('hidden');
+            }
+            
+            // Show results
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function calculateGroutLinearFeet(area, tileLength, tileWidth, groutWidth) {
+            // Simplified calculation for grout linear feet
+            const tilesPerSqFt = 144 / (tileLength * tileWidth);
+            const avgTilePerimeter = 2 * (tileLength + tileWidth);
+            const totalPerimeter = area * tilesPerSqFt * avgTilePerimeter;
+            return totalPerimeter / 12; // Convert to feet
+        }
+        
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        calculateTile();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
