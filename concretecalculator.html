@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concrete Calculator - Slab, Driveway, Patio & Post Holes | Free Tool</title>
+    <meta name="description" content="Calculate concrete for slabs, driveways, patios, post holes, and stairs. Free calculator shows yards, bags needed, and costs. Includes rebar calculator and mixing guide.">
+    <meta name="keywords" content="concrete calculator, concrete slab calculator, driveway concrete calculator, how much concrete do I need, concrete bags calculator, post hole concrete calculator, patio calculator">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Concrete Calculator - Get Exact Amounts for Any Project">
+    <meta property="og:description" content="Stop overbuying concrete! Calculate exactly what you need for slabs, driveways, footings, and more. Includes bag conversion and cost estimates.">
+    <meta property="og:type" content="website">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Concrete Calculator for Construction Projects",
+        "description": "Calculate concrete requirements for slabs, driveways, patios, post holes, footings, and stairs",
+        "url": "https://yoursite.com/tools/concrete-calculator",
+        "applicationCategory": "ConstructionApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #424242;
+            --primary-dark: #212121;
+            --accent: #ff5722;
+            --secondary: #9e9e9e;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --background: #f5f5f5;
+            --card-bg: #ffffff;
+            --text-primary: #212121;
+            --text-secondary: #616161;
+            --border: #e0e0e0;
+            --concrete: #8d8d8d;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 48px 24px;
+            text-align: center;
+            border-radius: 16px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .project-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        
+        .project-card {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        
+        .project-card.active {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, rgba(255,87,34,0.1) 0%, rgba(255,87,34,0.05) 100%);
+        }
+        
+        .project-card.active::after {
+            content: '✓';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: var(--accent);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .project-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .project-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .calculator-section {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 32px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--concrete);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        h2 {
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        
+        .input-group {
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+        
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+        }
+        
+        .unit-label {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 14px;
+            pointer-events: none;
+            margin-top: 15px;
+        }
+        
+        .thickness-presets {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .preset-btn {
+            padding: 6px 12px;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+        
+        .preset-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .calculate-btn:hover {
+            background: #e64a19;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,87,34,0.3);
+        }
+        
+        .results-section {
+            background: linear-gradient(135deg, rgba(66,66,66,0.05) 0%, rgba(33,33,33,0.02) 100%);
+            border: 2px solid var(--concrete);
+            border-radius: 16px;
+            padding: 32px;
+            margin-top: 32px;
+        }
+        
+        .main-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .result-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .result-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        .result-subtitle {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            margin-top: 4px;
+        }
+        
+        .bag-calculator {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+        
+        .bag-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .bag-option {
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .bag-option:hover {
+            border-color: var(--accent);
+            background: rgba(255,87,34,0.05);
+        }
+        
+        .bag-option.active {
+            border-color: var(--accent);
+            background: rgba(255,87,34,0.1);
+        }
+        
+        .bag-weight {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .bags-needed {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+        
+        .info-box {
+            background: rgba(33,150,243,0.1);
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .info-icon {
+            color: #2196f3;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .warning-box {
+            background: rgba(255,152,0,0.1);
+            border: 1px solid var(--warning);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        
+        .warning-icon {
+            color: var(--warning);
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .guide-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 32px;
+        }
+        
+        .guide-card {
+            padding: 24px;
+            background: var(--background);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .guide-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-size: 1.25rem;
+        }
+        
+        .guide-list {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .guide-list li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        
+        .guide-list li::before {
+            content: '•';
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        
+        .thickness-table {
+            background: var(--background);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .thickness-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .thickness-row:last-child {
+            border-bottom: none;
+        }
+        
+        .thickness-row strong {
+            color: var(--text-primary);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .calculator-section {
+                padding: 24px;
+            }
+            
+            .result-value {
+                font-size: 2.5rem;
+            }
+            
+            .project-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Concrete Calculator</h1>
+            <p class="subtitle">Calculate concrete for slabs, driveways, patios, post holes, and more</p>
+        </header>
+        
+        <section class="calculator-section">
+            <div class="section-header">
+                <div class="section-icon">🏗️</div>
+                <h2>Select Your Project Type</h2>
+            </div>
+            
+            <div class="project-selector">
+                <div class="project-card active" onclick="selectProject('slab')">
+                    <span class="project-icon">◻️</span>
+                    <span class="project-name">Slab/Patio</span>
+                </div>
+                <div class="project-card" onclick="selectProject('driveway')">
+                    <span class="project-icon">🚗</span>
+                    <span class="project-name">Driveway</span>
+                </div>
+                <div class="project-card" onclick="selectProject('posts')">
+                    <span class="project-icon">⬤</span>
+                    <span class="project-name">Post Holes</span>
+                </div>
+                <div class="project-card" onclick="selectProject('footings')">
+                    <span class="project-icon">▦</span>
+                    <span class="project-name">Footings</span>
+                </div>
+                <div class="project-card" onclick="selectProject('stairs')">
+                    <span class="project-icon">📶</span>
+                    <span class="project-name">Stairs</span>
+                </div>
+                <div class="project-card" onclick="selectProject('curb')">
+                    <span class="project-icon">━</span>
+                    <span class="project-name">Curb/Border</span>
+                </div>
+            </div>
+        </section>
+        
+        <section class="calculator-section">
+            <div class="section-header">
+                <div class="section-icon">📏</div>
+                <h2>Enter Dimensions</h2>
+            </div>
+            
+            <!-- Slab/Patio Inputs -->
+            <div id="slabInputs" class="project-inputs">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="slabLength">Length</label>
+                        <input type="number" id="slabLength" value="20" min="0" step="0.5">
+                        <span class="unit-label">feet</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="slabWidth">Width</label>
+                        <input type="number" id="slabWidth" value="10" min="0" step="0.5">
+                        <span class="unit-label">feet</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="slabThickness">Thickness</label>
+                        <input type="number" id="slabThickness" value="4" min="0" step="0.5">
+                        <span class="unit-label">inches</span>
+                    </div>
+                </div>
+                <div class="thickness-presets">
+                    <button class="preset-btn" onclick="setThickness('slabThickness', 4)">4" Standard</button>
+                    <button class="preset-btn" onclick="setThickness('slabThickness', 6)">6" Heavy Duty</button>
+                    <button class="preset-btn" onclick="setThickness('slabThickness', 8)">8" Commercial</button>
+                </div>
+            </div>
+            
+            <!-- Driveway Inputs -->
+            <div id="drivewayInputs" class="project-inputs hidden">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="driveLength">Length</label>
+                        <input type="number" id="driveLength" value="50" min="0" step="1">
+                        <span class="unit-label">feet</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="driveWidth">Width</label>
+                        <input type="number" id="driveWidth" value="10" min="0" step="0.5">
+                        <span class="unit-label">feet</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="driveThickness">Thickness</label>
+                        <input type="number" id="driveThickness" value="6" min="0" step="0.5">
+                        <span class="unit-label">inches</span>
+                    </div>
+                </div>
+                <div class="thickness-presets">
+                    <button class="preset-btn" onclick="setThickness('driveThickness', 4)">4" Light</button>
+                    <button class="preset-btn" onclick="setThickness('driveThickness', 6)">6" Standard</button>
+                    <button class="preset-btn" onclick="setThickness('driveThickness', 8)">8" Heavy</button>
+                </div>
+            </div>
+            
+            <!-- Post Holes Inputs -->
+            <div id="postsInputs" class="project-inputs hidden">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="postDiameter">Hole Diameter</label>
+                        <input type="number" id="postDiameter" value="12" min="0" step="1">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="postDepth">Hole Depth</label>
+                        <input type="number" id="postDepth" value="36" min="0" step="1">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="postCount">Number of Posts</label>
+                        <input type="number" id="postCount" value="10" min="1" step="1">
+                        <span class="unit-label">posts</span>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <span class="info-icon">💡</span>
+                    <div>
+                        <strong>Rule of Thumb:</strong> Post hole depth should be 1/3 the above-ground post height plus 6 inches
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footings Inputs -->
+            <div id="footingsInputs" class="project-inputs hidden">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="footingLength">Length</label>
+                        <input type="number" id="footingLength" value="24" min="0" step="1">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="footingWidth">Width</label>
+                        <input type="number" id="footingWidth" value="24" min="0" step="1">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="footingDepth">Depth</label>
+                        <input type="number" id="footingDepth" value="12" min="0" step="1">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="footingCount">Number of Footings</label>
+                        <input type="number" id="footingCount" value="4" min="1" step="1">
+                        <span class="unit-label">footings</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stairs Inputs -->
+            <div id="stairsInputs" class="project-inputs hidden">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="stairSteps">Number of Steps</label>
+                        <input type="number" id="stairSteps" value="4" min="1" step="1">
+                        <span class="unit-label">steps</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="stairWidth">Step Width</label>
+                        <input type="number" id="stairWidth" value="48" min="0" step="1">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="stairRun">Step Run (Depth)</label>
+                        <input type="number" id="stairRun" value="12" min="0" step="0.5">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="stairRise">Step Rise (Height)</label>
+                        <input type="number" id="stairRise" value="7" min="0" step="0.5">
+                        <span class="unit-label">inches</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Curb/Border Inputs -->
+            <div id="curbInputs" class="project-inputs hidden">
+                <div class="input-grid">
+                    <div class="input-group">
+                        <label for="curbLength">Total Length</label>
+                        <input type="number" id="curbLength" value="100" min="0" step="1">
+                        <span class="unit-label">feet</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="curbHeight">Height</label>
+                        <input type="number" id="curbHeight" value="6" min="0" step="0.5">
+                        <span class="unit-label">inches</span>
+                    </div>
+                    <div class="input-group">
+                        <label for="curbWidth">Width</label>
+                        <input type="number" id="curbWidth" value="6" min="0" step="0.5">
+                        <span class="unit-label">inches</span>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="calculate-btn" onclick="calculateConcrete()">
+                <span>Calculate Concrete</span>
+                <span>→</span>
+            </button>
+        </section>
+        
+        <section id="results" class="calculator-section hidden">
+            <div class="section-header">
+                <div class="section-icon">📊</div>
+                <h2>Your Concrete Requirements</h2>
+            </div>
+            
+            <div class="results-section">
+                <div class="main-results">
+                    <div class="result-card">
+                        <div class="result-value" id="cubicYards">0</div>
+                        <div class="result-label">Cubic Yards</div>
+                        <div class="result-subtitle">For truck delivery</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-value" id="cubicFeet">0</div>
+                        <div class="result-label">Cubic Feet</div>
+                        <div class="result-subtitle">Total volume</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-value" id="totalWeight">0</div>
+                        <div class="result-label">Pounds</div>
+                        <div class="result-subtitle">Approximate weight</div>
+                    </div>
+                </div>
+                
+                <div class="bag-calculator">
+                    <h3 style="margin-bottom: 16px;">Bag Calculator</h3>
+                    <div class="bag-options">
+                        <div class="bag-option" onclick="selectBagSize(40)">
+                            <div class="bag-weight">40 lb</div>
+                            <div class="bags-needed" id="bags40">0 bags</div>
+                        </div>
+                        <div class="bag-option" onclick="selectBagSize(50)">
+                            <div class="bag-weight">50 lb</div>
+                            <div class="bags-needed" id="bags50">0 bags</div>
+                        </div>
+                        <div class="bag-option active" onclick="selectBagSize(60)">
+                            <div class="bag-weight">60 lb</div>
+                            <div class="bags-needed" id="bags60">0 bags</div>
+                        </div>
+                        <div class="bag-option" onclick="selectBagSize(80)">
+                            <div class="bag-weight">80 lb</div>
+                            <div class="bags-needed" id="bags80">0 bags</div>
+                        </div>
+                    </div>
+                    
+                    <div id="bagDetails" class="info-box">
+                        <span class="info-icon">📦</span>
+                        <div>
+                            <strong id="selectedBagInfo">60 lb bags selected:</strong> 
+                            <span id="bagCostEstimate">Approximately $5-7 per bag at most home centers</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    <div>
+                        <strong>Important:</strong> Order 10% extra concrete to account for spillage, uneven subgrade, and waste. For your project, consider ordering <strong id="recommendedAmount">0</strong> cubic yards.
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="guide-section">
+            <h2>Complete Concrete Guide</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 24px;">
+                Everything you need to know for a successful concrete project
+            </p>
+            
+            <div class="guide-grid">
+                <div class="guide-card">
+                    <h3>📏 Thickness Guidelines</h3>
+                    <div class="thickness-table">
+                        <div class="thickness-row">
+                            <strong>Sidewalks</strong>
+                            <span>4 inches</span>
+                        </div>
+                        <div class="thickness-row">
+                            <strong>Patios</strong>
+                            <span>4 inches</span>
+                        </div>
+                        <div class="thickness-row">
+                            <strong>Driveways (cars)</strong>
+                            <span>6 inches</span>
+                        </div>
+                        <div class="thickness-row">
+                            <strong>Driveways (trucks)</strong>
+                            <span>8 inches</span>
+                        </div>
+                        <div class="thickness-row">
+                            <strong>Garage floors</strong>
+                            <span>6 inches</span>
+                        </div>
+                        <div class="thickness-row">
+                            <strong>Commercial</strong>
+                            <span>8+ inches</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>🚚 Ordering Tips</h3>
+                    <ul class="guide-list">
+                        <li>Minimum truck delivery is usually 1 cubic yard</li>
+                        <li>Short load fees apply under 5 yards</li>
+                        <li>Saturday delivery costs extra</li>
+                        <li>Have everything ready before truck arrives</li>
+                        <li>Trucks need 14ft clearance and firm ground</li>
+                        <li>Most trucks hold 10 cubic yards maximum</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>💰 Cost Factors</h3>
+                    <ul class="guide-list">
+                        <li>Ready-mix: $150-200 per cubic yard</li>
+                        <li>Delivery fees: $50-150</li>
+                        <li>Short load fee: $50-100</li>
+                        <li>Weekend delivery: +$100-200</li>
+                        <li>Pumping service: $150-300/hour</li>
+                        <li>Bagged concrete: $5-8 per 60lb bag</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>🛠️ Essential Tools</h3>
+                    <ul class="guide-list">
+                        <li>Wheelbarrow for moving concrete</li>
+                        <li>Shovels and rakes for spreading</li>
+                        <li>Screed board for leveling</li>
+                        <li>Float for smoothing surface</li>
+                        <li>Edger for clean edges</li>
+                        <li>Broom for texture (non-slip)</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>⏱️ Working Time</h3>
+                    <ul class="guide-list">
+                        <li>Initial set: 30-45 minutes</li>
+                        <li>Final finish: 2-4 hours</li>
+                        <li>Walk on: 24-48 hours</li>
+                        <li>Drive on: 7 days minimum</li>
+                        <li>Full strength: 28 days</li>
+                        <li>Hot weather reduces working time</li>
+                    </ul>
+                </div>
+                
+                <div class="guide-card">
+                    <h3>🌡️ Weather Considerations</h3>
+                    <ul class="guide-list">
+                        <li>Ideal temp: 50-75°F</li>
+                        <li>Too hot: Concrete sets too fast</li>
+                        <li>Too cold: Use cold weather mix</li>
+                        <li>Never pour on frozen ground</li>
+                        <li>Cover if rain expected</li>
+                        <li>Keep moist for 7 days to cure</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="warning-box" style="margin-top: 32px;">
+                <span class="warning-icon">💡</span>
+                <div>
+                    <strong>Pro Tip:</strong> For projects over 3 cubic yards, truck delivery is almost always more cost-effective than bags. For 3 yards, you'd need about 150 sixty-pound bags!
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script>
+        let currentProject = 'slab';
+        let calculatedCubicFeet = 0;
+        
+        // Bag yields in cubic feet
+        const bagYields = {
+            40: 0.30,
+            50: 0.375,
+            60: 0.45,
+            80: 0.60
+        };
+        
+        function selectProject(project) {
+            currentProject = project;
+            
+            // Update UI
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.project-card').classList.add('active');
+            
+            // Hide all inputs
+            document.querySelectorAll('.project-inputs').forEach(inputs => {
+                inputs.classList.add('hidden');
+            });
+            
+            // Show selected inputs
+            document.getElementById(project + 'Inputs').classList.remove('hidden');
+        }
+        
+        function setThickness(inputId, value) {
+            document.getElementById(inputId).value = value;
+        }
+        
+        function selectBagSize(size) {
+            // Update UI
+            document.querySelectorAll('.bag-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.target.closest('.bag-option').classList.add('active');
+            
+            // Update info
+            const bagPrices = {
+                40: '$4-6',
+                50: '$5-7',
+                60: '$5-7',
+                80: '$7-9'
+            };
+            
+            document.getElementById('selectedBagInfo').textContent = `${size} lb bags selected:`;
+            document.getElementById('bagCostEstimate').textContent = `Approximately ${bagPrices[size]} per bag at most home centers`;
+        }
+        
+        function calculateConcrete() {
+            let cubicFeet = 0;
+            
+            switch(currentProject) {
+                case 'slab':
+                case 'driveway':
+                    const prefix = currentProject === 'slab' ? 'slab' : 'drive';
+                    const length = parseFloat(document.getElementById(prefix + 'Length').value) || 0;
+                    const width = parseFloat(document.getElementById(prefix + 'Width').value) || 0;
+                    const thickness = parseFloat(document.getElementById(prefix + 'Thickness').value) || 0;
+                    cubicFeet = length * width * (thickness / 12);
+                    break;
+                    
+                case 'posts':
+                    const diameter = parseFloat(document.getElementById('postDiameter').value) || 0;
+                    const depth = parseFloat(document.getElementById('postDepth').value) || 0;
+                    const count = parseFloat(document.getElementById('postCount').value) || 0;
+                    const radius = diameter / 2 / 12; // Convert to feet
+                    const depthFeet = depth / 12;
+                    cubicFeet = Math.PI * radius * radius * depthFeet * count;
+                    break;
+                    
+                case 'footings':
+                    const fLength = parseFloat(document.getElementById('footingLength').value) || 0;
+                    const fWidth = parseFloat(document.getElementById('footingWidth').value) || 0;
+                    const fDepth = parseFloat(document.getElementById('footingDepth').value) || 0;
+                    const fCount = parseFloat(document.getElementById('footingCount').value) || 0;
+                    cubicFeet = (fLength / 12) * (fWidth / 12) * (fDepth / 12) * fCount;
+                    break;
+                    
+                case 'stairs':
+                    const steps = parseFloat(document.getElementById('stairSteps').value) || 0;
+                    const sWidth = parseFloat(document.getElementById('stairWidth').value) || 0;
+                    const run = parseFloat(document.getElementById('stairRun').value) || 0;
+                    const rise = parseFloat(document.getElementById('stairRise').value) || 0;
+                    
+                    // Calculate volume for each step
+                    for (let i = 1; i <= steps; i++) {
+                        const stepVolume = (sWidth / 12) * (run / 12) * (rise / 12) * i;
+                        cubicFeet += stepVolume;
+                    }
+                    break;
+                    
+                case 'curb':
+                    const cLength = parseFloat(document.getElementById('curbLength').value) || 0;
+                    const cHeight = parseFloat(document.getElementById('curbHeight').value) || 0;
+                    const cWidth = parseFloat(document.getElementById('curbWidth').value) || 0;
+                    cubicFeet = cLength * (cHeight / 12) * (cWidth / 12);
+                    break;
+            }
+            
+            calculatedCubicFeet = cubicFeet;
+            const cubicYards = cubicFeet / 27;
+            const weight = cubicFeet * 150; // Concrete weighs about 150 lbs per cubic foot
+            
+            // Update results
+            document.getElementById('cubicYards').textContent = cubicYards.toFixed(2);
+            document.getElementById('cubicFeet').textContent = Math.ceil(cubicFeet);
+            document.getElementById('totalWeight').textContent = Math.round(weight).toLocaleString();
+            
+            // Calculate bags needed
+            Object.keys(bagYields).forEach(size => {
+                const bagsNeeded = Math.ceil(cubicFeet / bagYields[size]);
+                document.getElementById('bags' + size).textContent = bagsNeeded + ' bags';
+            });
+            
+            // Recommended amount (10% extra)
+            const recommended = (cubicYards * 1.1).toFixed(2);
+            document.getElementById('recommendedAmount').textContent = recommended;
+            
+            // Show results
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        // Add event listeners for Enter key
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputs = document.querySelectorAll('input[type="number"]');
+            inputs.forEach(input => {
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        calculateConcrete();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
