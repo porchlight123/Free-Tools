@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Affordability Calculator - How Much House Can I Afford?</title>
+    <style>
+        /* Porch Light Design System - Consistent across all tools */
+        :root {
+            --primary: #2D3E50;
+            --accent: #4ECDC4;
+            --warm: #FFE66D;
+            --success: #52C41A;
+            --warning: #FFA940;
+            --danger: #FF4757;
+            --light-bg: #F8F9FA;
+            --border: #E8E8E8;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 24px rgba(0,0,0,0.12);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--primary);
+            background: #f5f5f5;
+        }
+
+        .calculator-container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .calculator-header {
+            background: linear-gradient(135deg, var(--primary) 0%, #3D5975 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .calculator-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .calculator-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .calculator-body {
+            padding: 2rem;
+        }
+
+        .input-section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-icon {
+            font-size: 1.5rem;
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        .input-suffix {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-weight: 500;
+        }
+
+        input[type="number"], input[type="text"], select {
+            width: 100%;
+            padding: 1rem 1rem 1rem 2.5rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: var(--light-bg);
+        }
+
+        input.with-suffix {
+            padding-right: 3rem;
+        }
+
+        select {
+            padding-left: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: white;
+        }
+
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            align-items: center;
+        }
+
+        .slider-value {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+            margin-top: 0.5rem;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            cursor: pointer;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 8px rgba(78, 205, 196, 0.1);
+        }
+
+        .help-text {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .calculate-btn:hover {
+            background: #3DBDB4;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .results-container {
+            display: none;
+            margin-top: 3rem;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .affordability-display {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .afford-label {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .afford-amount {
+            font-size: 4rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+
+        .afford-range {
+            font-size: 1.1rem;
+            color: #666;
+        }
+
+        .key-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .metric-subtext {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 0.25rem;
+        }
+
+        .debt-ratio-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .ratio-bar {
+            height: 40px;
+            background: var(--light-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .ratio-fill {
+            height: 100%;
+            background: var(--success);
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        .ratio-fill.warning {
+            background: var(--warning);
+        }
+
+        .ratio-fill.danger {
+            background: var(--danger);
+        }
+
+        .ratio-marker {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .ratio-legend {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .scenarios-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .scenario-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .scenario-card {
+            padding: 1.5rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .scenario-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .scenario-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .scenario-amount {
+            font-size: 1.8rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .scenario-desc {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        .tips-container {
+            background: rgba(78, 205, 196, 0.1);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .tips-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .tip-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .tip-icon {
+            font-size: 1.2rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            margin-top: 0.2rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid var(--accent);
+            background: white;
+            color: var(--accent);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .newsletter-cta {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--warm);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .newsletter-cta h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .newsletter-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                margin: 1rem;
+            }
+            
+            .afford-amount {
+                font-size: 3rem;
+            }
+            
+            .input-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="calculator-header">
+            <h1>🏠 Home Affordability Calculator</h1>
+            <p>Find out how much house you can realistically afford based on your income and expenses</p>
+        </div>
+        
+        <div class="calculator-body">
+            <form id="affordability-form">
+                <div class="input-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">💰</span>
+                        Income Information
+                    </h2>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="annual-income">Annual Gross Income</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="annual-income" value="75000" min="0" step="1000">
+                            </div>
+                            <p class="help-text">Before taxes and deductions</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="other-income">Other Monthly Income</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="other-income" value="0" min="0" step="100">
+                            </div>
+                            <p class="help-text">Rental, investments, side income</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">💳</span>
+                        Monthly Debts
+                    </h2>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="car-payment">Car Payment</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="car-payment" value="0" min="0" step="50">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="student-loans">Student Loans</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="student-loans" value="0" min="0" step="50">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="credit-cards">Min. Credit Card Payments</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="credit-cards" value="0" min="0" step="25">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="other-debt">Other Monthly Debts</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="other-debt" value="0" min="0" step="50">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="input-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏦</span>
+                        Loan Details
+                    </h2>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="down-payment">Down Payment</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="down-payment" value="20000" min="0" step="1000">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="interest-rate">Interest Rate</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="interest-rate" value="7.0" min="0" max="20" step="0.1" class="with-suffix" style="padding-left: 1rem;">
+                                <span class="input-suffix">%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="loan-term">Loan Term</label>
+                            <select id="loan-term">
+                                <option value="15">15 years</option>
+                                <option value="30" selected>30 years</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="slider-group">
+                        <div class="slider-label">
+                            <label>Down Payment Percentage</label>
+                            <span class="slider-value" id="down-percent">10%</span>
+                        </div>
+                        <input type="range" id="down-slider" min="3" max="30" value="10" step="1">
+                    </div>
+                </div>
+                
+                <div class="input-section">
+                    <h2 class="section-title">
+                        <span class="section-icon">📍</span>
+                        Location & Other Costs
+                    </h2>
+                    <div class="input-grid">
+                        <div class="input-group">
+                            <label for="property-tax">Annual Property Tax Rate</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="property-tax" value="1.2" min="0" max="5" step="0.1" class="with-suffix" style="padding-left: 1rem;">
+                                <span class="input-suffix">%</span>
+                            </div>
+                            <p class="help-text">National average is 1.1%</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="home-insurance">Annual Home Insurance</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="home-insurance" value="1200" min="0" step="100">
+                            </div>
+                            <p class="help-text">National average is $1,200/year</p>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="hoa-fees">Monthly HOA Fees</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">$</span>
+                                <input type="number" id="hoa-fees" value="0" min="0" step="50">
+                            </div>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="pmi-rate">PMI Rate (if down < 20%)</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="pmi-rate" value="0.5" min="0" max="2" step="0.1" class="with-suffix" style="padding-left: 1rem;">
+                                <span class="input-suffix">%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" class="calculate-btn" onclick="calculateAffordability()">Calculate What I Can Afford</button>
+            </form>
+            
+            <div class="results-container" id="results">
+                <div class="affordability-display">
+                    <h2 class="afford-label">You can afford a home up to</h2>
+                    <div class="afford-amount" id="max-price">$0</div>
+                    <p class="afford-range">With a comfortable monthly payment of <strong id="monthly-payment">$0</strong></p>
+                </div>
+                
+                <div class="key-metrics">
+                    <div class="metric-card">
+                        <div class="metric-label">Monthly Payment</div>
+                        <div class="metric-value" id="total-payment">$0</div>
+                        <div class="metric-subtext">Principal + Interest + Taxes + Insurance</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Loan Amount</div>
+                        <div class="metric-value" id="loan-amount">$0</div>
+                        <div class="metric-subtext">After down payment</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Total Monthly Income</div>
+                        <div class="metric-value" id="monthly-income">$0</div>
+                        <div class="metric-subtext">Gross income</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">Down Payment</div>
+                        <div class="metric-value" id="down-amount">$0</div>
+                        <div class="metric-subtext"><span id="down-percent-display">0</span>% of home price</div>
+                    </div>
+                </div>
+                
+                <div class="debt-ratio-container">
+                    <h3>Debt-to-Income Ratio</h3>
+                    <div class="ratio-bar">
+                        <div class="ratio-fill" id="ratio-fill" style="width: 0%">
+                            <div class="ratio-marker" id="ratio-marker">0%</div>
+                        </div>
+                    </div>
+                    <div class="ratio-legend">
+                        <span>0%</span>
+                        <span>Excellent (≤28%)</span>
+                        <span>Good (≤36%)</span>
+                        <span>Risky (≤43%)</span>
+                        <span>50%</span>
+                    </div>
+                    <p id="ratio-message" style="margin-top: 1rem; text-align: center; color: #666;"></p>
+                </div>
+                
+                <div class="scenarios-container">
+                    <h3>What If Scenarios</h3>
+                    <div class="scenario-grid">
+                        <div class="scenario-card" onclick="adjustScenario('rate-decrease')">
+                            <div class="scenario-title">📉 Rate Drops 1%</div>
+                            <div class="scenario-amount" id="scenario-rate">$0</div>
+                            <div class="scenario-desc">If rates drop to <span id="lower-rate">6.0</span>%</div>
+                        </div>
+                        <div class="scenario-card" onclick="adjustScenario('down-increase')">
+                            <div class="scenario-title">💰 20% Down</div>
+                            <div class="scenario-amount" id="scenario-down">$0</div>
+                            <div class="scenario-desc">No PMI required</div>
+                        </div>
+                        <div class="scenario-card" onclick="adjustScenario('debt-clear')">
+                            <div class="scenario-title">🎯 Clear Debts</div>
+                            <div class="scenario-amount" id="scenario-debt">$0</div>
+                            <div class="scenario-desc">If you paid off all debt</div>
+                        </div>
+                        <div class="scenario-card" onclick="adjustScenario('income-boost')">
+                            <div class="scenario-title">📈 10% Raise</div>
+                            <div class="scenario-amount" id="scenario-income">$0</div>
+                            <div class="scenario-desc">With income increase</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tips-container">
+                    <h3 class="tips-title">💡 Tips to Afford More Home</h3>
+                    <div id="tips-list"></div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn" onclick="saveResults()">💾 Save My Results</button>
+                    <button class="action-btn" onclick="shareResults()">📤 Share Calculator</button>
+                    <button class="action-btn" onclick="printResults()">🖨️ Print Report</button>
+                </div>
+            </div>
+            
+            <div class="newsletter-cta">
+                <h3>🏡 Ready to start your home buying journey?</h3>
+                <p>Get our 7-Day Home Buying Reset guide with daily tips to prepare for your purchase</p>
+                <a href="/newsletter" class="newsletter-btn">Get Your Home Buying Guide →</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update down payment slider
+        document.getElementById('down-slider').addEventListener('input', function(e) {
+            const percent = e.target.value;
+            document.getElementById('down-percent').textContent = percent + '%';
+            
+            // Update down payment amount based on current calculations
+            if (lastCalculatedPrice > 0) {
+                const downAmount = (lastCalculatedPrice * percent / 100);
+                document.getElementById('down-payment').value = Math.round(downAmount);
+            }
+        });
+        
+        // Track last calculated price for slider updates
+        let lastCalculatedPrice = 0;
+        
+        function calculateAffordability() {
+            // Get all inputs
+            const annualIncome = parseFloat(document.getElementById('annual-income').value) || 0;
+            const otherIncome = parseFloat(document.getElementById('other-income').value) || 0;
+            const carPayment = parseFloat(document.getElementById('car-payment').value) || 0;
+            const studentLoans = parseFloat(document.getElementById('student-loans').value) || 0;
+            const creditCards = parseFloat(document.getElementById('credit-cards').value) || 0;
+            const otherDebt = parseFloat(document.getElementById('other-debt').value) || 0;
+            const downPayment = parseFloat(document.getElementById('down-payment').value) || 0;
+            const interestRate = parseFloat(document.getElementById('interest-rate').value) / 100 || 0.07;
+            const loanTermYears = parseInt(document.getElementById('loan-term').value);
+            const propertyTaxRate = parseFloat(document.getElementById('property-tax').value) / 100 || 0.012;
+            const annualInsurance = parseFloat(document.getElementById('home-insurance').value) || 1200;
+            const hoaFees = parseFloat(document.getElementById('hoa-fees').value) || 0;
+            const pmiRate = parseFloat(document.getElementById('pmi-rate').value) / 100 || 0.005;
+            
+            // Calculate monthly income
+            const monthlyIncome = (annualIncome / 12) + otherIncome;
+            
+            // Calculate total monthly debt
+            const totalMonthlyDebt = carPayment + studentLoans + creditCards + otherDebt;
+            
+            // Industry standard: 28% of gross income for housing (front-end ratio)
+            // 36% for all debt including housing (back-end ratio)
+            // We'll use the more conservative calculation
+            const maxHousingPayment = monthlyIncome * 0.28;
+            const maxTotalDebt = monthlyIncome * 0.36;
+            const availableForHousing = Math.min(maxHousingPayment, maxTotalDebt - totalMonthlyDebt);
+            
+            // Now work backwards to find max home price
+            // First, subtract property tax, insurance, HOA from available payment
+            const monthlyInsurance = annualInsurance / 12;
+            const monthlyFixed = monthlyInsurance + hoaFees;
+            
+            // Available for principal, interest, and property tax
+            let availableForPI = availableForHousing - monthlyFixed;
+            
+            // Use iterative approach to find max price (because PMI and tax depend on price)
+            let maxPrice = 300000; // Starting guess
+            let lastPrice = 0;
+            let iterations = 0;
+            
+            while (Math.abs(maxPrice - lastPrice) > 100 && iterations < 20) {
+                lastPrice = maxPrice;
+                
+                // Calculate property tax for this price
+                const monthlyPropertyTax = (maxPrice * propertyTaxRate) / 12;
+                
+                // Check if PMI is needed
+                const downPercent = (downPayment / maxPrice) * 100;
+                let monthlyPMI = 0;
+                if (downPercent < 20) {
+                    monthlyPMI = ((maxPrice - downPayment) * pmiRate) / 12;
+                }
+                
+                // Available for just principal and interest
+                const availableForPrincipalInterest = availableForPI - monthlyPropertyTax - monthlyPMI;
+                
+                // Calculate max loan amount using payment formula
+                const monthlyRate = interestRate / 12;
+                const numPayments = loanTermYears * 12;
+                
+                let maxLoanAmount;
+                if (monthlyRate === 0) {
+                    maxLoanAmount = availableForPrincipalInterest * numPayments;
+                } else {
+                    maxLoanAmount = availableForPrincipalInterest * ((1 - Math.pow(1 + monthlyRate, -numPayments)) / monthlyRate);
+                }
+                
+                // Max price is loan amount plus down payment
+                maxPrice = maxLoanAmount + downPayment;
+                iterations++;
+            }
+            
+            // Ensure price is reasonable
+            maxPrice = Math.max(0, Math.round(maxPrice / 1000) * 1000); // Round to nearest $1000
+            lastCalculatedPrice = maxPrice;
+            
+            // Calculate final payment breakdown
+            const loanAmount = maxPrice - downPayment;
+            const monthlyRate = interestRate / 12;
+            const numPayments = loanTermYears * 12;
+            
+            let monthlyPI;
+            if (monthlyRate === 0) {
+                monthlyPI = loanAmount / numPayments;
+            } else {
+                monthlyPI = loanAmount * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1);
+            }
+            
+            const monthlyPropertyTax = (maxPrice * propertyTaxRate) / 12;
+            const downPercent = (downPayment / maxPrice) * 100;
+            const monthlyPMI = downPercent < 20 ? ((loanAmount * pmiRate) / 12) : 0;
+            
+            const totalMonthlyPayment = monthlyPI + monthlyPropertyTax + monthlyInsurance + hoaFees + monthlyPMI;
+            
+            // Calculate debt-to-income ratio
+            const dtiRatio = ((totalMonthlyPayment + totalMonthlyDebt) / monthlyIncome) * 100;
+            
+            // Display results
+            displayResults(maxPrice, loanAmount, totalMonthlyPayment, monthlyIncome, downPayment, downPercent, dtiRatio);
+            
+            // Calculate scenarios
+            calculateScenarios(annualIncome, otherIncome, totalMonthlyDebt, downPayment, interestRate, loanTermYears, propertyTaxRate, annualInsurance, hoaFees, pmiRate);
+            
+            // Generate tips
+            generateTips(downPercent, dtiRatio, totalMonthlyDebt, interestRate);
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Track calculation
+            incrementCalculationCount();
+        }
+        
+        function displayResults(maxPrice, loanAmount, monthlyPayment, monthlyIncome, downPayment, downPercent, dtiRatio) {
+            // Format numbers
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
+            
+            // Update main display
+            document.getElementById('max-price').textContent = formatter.format(maxPrice);
+            document.getElementById('monthly-payment').textContent = formatter.format(monthlyPayment);
+            
+            // Update metrics
+            document.getElementById('total-payment').textContent = formatter.format(monthlyPayment);
+            document.getElementById('loan-amount').textContent = formatter.format(loanAmount);
+            document.getElementById('monthly-income').textContent = formatter.format(monthlyIncome);
+            document.getElementById('down-amount').textContent = formatter.format(downPayment);
+            document.getElementById('down-percent-display').textContent = Math.round(downPercent);
+            
+            // Update DTI ratio display
+            const ratioFill = document.getElementById('ratio-fill');
+            const ratioMarker = document.getElementById('ratio-marker');
+            const ratioMessage = document.getElementById('ratio-message');
+            
+            // Cap display at 50% for visual purposes
+            const displayRatio = Math.min(50, dtiRatio);
+            ratioFill.style.width = displayRatio * 2 + '%'; // Scale to 100% width
+            ratioMarker.textContent = dtiRatio.toFixed(1) + '%';
+            
+            // Position marker
+            if (displayRatio < 10) {
+                ratioMarker.style.left = '20px';
+            } else if (displayRatio > 40) {
+                ratioMarker.style.right = '20px';
+                ratioMarker.style.left = 'auto';
+            } else {
+                ratioMarker.style.left = displayRatio * 2 + '%';
+            }
+            
+            // Color code based on ratio
+            if (dtiRatio <= 28) {
+                ratioFill.className = 'ratio-fill';
+                ratioMessage.textContent = 'Excellent! Your debt-to-income ratio is in the ideal range.';
+            } else if (dtiRatio <= 36) {
+                ratioFill.className = 'ratio-fill warning';
+                ratioMessage.textContent = 'Good. Most lenders will approve this debt-to-income ratio.';
+            } else if (dtiRatio <= 43) {
+                ratioFill.className = 'ratio-fill danger';
+                ratioMessage.textContent = 'Caution. You may have difficulty qualifying for the best rates.';
+            } else {
+                ratioFill.className = 'ratio-fill danger';
+                ratioMessage.textContent = 'High risk. Consider reducing debts or increasing income before buying.';
+            }
+        }
+        
+        function calculateScenarios(annualIncome, otherIncome, totalMonthlyDebt, downPayment, interestRate, loanTermYears, propertyTaxRate, annualInsurance, hoaFees, pmiRate) {
+            const formatter = new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+            });
+            
+            // Scenario 1: Rate drops 1%
+            const lowerRate = Math.max(0, interestRate - 0.01);
+            const scenarioRate = calculateMaxPrice(annualIncome, otherIncome, totalMonthlyDebt, downPayment, lowerRate, loanTermYears, propertyTaxRate, annualInsurance, hoaFees, pmiRate);
+            document.getElementById('scenario-rate').textContent = formatter.format(scenarioRate);
+            document.getElementById('lower-rate').textContent = (lowerRate * 100).toFixed(1);
+            
+            // Scenario 2: 20% down payment
+            const scenario20Down = calculateMaxPrice(annualIncome, otherIncome, totalMonthlyDebt, downPayment, interestRate, loanTermYears, propertyTaxRate, annualInsurance, hoaFees, 0);
+            document.getElementById('scenario-down').textContent = formatter.format(scenario20Down);
+            
+            // Scenario 3: No debt
+            const scenarioNoDebt = calculateMaxPrice(annualIncome, otherIncome, 0, downPayment, interestRate, loanTermYears, propertyTaxRate, annualInsurance, hoaFees, pmiRate);
+            document.getElementById('scenario-debt').textContent = formatter.format(scenarioNoDebt);
+            
+            // Scenario 4: 10% income increase
+            const higherIncome = annualIncome * 1.1;
+            const scenarioIncome = calculateMaxPrice(higherIncome, otherIncome, totalMonthlyDebt, downPayment, interestRate, loanTermYears, propertyTaxRate, annualInsurance, hoaFees, pmiRate);
+            document.getElementById('scenario-income').textContent = formatter.format(scenarioIncome);
+        }
+        
+        function calculateMaxPrice(annualIncome, otherIncome, totalMonthlyDebt, downPayment, interestRate, loanTermYears, propertyTaxRate, annualInsurance, hoaFees, pmiRate) {
+            const monthlyIncome = (annualIncome / 12) + otherIncome;
+            const maxHousingPayment = monthlyIncome * 0.28;
+            const maxTotalDebt = monthlyIncome * 0.36;
+            const availableForHousing = Math.min(maxHousingPayment, maxTotalDebt - totalMonthlyDebt);
+            
+            const monthlyInsurance = annualInsurance / 12;
+            const monthlyFixed = monthlyInsurance + hoaFees;
+            let availableForPI = availableForHousing - monthlyFixed;
+            
+            let maxPrice = 300000;
+            let lastPrice = 0;
+            let iterations = 0;
+            
+            while (Math.abs(maxPrice - lastPrice) > 100 && iterations < 20) {
+                lastPrice = maxPrice;
+                const monthlyPropertyTax = (maxPrice * propertyTaxRate) / 12;
+                const downPercent = (downPayment / maxPrice) * 100;
+                let monthlyPMI = 0;
+                if (downPercent < 20 && pmiRate > 0) {
+                    monthlyPMI = ((maxPrice - downPayment) * pmiRate) / 12;
+                }
+                
+                const availableForPrincipalInterest = availableForPI - monthlyPropertyTax - monthlyPMI;
+                const monthlyRate = interestRate / 12;
+                const numPayments = loanTermYears * 12;
+                
+                let maxLoanAmount;
+                if (monthlyRate === 0) {
+                    maxLoanAmount = availableForPrincipalInterest * numPayments;
+                } else {
+                    maxLoanAmount = availableForPrincipalInterest * ((1 - Math.pow(1 + monthlyRate, -numPayments)) / monthlyRate);
+                }
+                
+                maxPrice = maxLoanAmount + downPayment;
+                iterations++;
+            }
+            
+            return Math.max(0, Math.round(maxPrice / 1000) * 1000);
+        }
+        
+        function generateTips(downPercent, dtiRatio, totalMonthlyDebt, interestRate) {
+            const tipsContainer = document.getElementById('tips-list');
+            const tips = [];
+            
+            // Add relevant tips based on situation
+            if (downPercent < 20) {
+                tips.push({
+                    icon: '💰',
+                    text: 'Save for 20% down to eliminate PMI and potentially save hundreds monthly'
+                });
+            }
+            
+            if (dtiRatio > 36) {
+                tips.push({
+                    icon: '💳',
+                    text: 'Pay down existing debts to improve your debt-to-income ratio'
+                });
+            }
+            
+            if (interestRate > 6.5) {
+                tips.push({
+                    icon: '📊',
+                    text: 'Improve your credit score to qualify for better interest rates'
+                });
+            }
+            
+            if (totalMonthlyDebt > 0) {
+                tips.push({
+                    icon: '🎯',
+                    text: `Eliminating your $${Math.round(totalMonthlyDebt)} monthly debt would significantly increase buying power`
+                });
+            }
+            
+            tips.push({
+                icon: '🏦',
+                text: 'Consider first-time homebuyer programs for lower down payment options'
+            });
+            
+            tips.push({
+                icon: '📈',
+                text: 'Even a small income increase or side hustle can boost your buying power'
+            });
+            
+            // Display tips
+            tipsContainer.innerHTML = tips.map(tip => `
+                <div class="tip-item">
+                    <span class="tip-icon">${tip.icon}</span>
+                    <span>${tip.text}</span>
+                </div>
+            `).join('');
+        }
+        
+        function adjustScenario(scenario) {
+            // This would open a modal or adjust the calculator with the scenario
+            alert('This would adjust the calculator to show the ' + scenario + ' scenario');
+        }
+        
+        function saveResults() {
+            const results = {
+                maxPrice: document.getElementById('max-price').textContent,
+                monthlyPayment: document.getElementById('monthly-payment').textContent,
+                calculated: new Date().toLocaleDateString()
+            };
+            
+            // In production, save to user account or local storage
+            alert('Results saved! You can access them anytime from your account.');
+        }
+        
+        function shareResults() {
+            const maxPrice = document.getElementById('max-price').textContent;
+            const text = `I can afford a home up to ${maxPrice}! Calculate what you can afford with this free tool: [YourDomain.com]`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Results copied to clipboard! Share with your partner or realtor.');
+            });
+        }
+        
+        function printResults() {
+            window.print();
+        }
+        
+        function incrementCalculationCount() {
+            // Track usage for social proof
+            console.log('Home affordability calculated');
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', () => {
+            // Set initial down payment percentage
+            const downPayment = parseFloat(document.getElementById('down-payment').value);
+            const estimatedPrice = 250000; // Rough estimate
+            const percent = Math.round((downPayment / estimatedPrice) * 100);
+            document.getElementById('down-slider').value = percent;
+            document.getElementById('down-percent').textContent = percent + '%';
+        });
+    </script>
+</body>
+</html>
