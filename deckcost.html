@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deck Cost Calculator - 3D Deck Builder & Material Estimator</title>
+    <meta name="description" content="Calculate deck costs instantly with our 3D visualizer. Get accurate material lists, labor estimates, and see your deck design in 3D. Includes composite and wood options.">
+    <meta name="keywords" content="deck cost calculator, deck calculator, deck building calculator, composite deck calculator, deck material calculator, deck estimator, how much does a deck cost">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Deck Cost Calculator with 3D Visualization">
+    <meta property="og:description" content="Design your dream deck and get instant cost estimates. 3D visualization, material lists, and contractor pricing included.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://yoursite.com/deck-calculator-preview.jpg">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Deck Cost Calculator with 3D Visualizer",
+        "description": "Calculate deck building costs, materials, and visualize your deck design in 3D",
+        "url": "https://yoursite.com/tools/deck-cost-calculator",
+        "applicationCategory": "ConstructionApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #8b4513;
+            --primary-dark: #6b3410;
+            --secondary: #d2691e;
+            --accent: #228b22;
+            --composite: #696969;
+            --success: #4caf50;
+            --info: #2196f3;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --background: #faf8f5;
+            --card-bg: #ffffff;
+            --text-primary: #2c1810;
+            --text-secondary: #5d4e37;
+            --border: #e8dfd6;
+            --gradient-wood: linear-gradient(135deg, #8b4513 0%, #d2691e 100%);
+            --gradient-composite: linear-gradient(135deg, #696969 0%, #808080 100%);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: var(--gradient-wood);
+            color: white;
+            padding: 80px 24px;
+            text-align: center;
+            border-radius: 32px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,0.03) 0px,
+                rgba(255,255,255,0.03) 20px,
+                transparent 20px,
+                transparent 40px
+            );
+        }
+        
+        header::after {
+            content: '🏠';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            bottom: -50px;
+            right: -50px;
+            transform: rotate(-15deg);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .calculator-layout {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 1024px) {
+            .calculator-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .controls-panel {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(139, 69, 19, 0.08);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .visualization-panel {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(139, 69, 19, 0.08);
+            min-height: 600px;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .section-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-wood);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        h3 {
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        
+        .deck-shape-selector {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .shape-btn {
+            padding: 16px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .shape-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .shape-btn.active {
+            border-color: var(--primary);
+            background: rgba(139, 69, 19, 0.1);
+        }
+        
+        .shape-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 4px;
+        }
+        
+        .shape-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        input[type="number"], select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 69, 19, 0.1);
+        }
+        
+        .dimension-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .material-selector {
+            margin-bottom: 24px;
+        }
+        
+        .material-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .material-tab {
+            padding: 14px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .material-tab:hover {
+            transform: translateY(-1px);
+        }
+        
+        .material-tab.active.wood {
+            border-color: var(--primary);
+            background: var(--gradient-wood);
+            color: white;
+        }
+        
+        .material-tab.active.composite {
+            border-color: var(--composite);
+            background: var(--gradient-composite);
+            color: white;
+        }
+        
+        .feature-toggles {
+            margin-bottom: 24px;
+        }
+        
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .toggle-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 48px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--border);
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(24px);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 18px 32px;
+            background: var(--gradient-wood);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(139, 69, 19, 0.4);
+        }
+        
+        .deck-preview {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, #87ceeb 0%, #98d8e8 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 32px;
+        }
+        
+        .deck-3d {
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%) perspective(1000px) rotateX(30deg);
+            transition: all 0.5s ease;
+        }
+        
+        .deck-base {
+            background: var(--gradient-wood);
+            border-radius: 8px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            padding: 4px;
+        }
+        
+        .deck-base.composite {
+            background: var(--gradient-composite);
+        }
+        
+        .deck-board {
+            height: 8px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 2px;
+            flex: 1 0 100%;
+        }
+        
+        .deck-rail {
+            position: absolute;
+            background: rgba(0,0,0,0.2);
+            height: 40px;
+            top: -40px;
+            left: 0;
+            right: 0;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .deck-stairs {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 30px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .cost-breakdown {
+            background: rgba(139, 69, 19, 0.05);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .cost-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .total-cost {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .cost-label {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+        
+        .cost-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .cost-card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .cost-card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        
+        .cost-card-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .material-list {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .material-table {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .material-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .material-row.header {
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .contractor-section {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.05) 0%, rgba(34, 139, 34, 0.02) 100%);
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        
+        .contractor-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .contractor-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .pro-tips {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .tip-card {
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+        
+        .tip-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .save-section {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 2px solid var(--border);
+        }
+        
+        .save-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--gradient-composite);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 8px;
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(105, 105, 105, 0.4);
+        }
+        
+        .info-section {
+            background: white;
+            border-radius: 32px;
+            padding: 56px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .info-card {
+            padding: 36px;
+            background: var(--background);
+            border-radius: 24px;
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .info-card:hover {
+            transform: translateX(4px);
+        }
+        
+        .info-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .controls-panel {
+                position: static;
+            }
+            
+            .deck-shape-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .total-cost {
+                font-size: 2.5rem;
+            }
+            
+            .pro-tips {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Deck Cost Calculator</h1>
+            <p class="subtitle">Design your dream deck with 3D visualization and instant cost estimates</p>
+        </header>
+        
+        <div class="calculator-layout">
+            <div class="controls-panel">
+                <div class="section-header">
+                    <div class="section-icon">🔨</div>
+                    <h2>Deck Configuration</h2>
+                </div>
+                
+                <h3>Deck Shape</h3>
+                <div class="deck-shape-selector">
+                    <button class="shape-btn active" onclick="selectShape('rectangle')">
+                        <span class="shape-icon">▭</span>
+                        <span class="shape-name">Rectangle</span>
+                    </button>
+                    <button class="shape-btn" onclick="selectShape('lshape')">
+                        <span class="shape-icon">⌞</span>
+                        <span class="shape-name">L-Shape</span>
+                    </button>
+                    <button class="shape-btn" onclick="selectShape('octagon')">
+                        <span class="shape-icon">⬡</span>
+                        <span class="shape-name">Octagon</span>
+                    </button>
+                </div>
+                
+                <h3>Dimensions</h3>
+                <div id="rectangleDimensions" class="dimension-inputs">
+                    <div class="input-group">
+                        <label for="length">Length (ft)</label>
+                        <input type="number" id="length" value="16" min="6" max="50" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="width">Width (ft)</label>
+                        <input type="number" id="width" value="12" min="6" max="50" step="1">
+                    </div>
+                </div>
+                
+                <div id="lshapeDimensions" class="dimension-inputs hidden">
+                    <div class="input-group">
+                        <label for="mainLength">Main Length (ft)</label>
+                        <input type="number" id="mainLength" value="20" min="8" max="50" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="mainWidth">Main Width (ft)</label>
+                        <input type="number" id="mainWidth" value="12" min="6" max="50" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="extLength">Extension Length (ft)</label>
+                        <input type="number" id="extLength" value="10" min="6" max="30" step="1">
+                    </div>
+                    <div class="input-group">
+                        <label for="extWidth">Extension Width (ft)</label>
+                        <input type="number" id="extWidth" value="8" min="6" max="30" step="1">
+                    </div>
+                </div>
+                
+                <div id="octagonDimensions" class="input-group hidden">
+                    <label for="diameter">Diameter (ft)</label>
+                    <input type="number" id="diameter" value="14" min="8" max="30" step="1">
+                </div>
+                
+                <h3>Decking Material</h3>
+                <div class="material-selector">
+                    <div class="material-tabs">
+                        <button class="material-tab wood active" onclick="selectMaterial('wood')">
+                            Wood Decking
+                        </button>
+                        <button class="material-tab composite" onclick="selectMaterial('composite')">
+                            Composite
+                        </button>
+                    </div>
+                    <select id="materialType" style="margin-top: 12px;">
+                        <option value="pressure-treated">Pressure Treated Pine - $15/sq ft</option>
+                        <option value="cedar">Cedar - $25/sq ft</option>
+                        <option value="redwood">Redwood - $30/sq ft</option>
+                        <option value="ipe">Ipe Hardwood - $35/sq ft</option>
+                    </select>
+                </div>
+                
+                <h3>Features</h3>
+                <div class="feature-toggles">
+                    <div class="toggle-item">
+                        <span class="toggle-label">
+                            <span>🏗️</span>
+                            Railing
+                        </span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="railingToggle" checked onchange="updateVisualization()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span class="toggle-label">
+                            <span>🪜</span>
+                            Stairs
+                        </span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="stairsToggle" checked onchange="updateVisualization()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span class="toggle-label">
+                            <span>💡</span>
+                            Lighting
+                        </span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="lightingToggle" onchange="updateVisualization()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-item">
+                        <span class="toggle-label">
+                            <span>🪑</span>
+                            Built-in Seating
+                        </span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="seatingToggle" onchange="updateVisualization()">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateDeckCost()">
+                    <span>Calculate Cost</span>
+                    <span>💰</span>
+                </button>
+            </div>
+            
+            <div class="visualization-panel">
+                <div class="section-header">
+                    <div class="section-icon">👁️</div>
+                    <h2>3D Deck Preview</h2>
+                </div>
+                
+                <div class="deck-preview">
+                    <div class="deck-3d" id="deckVisualization">
+                        <div class="deck-base" id="deckBase">
+                            <div class="deck-board"></div>
+                            <div class="deck-board"></div>
+                            <div class="deck-board"></div>
+                            <div class="deck-board"></div>
+                            <div class="deck-board"></div>
+                            <div class="deck-board"></div>
+                            <div class="deck-board"></div>
+                            <div class="deck-board"></div>
+                            <div class="deck-rail" id="deckRail"></div>
+                            <div class="deck-stairs" id="deckStairs"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="costResults" class="hidden">
+                    <div class="cost-breakdown">
+                        <div class="cost-header">
+                            <div class="total-cost" id="totalCost">$0</div>
+                            <div class="cost-label">Total Project Cost</div>
+                        </div>
+                        
+                        <div class="cost-cards">
+                            <div class="cost-card">
+                                <div class="cost-card-value" id="materialCost">$0</div>
+                                <div class="cost-card-label">Materials</div>
+                            </div>
+                            <div class="cost-card">
+                                <div class="cost-card-value" id="laborCost">$0</div>
+                                <div class="cost-card-label">Labor</div>
+                            </div>
+                            <div class="cost-card">
+                                <div class="cost-card-value" id="sqftCost">$0</div>
+                                <div class="cost-card-label">Per Sq Ft</div>
+                            </div>
+                            <div class="cost-card">
+                                <div class="cost-card-value" id="timeEstimate">0 days</div>
+                                <div class="cost-card-label">Build Time</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="material-list">
+                        <h3>Material List</h3>
+                        <div class="material-table">
+                            <div class="material-row header">
+                                <div>Item</div>
+                                <div>Quantity</div>
+                                <div>Unit Price</div>
+                                <div>Total</div>
+                            </div>
+                            <div id="materialRows">
+                                <!-- Material rows will be inserted here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contractor-section">
+                        <div class="contractor-header">
+                            <div class="contractor-icon">👷</div>
+                            <h3>Professional Installation</h3>
+                        </div>
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">
+                            While DIY can save money, professional installation ensures proper construction, permits, and warranty coverage.
+                        </p>
+                        <div class="pro-tips">
+                            <div class="tip-card">
+                                <span class="tip-icon">📋</span>
+                                <div>
+                                    <strong>Permits Required:</strong> Most decks over 200 sq ft need permits
+                                </div>
+                            </div>
+                            <div class="tip-card">
+                                <span class="tip-icon">🔧</span>
+                                <div>
+                                    <strong>Pro Labor:</strong> Typically $15-35 per sq ft
+                                </div>
+                            </div>
+                            <div class="tip-card">
+                                <span class="tip-icon">⏰</span>
+                                <div>
+                                    <strong>Timeline:</strong> 1-3 weeks depending on complexity
+                                </div>
+                            </div>
+                            <div class="tip-card">
+                                <span class="tip-icon">✅</span>
+                                <div>
+                                    <strong>Warranty:</strong> Most pros offer 1-5 year warranties
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="save-section">
+                        <p style="margin-bottom: 16px; color: var(--text-secondary);">Save your deck design and material list</p>
+                        <button class="save-btn" onclick="saveDeckPlan()">
+                            <span>💾</span>
+                            <span>Save Plan</span>
+                        </button>
+                        <button class="save-btn" style="background: var(--gradient-wood);" onclick="printMaterialList()">
+                            <span>🖨️</span>
+                            <span>Print List</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>Complete Deck Building Guide</h2>
+            <p style="color: var(--text-secondary); font-size: 1.15rem; margin-bottom: 32px;">
+                Everything you need to know about planning, building, and maintaining your perfect outdoor living space.
+            </p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>
+                        <span>📐</span>
+                        Planning Your Deck
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 20px;">
+                        Proper planning ensures your deck meets local codes, fits your lifestyle, and stays within budget.
+                    </p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="padding: 8px 0; color: var(--text-secondary);">
+                            ✓ Check local building codes and HOA rules
+                        </li>
+                        <li style="padding: 8px 0; color: var(--text-secondary);">
+                            ✓ Consider sun exposure and prevailing winds
+                        </li>
+                        <li style="padding: 8px 0; color: var(--text-secondary);">
+                            ✓ Plan for utilities (electrical, gas for grills)
+                        </li>
+                        <li style="padding: 8px 0; color: var(--text-secondary);">
+                            ✓ Think about privacy and views
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>🪵</span>
+                        Wood vs Composite
+                    </h3>
+                    <div style="margin-bottom: 20px;">
+                        <strong style="color: var(--primary);">Wood Decking</strong>
+                        <ul style="margin: 8px 0 16px 20px; color: var(--text-secondary);">
+                            <li>Lower upfront cost</li>
+                            <li>Natural appearance</li>
+                            <li>Requires annual maintenance</li>
+                            <li>15-20 year lifespan</li>
+                        </ul>
+                        
+                        <strong style="color: var(--composite);">Composite Decking</strong>
+                        <ul style="margin: 8px 0 0 20px; color: var(--text-secondary);">
+                            <li>Higher initial investment</li>
+                            <li>Minimal maintenance</li>
+                            <li>25-30+ year lifespan</li>
+                            <li>Fade and stain resistant</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>💰</span>
+                        Cost Breakdown
+                    </h3>
+                    <div style="background: white; border-radius: 12px; padding: 20px; margin-top: 16px;">
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            <span>Basic Deck (200 sq ft)</span>
+                            <strong>$3,000 - $6,000</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border);">
+                            <span>Mid-Range (300 sq ft)</span>
+                            <strong>$8,000 - $15,000</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                            <span>Premium (400+ sq ft)</span>
+                            <strong>$20,000 - $40,000+</strong>
+                        </div>
+                    </div>
+                    <p style="margin-top: 16px; font-size: 0.9rem; color: var(--text-secondary);">
+                        *Prices vary by region, materials, and features
+                    </p>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>🔨</span>
+                        DIY vs Professional
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Consider these factors when deciding:
+                    </p>
+                    <div style="background: rgba(34, 139, 34, 0.1); padding: 16px; border-radius: 12px;">
+                        <strong>DIY If:</strong>
+                        <ul style="margin: 8px 0 0 20px; color: var(--text-secondary);">
+                            <li>Simple ground-level deck</li>
+                            <li>You have construction experience</li>
+                            <li>Time is not a constraint</li>
+                            <li>Budget is primary concern</li>
+                        </ul>
+                    </div>
+                    <div style="background: rgba(139, 69, 19, 0.1); padding: 16px; border-radius: 12px; margin-top: 12px;">
+                        <strong>Hire a Pro If:</strong>
+                        <ul style="margin: 8px 0 0 20px; color: var(--text-secondary);">
+                            <li>Elevated or complex design</li>
+                            <li>Permits required</li>
+                            <li>Time is limited</li>
+                            <li>Want warranty protection</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>🛡️</span>
+                        Maintenance Tips
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Protect your investment with proper care:
+                    </p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="padding: 12px 0; display: flex; align-items: flex-start; gap: 12px; border-bottom: 1px solid var(--border);">
+                            <span style="color: var(--success);">🧹</span>
+                            <div>
+                                <strong>Annual:</strong> Deep clean and inspect for damage
+                            </div>
+                        </li>
+                        <li style="padding: 12px 0; display: flex; align-items: flex-start; gap: 12px; border-bottom: 1px solid var(--border);">
+                            <span style="color: var(--info);">🎨</span>
+                            <div>
+                                <strong>2-3 Years:</strong> Stain/seal wood decks
+                            </div>
+                        </li>
+                        <li style="padding: 12px 0; display: flex; align-items: flex-start; gap: 12px;">
+                            <span style="color: var(--warning);">🔧</span>
+                            <div>
+                                <strong>As Needed:</strong> Replace damaged boards promptly
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>📈</span>
+                        ROI & Home Value
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8;">
+                        A well-built deck typically returns 60-80% of its cost in increased home value. Factors affecting ROI include quality of materials, professional installation, and regional preferences.
+                    </p>
+                    <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);">76%</div>
+                        <div style="color: var(--text-secondary);">Average ROI on deck addition</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentShape = 'rectangle';
+        let currentMaterial = 'wood';
+        
+        function selectShape(shape) {
+            currentShape = shape;
+            
+            // Update UI
+            document.querySelectorAll('.shape-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.shape-btn').classList.add('active');
+            
+            // Show/hide dimension inputs
+            document.getElementById('rectangleDimensions').classList.add('hidden');
+            document.getElementById('lshapeDimensions').classList.add('hidden');
+            document.getElementById('octagonDimensions').classList.add('hidden');
+            
+            if (shape === 'rectangle') {
+                document.getElementById('rectangleDimensions').classList.remove('hidden');
+            } else if (shape === 'lshape') {
+                document.getElementById('lshapeDimensions').classList.remove('hidden');
+            } else if (shape === 'octagon') {
+                document.getElementById('octagonDimensions').classList.remove('hidden');
+            }
+            
+            updateVisualization();
+        }
+        
+        function selectMaterial(material) {
+            currentMaterial = material;
+            
+            // Update UI
+            document.querySelectorAll('.material-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Update material options
+            const materialSelect = document.getElementById('materialType');
+            materialSelect.innerHTML = '';
+            
+            if (material === 'wood') {
+                materialSelect.innerHTML = `
+                    <option value="pressure-treated">Pressure Treated Pine - $15/sq ft</option>
+                    <option value="cedar">Cedar - $25/sq ft</option>
+                    <option value="redwood">Redwood - $30/sq ft</option>
+                    <option value="ipe">Ipe Hardwood - $35/sq ft</option>
+                `;
+            } else {
+                materialSelect.innerHTML = `
+                    <option value="trex">Trex Composite - $35/sq ft</option>
+                    <option value="timbertech">TimberTech - $40/sq ft</option>
+                    <option value="fiberon">Fiberon - $38/sq ft</option>
+                    <option value="azek">AZEK PVC - $45/sq ft</option>
+                `;
+            }
+            
+            updateVisualization();
+        }
+        
+        function updateVisualization() {
+            const deckBase = document.getElementById('deckBase');
+            const deckRail = document.getElementById('deckRail');
+            const deckStairs = document.getElementById('deckStairs');
+            
+            // Update material appearance
+            if (currentMaterial === 'composite') {
+                deckBase.classList.add('composite');
+            } else {
+                deckBase.classList.remove('composite');
+            }
+            
+            // Update size based on dimensions
+            let width, depth;
+            if (currentShape === 'rectangle') {
+                width = parseInt(document.getElementById('length').value) * 10;
+                depth = parseInt(document.getElementById('width').value) * 10;
+            } else if (currentShape === 'lshape') {
+                width = parseInt(document.getElementById('mainLength').value) * 10;
+                depth = parseInt(document.getElementById('mainWidth').value) * 10;
+            } else {
+                width = parseInt(document.getElementById('diameter').value) * 10;
+                depth = width;
+            }
+            
+            deckBase.style.width = width + 'px';
+            deckBase.style.height = depth + 'px';
+            
+            // Show/hide features
+            deckRail.style.display = document.getElementById('railingToggle').checked ? 'block' : 'none';
+            deckStairs.style.display = document.getElementById('stairsToggle').checked ? 'block' : 'none';
+        }
+        
+        function calculateDeckCost() {
+            // Calculate square footage
+            let sqft = 0;
+            if (currentShape === 'rectangle') {
+                const length = parseInt(document.getElementById('length').value);
+                const width = parseInt(document.getElementById('width').value);
+                sqft = length * width;
+            } else if (currentShape === 'lshape') {
+                const mainLength = parseInt(document.getElementById('mainLength').value);
+                const mainWidth = parseInt(document.getElementById('mainWidth').value);
+                const extLength = parseInt(document.getElementById('extLength').value);
+                const extWidth = parseInt(document.getElementById('extWidth').value);
+                sqft = (mainLength * mainWidth) + (extLength * extWidth);
+            } else {
+                const diameter = parseInt(document.getElementById('diameter').value);
+                sqft = Math.PI * Math.pow(diameter / 2, 2) * 0.8; // Octagon is ~80% of circle
+            }
+            
+            // Get material cost per sq ft
+            const materialPrices = {
+                'pressure-treated': 15,
+                'cedar': 25,
+                'redwood': 30,
+                'ipe': 35,
+                'trex': 35,
+                'timbertech': 40,
+                'fiberon': 38,
+                'azek': 45
+            };
+            
+            const selectedMaterial = document.getElementById('materialType').value;
+            const materialCostPerSqft = materialPrices[selectedMaterial];
+            
+            // Calculate base costs
+            const deckingCost = sqft * materialCostPerSqft;
+            const framingCost = sqft * 8; // Framing/joists
+            const hardwareCost = sqft * 2; // Screws, hangers, etc.
+            
+            // Feature costs
+            let featureCost = 0;
+            if (document.getElementById('railingToggle').checked) {
+                const perimeter = currentShape === 'rectangle' 
+                    ? 2 * (parseInt(document.getElementById('length').value) + parseInt(document.getElementById('width').value))
+                    : Math.PI * parseInt(document.getElementById('diameter').value);
+                featureCost += perimeter * 35; // $35 per linear foot for railing
+            }
+            
+            if (document.getElementById('stairsToggle').checked) {
+                featureCost += 800; // Basic stairs
+            }
+            
+            if (document.getElementById('lightingToggle').checked) {
+                featureCost += sqft * 5; // $5 per sq ft for lighting
+            }
+            
+            if (document.getElementById('seatingToggle').checked) {
+                featureCost += 1200; // Built-in seating
+            }
+            
+            // Calculate totals
+            const materialTotal = deckingCost + framingCost + hardwareCost + featureCost;
+            const laborCost = sqft * 25; // Average $25/sq ft for labor
+            const totalCost = materialTotal + laborCost;
+            
+            // Update display
+            document.getElementById('totalCost').textContent = '$' + Math.round(totalCost).toLocaleString();
+            document.getElementById('materialCost').textContent = '$' + Math.round(materialTotal).toLocaleString();
+            document.getElementById('laborCost').textContent = '$' + Math.round(laborCost).toLocaleString();
+            document.getElementById('sqftCost').textContent = '$' + Math.round(totalCost / sqft);
+            document.getElementById('timeEstimate').textContent = Math.ceil(sqft / 50) + ' days'; // 50 sq ft per day
+            
+            // Generate material list
+            generateMaterialList(sqft, selectedMaterial);
+            
+            // Show results
+            document.getElementById('costResults').classList.remove('hidden');
+            updateVisualization();
+        }
+        
+        function generateMaterialList(sqft, material) {
+            const materialRows = document.getElementById('materialRows');
+            const materials = [
+                { name: 'Decking Boards', qty: Math.ceil(sqft * 2.5), unit: 'linear ft', price: 8 },
+                { name: 'Joists (2x8)', qty: Math.ceil(sqft / 16), unit: 'pieces', price: 15 },
+                { name: 'Rim Joists', qty: Math.ceil(sqft / 50), unit: 'pieces', price: 20 },
+                { name: 'Posts (6x6)', qty: Math.ceil(sqft / 100), unit: 'pieces', price: 35 },
+                { name: 'Concrete Bags', qty: Math.ceil(sqft / 50) * 2, unit: 'bags', price: 8 },
+                { name: 'Joist Hangers', qty: Math.ceil(sqft / 16) * 2, unit: 'pieces', price: 3 },
+                { name: 'Deck Screws', qty: Math.ceil(sqft / 100), unit: 'boxes', price: 45 }
+            ];
+            
+            materialRows.innerHTML = materials.map(item => `
+                <div class="material-row">
+                    <div>${item.name}</div>
+                    <div>${item.qty} ${item.unit}</div>
+                    <div>$${item.price}</div>
+                    <div>$${(item.qty * item.price).toFixed(2)}</div>
+                </div>
+            `).join('');
+        }
+        
+        function saveDeckPlan() {
+            alert('Deck plan saved! (Feature would save design specifications and material list)');
+        }
+        
+        function printMaterialList() {
+            window.print();
+        }
+        
+        // Initialize
+        updateVisualization();
+        
+        // Add real-time updates
+        document.querySelectorAll('input[type="number"]').forEach(input => {
+            input.addEventListener('input', updateVisualization);
+        });
+    </script>
+</body>
+</html>
