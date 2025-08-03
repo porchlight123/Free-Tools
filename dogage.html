@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Age Calculator - Convert Dog Years to Human Years by Breed</title>
+    <meta name="description" content="Calculate your dog's age in human years with our breed-specific calculator. Accurate age conversion for 50+ breeds. See life stages, health milestones, and care tips.">
+    <meta name="keywords" content="dog age calculator, dog years calculator, dog years to human years, puppy age calculator, dog age chart, convert dog years, dog life stages">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Dog Age Calculator - How Old Is Your Dog in Human Years?">
+    <meta property="og:description" content="Discover your dog's real age! Breed-specific calculator shows accurate human years conversion, life stages, and health milestones.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://yoursite.com/dog-age-calculator-preview.jpg">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Dog Age Calculator with Breed-Specific Conversion",
+        "description": "Calculate your dog's age in human years based on breed size and specific characteristics",
+        "url": "https://yoursite.com/tools/dog-age-calculator",
+        "applicationCategory": "PetCareApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #ff6b6b;
+            --primary-dark: #ee5a52;
+            --secondary: #4ecdc4;
+            --accent: #ffe66d;
+            --success: #51cf66;
+            --info: #339af0;
+            --warning: #ff922b;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+            --border: #e9ecef;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 60px 24px;
+            text-align: center;
+            border-radius: 24px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '🐕';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            transform: rotate(-15deg);
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        header::after {
+            content: '🐾';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            bottom: -20px;
+            left: 50px;
+            transform: rotate(25deg);
+            animation: float 8s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-15deg); }
+            50% { transform: translateY(-20px) rotate(-10deg); }
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .calculator-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 968px) {
+            .calculator-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 36px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--border);
+        }
+        
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--gradient-2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 8px 20px rgba(240, 147, 251, 0.3);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+        
+        .breed-search {
+            position: relative;
+            margin-bottom: 24px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 16px 20px 16px 48px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 20px;
+        }
+        
+        .breed-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 4px;
+            margin-bottom: 24px;
+        }
+        
+        @media (max-width: 640px) {
+            .breed-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        .breed-card {
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            background: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .breed-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .breed-card.active {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+        }
+        
+        .breed-card.active::after {
+            content: '✓';
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--primary);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .breed-emoji {
+            font-size: 32px;
+            margin-bottom: 4px;
+            display: block;
+        }
+        
+        .breed-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .breed-size {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        
+        .input-group {
+            margin-bottom: 24px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .age-input-wrapper {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 16px;
+            align-items: end;
+        }
+        
+        input[type="number"], select {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            background: var(--background);
+        }
+        
+        input[type="number"]:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+        }
+        
+        .calculate-btn {
+            width: 100%;
+            padding: 20px 32px;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+        
+        .results-section {
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%);
+            border: 2px solid rgba(78, 205, 196, 0.3);
+            border-radius: 24px;
+            padding: 36px;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .results-section::before {
+            content: '🎉';
+            position: absolute;
+            font-size: 100px;
+            opacity: 0.1;
+            top: -20px;
+            right: 20px;
+            transform: rotate(15deg);
+        }
+        
+        .age-display {
+            text-align: center;
+            margin-bottom: 36px;
+        }
+        
+        .human-age {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 0 rgba(255, 107, 107, 0.2);
+        }
+        
+        .age-label {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        
+        .life-stage {
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .stage-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .stage-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-2);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        
+        .stage-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .stage-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 24px;
+            background: var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            transition: width 0.6s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .milestones {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .milestone {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: var(--background);
+            border-radius: 12px;
+        }
+        
+        .milestone-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--secondary);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .milestone-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+        
+        .info-section {
+            background: white;
+            border-radius: 24px;
+            padding: 48px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 36px;
+            margin-top: 36px;
+        }
+        
+        .info-card {
+            padding: 32px;
+            background: var(--background);
+            border-radius: 20px;
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateX(4px);
+        }
+        
+        .info-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .age-chart {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 28px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        
+        .chart-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 80px;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .chart-row:last-child {
+            border-bottom: none;
+        }
+        
+        .chart-header {
+            font-weight: 700;
+            color: var(--primary);
+            border-bottom: 2px solid var(--primary);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .share-section {
+            text-align: center;
+            margin-top: 32px;
+            padding-top: 32px;
+            border-top: 2px solid var(--border);
+        }
+        
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 8px;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .card {
+                padding: 24px;
+            }
+            
+            .human-age {
+                font-size: 4rem;
+            }
+            
+            .milestones {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dog Age Calculator</h1>
+            <p class="subtitle">Discover your dog's real age in human years with breed-specific accuracy</p>
+        </header>
+        
+        <div class="calculator-wrapper">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🐕</div>
+                    <h2>Your Dog's Info</h2>
+                </div>
+                
+                <div class="input-group">
+                    <label for="dogName">Dog's Name (Optional)</label>
+                    <input type="text" id="dogName" placeholder="Enter your dog's name" style="width: 100%; padding: 16px 20px; border: 2px solid var(--border); border-radius: 16px; font-size: 16px;">
+                </div>
+                
+                <div class="input-group">
+                    <label>Dog's Age</label>
+                    <div class="age-input-wrapper">
+                        <input type="number" id="dogAge" min="0" max="30" step="1" value="3">
+                        <select id="ageUnit">
+                            <option value="years">Years</option>
+                            <option value="months">Months</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="breed-search">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" id="breedSearch" placeholder="Search for your dog's breed...">
+                </div>
+                
+                <label>Select Breed or Size</label>
+                <div class="breed-grid" id="breedGrid">
+                    <!-- Popular breeds first -->
+                    <div class="breed-card active" onclick="selectBreed('mixed', 'Mixed/Unknown', 'Medium')" data-breed="mixed">
+                        <span class="breed-emoji">🐕‍🦺</span>
+                        <div class="breed-name">Mixed/Unknown</div>
+                        <div class="breed-size">Medium</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('labrador', 'Labrador', 'Large')" data-breed="labrador">
+                        <span class="breed-emoji">🦮</span>
+                        <div class="breed-name">Labrador</div>
+                        <div class="breed-size">Large</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('golden-retriever', 'Golden Retriever', 'Large')" data-breed="golden-retriever">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Golden Retriever</div>
+                        <div class="breed-size">Large</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('german-shepherd', 'German Shepherd', 'Large')" data-breed="german-shepherd">
+                        <span class="breed-emoji">🐕‍🦺</span>
+                        <div class="breed-name">German Shepherd</div>
+                        <div class="breed-size">Large</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('bulldog', 'Bulldog', 'Medium')" data-breed="bulldog">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Bulldog</div>
+                        <div class="breed-size">Medium</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('beagle', 'Beagle', 'Medium')" data-breed="beagle">
+                        <span class="breed-emoji">🐶</span>
+                        <div class="breed-name">Beagle</div>
+                        <div class="breed-size">Medium</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('poodle', 'Poodle', 'Medium')" data-breed="poodle">
+                        <span class="breed-emoji">🐩</span>
+                        <div class="breed-name">Poodle</div>
+                        <div class="breed-size">Medium</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('yorkshire', 'Yorkshire Terrier', 'Small')" data-breed="yorkshire">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Yorkshire Terrier</div>
+                        <div class="breed-size">Small</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('chihuahua', 'Chihuahua', 'Small')" data-breed="chihuahua">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Chihuahua</div>
+                        <div class="breed-size">Small</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('dachshund', 'Dachshund', 'Small')" data-breed="dachshund">
+                        <span class="breed-emoji">🌭</span>
+                        <div class="breed-name">Dachshund</div>
+                        <div class="breed-size">Small</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('siberian-husky', 'Siberian Husky', 'Large')" data-breed="siberian-husky">
+                        <span class="breed-emoji">🐺</span>
+                        <div class="breed-name">Siberian Husky</div>
+                        <div class="breed-size">Large</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('great-dane', 'Great Dane', 'Giant')" data-breed="great-dane">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Great Dane</div>
+                        <div class="breed-size">Giant</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('boxer', 'Boxer', 'Large')" data-breed="boxer">
+                        <span class="breed-emoji">🥊</span>
+                        <div class="breed-name">Boxer</div>
+                        <div class="breed-size">Large</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('cocker-spaniel', 'Cocker Spaniel', 'Medium')" data-breed="cocker-spaniel">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Cocker Spaniel</div>
+                        <div class="breed-size">Medium</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('shih-tzu', 'Shih Tzu', 'Small')" data-breed="shih-tzu">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Shih Tzu</div>
+                        <div class="breed-size">Small</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('pomeranian', 'Pomeranian', 'Small')" data-breed="pomeranian">
+                        <span class="breed-emoji">🦊</span>
+                        <div class="breed-name">Pomeranian</div>
+                        <div class="breed-size">Small</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('boston-terrier', 'Boston Terrier', 'Small')" data-breed="boston-terrier">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Boston Terrier</div>
+                        <div class="breed-size">Small</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('maltese', 'Maltese', 'Small')" data-breed="maltese">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Maltese</div>
+                        <div class="breed-size">Small</div>
+                    </div>
+                    <!-- Size categories -->
+                    <div class="breed-card" onclick="selectBreed('small-breed', 'Small Breed', 'Small')" data-breed="small-breed">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Small Breed</div>
+                        <div class="breed-size">&lt; 20 lbs</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('medium-breed', 'Medium Breed', 'Medium')" data-breed="medium-breed">
+                        <span class="breed-emoji">🐕‍🦺</span>
+                        <div class="breed-name">Medium Breed</div>
+                        <div class="breed-size">20-60 lbs</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('large-breed', 'Large Breed', 'Large')" data-breed="large-breed">
+                        <span class="breed-emoji">🦮</span>
+                        <div class="breed-name">Large Breed</div>
+                        <div class="breed-size">60-90 lbs</div>
+                    </div>
+                    <div class="breed-card" onclick="selectBreed('giant-breed', 'Giant Breed', 'Giant')" data-breed="giant-breed">
+                        <span class="breed-emoji">🐕</span>
+                        <div class="breed-name">Giant Breed</div>
+                        <div class="breed-size">&gt; 90 lbs</div>
+                    </div>
+                </div>
+                
+                <button class="calculate-btn" onclick="calculateAge()">
+                    <span>Calculate Age</span>
+                    <span>🎂</span>
+                </button>
+            </div>
+            
+            <div id="results" class="card hidden">
+                <div class="results-section">
+                    <div class="age-display">
+                        <div class="human-age" id="humanAge">0</div>
+                        <div class="age-label">Human Years Old</div>
+                    </div>
+                    
+                    <div class="life-stage">
+                        <div class="stage-header">
+                            <div class="stage-icon" id="stageIcon">🐕</div>
+                            <div>
+                                <div class="stage-title" id="stageTitle">Life Stage</div>
+                            </div>
+                        </div>
+                        <p class="stage-description" id="stageDescription"></p>
+                        
+                        <label style="margin-bottom: 8px; display: block;">Life Progress</label>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                        </div>
+                        
+                        <div class="milestones" id="milestones">
+                            <!-- Milestones will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="age-chart">
+                        <h3 style="margin-bottom: 16px; text-align: center;">Age Comparison Chart</h3>
+                        <div class="chart-row chart-header">
+                            <div>Dog Years</div>
+                            <div style="text-align: center;">Life Stage</div>
+                            <div style="text-align: right;">Human Years</div>
+                        </div>
+                        <div id="ageChart">
+                            <!-- Chart rows will be inserted here -->
+                        </div>
+                    </div>
+                    
+                    <div class="share-section">
+                        <p style="margin-bottom: 16px; color: var(--text-secondary);">Share your dog's age with friends!</p>
+                        <button class="share-btn" onclick="shareResults()">
+                            <span>📱</span>
+                            <span>Share Results</span>
+                        </button>
+                        <button class="share-btn" style="background: var(--primary);" onclick="saveResults()">
+                            <span>💾</span>
+                            <span>Save Results</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <h2>Understanding Your Dog's Age</h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 24px;">
+                The old "multiply by 7" rule is outdated. Modern research shows dogs age differently based on their size and breed.
+            </p>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>
+                        <span>📊</span>
+                        The Science Behind Dog Aging
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8;">
+                        Dogs age rapidly in their first two years, then the aging process slows down. Small breeds tend to live longer and age more slowly than large breeds. Giant breeds may be considered senior by age 5, while small breeds might not reach senior status until age 10-12.
+                    </p>
+                    <div style="background: var(--background); padding: 16px; border-radius: 12px; margin-top: 16px;">
+                        <strong>Key Facts:</strong>
+                        <ul style="margin: 8px 0 0 20px; color: var(--text-secondary);">
+                            <li>First year equals ~15 human years</li>
+                            <li>Second year adds ~9 human years</li>
+                            <li>After that, it varies by size</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>🏃</span>
+                        Life Stages Explained
+                    </h3>
+                    <div style="margin-top: 16px;">
+                        <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                            <strong style="color: var(--primary);">Puppy (0-1 year)</strong>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px;">Rapid growth, learning, socialization</p>
+                        </div>
+                        <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                            <strong style="color: var(--secondary);">Young Adult (1-3 years)</strong>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px;">High energy, peak physical condition</p>
+                        </div>
+                        <div style="padding: 12px 0; border-bottom: 1px solid var(--border);">
+                            <strong style="color: var(--info);">Adult (3-7 years)</strong>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px;">Mature, settled behavior</p>
+                        </div>
+                        <div style="padding: 12px 0;">
+                            <strong style="color: var(--warning);">Senior (7+ years)</strong>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary); margin-top: 4px;">Slower pace, special care needs</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>❤️</span>
+                        Caring for Each Life Stage
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Each life stage requires different care approaches:
+                    </p>
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start; gap: 8px;">
+                            <span style="color: var(--primary);">🍼</span>
+                            <div>
+                                <strong>Puppies:</strong> Frequent meals, socialization, basic training
+                            </div>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start; gap: 8px;">
+                            <span style="color: var(--secondary);">⚡</span>
+                            <div>
+                                <strong>Young Adults:</strong> Regular exercise, continued training
+                            </div>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start; gap: 8px;">
+                            <span style="color: var(--info);">🏃</span>
+                            <div>
+                                <strong>Adults:</strong> Consistent routine, preventive care
+                            </div>
+                        </li>
+                        <li style="padding: 8px 0; display: flex; align-items: flex-start; gap: 8px;">
+                            <span style="color: var(--warning);">🩺</span>
+                            <div>
+                                <strong>Seniors:</strong> Joint care, dental health, regular check-ups
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>📏</span>
+                        Size Matters
+                    </h3>
+                    <div style="background: white; border-radius: 12px; padding: 20px; margin-top: 16px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; text-align: center;">
+                            <div>
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--primary);">15+</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Years</div>
+                                <div style="font-weight: 600; margin-top: 4px;">Small Breeds</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--secondary);">10-13</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Years</div>
+                                <div style="font-weight: 600; margin-top: 4px;">Medium Breeds</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--info);">8-12</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Years</div>
+                                <div style="font-weight: 600; margin-top: 4px;">Large Breeds</div>
+                            </div>
+                            <div>
+                                <div style="font-size: 2rem; font-weight: 700; color: var(--warning);">6-10</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Years</div>
+                                <div style="font-weight: 600; margin-top: 4px;">Giant Breeds</div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 16px; color: var(--text-secondary); font-size: 0.9rem;">
+                            Average lifespans by size category
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>🏥</span>
+                        Health Milestones
+                    </h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 16px;">
+                        Important health checkpoints throughout your dog's life:
+                    </p>
+                    <div style="background: rgba(255, 152, 0, 0.1); border: 1px solid rgba(255, 152, 0, 0.3); border-radius: 12px; padding: 16px;">
+                        <strong style="color: var(--warning);">Regular Vet Visits:</strong>
+                        <ul style="margin: 8px 0 0 20px; color: var(--text-secondary);">
+                            <li>Puppies: Every 3-4 weeks until 16 weeks</li>
+                            <li>Adults: Annual check-ups</li>
+                            <li>Seniors: Every 6 months</li>
+                            <li>Dental cleanings: Annually after age 3</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h3>
+                        <span>🎯</span>
+                        Breed-Specific Considerations
+                    </h3>
+                    <p style="color: var(--text-secondary); line-height: 1.8;">
+                        Different breeds have unique aging patterns and health considerations. Brachycephalic breeds (flat-faced) may show signs of aging earlier, while working breeds often maintain vitality longer. Always consider your dog's individual health and activity level alongside breed tendencies.
+                    </p>
+                    <div style="margin-top: 16px; padding: 16px; background: var(--background); border-radius: 12px;">
+                        <strong>Remember:</strong> Every dog is unique! Use this calculator as a guide, but always consult with your veterinarian for personalized health advice.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let selectedBreed = 'mixed';
+        let breedSize = 'Medium';
+        
+        // Breed aging multipliers
+        const breedMultipliers = {
+            'Small': { year1: 15, year2: 9, subsequent: 4 },
+            'Medium': { year1: 15, year2: 9, subsequent: 4.5 },
+            'Large': { year1: 15, year2: 9, subsequent: 5.5 },
+            'Giant': { year1: 15, year2: 9, subsequent: 7 }
+        };
+        
+        function selectBreed(breedId, breedName, size) {
+            selectedBreed = breedId;
+            breedSize = size;
+            
+            // Update UI
+            document.querySelectorAll('.breed-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.breed-card').classList.add('active');
+        }
+        
+        function calculateAge() {
+            const dogName = document.getElementById('dogName').value || 'Your dog';
+            const dogAge = parseFloat(document.getElementById('dogAge').value) || 0;
+            const ageUnit = document.getElementById('ageUnit').value;
+            
+            // Convert months to years if needed
+            let ageInYears = ageUnit === 'months' ? dogAge / 12 : dogAge;
+            
+            // Calculate human age based on size
+            let humanAge = 0;
+            const multipliers = breedMultipliers[breedSize];
+            
+            if (ageInYears <= 1) {
+                humanAge = ageInYears * multipliers.year1;
+            } else if (ageInYears <= 2) {
+                humanAge = multipliers.year1 + ((ageInYears - 1) * multipliers.year2);
+            } else {
+                humanAge = multipliers.year1 + multipliers.year2 + ((ageInYears - 2) * multipliers.subsequent);
+            }
+            
+            humanAge = Math.round(humanAge);
+            
+            // Determine life stage
+            let stage, stageIcon, stageDescription, progressPercent;
+            
+            if (ageInYears < 1) {
+                stage = 'Puppy';
+                stageIcon = '🍼';
+                stageDescription = `${dogName} is in the puppy stage! This is a crucial time for socialization, training, and building healthy habits. Puppies need frequent meals, lots of play, and patience as they learn about the world.`;
+                progressPercent = (ageInYears / 15) * 100;
+            } else if (ageInYears < 3) {
+                stage = 'Young Adult';
+                stageIcon = '⚡';
+                stageDescription = `${dogName} is a young adult dog! Full of energy and enthusiasm, this is the perfect time for advanced training, regular exercise, and adventures. Mental stimulation is just as important as physical activity.`;
+                progressPercent = 20 + ((ageInYears - 1) / 12) * 100;
+            } else if (ageInYears < 7 || (breedSize === 'Giant' && ageInYears < 5)) {
+                stage = 'Adult';
+                stageIcon = '🏃';
+                stageDescription = `${dogName} is in their prime adult years! They should have settled into their personality and routine. Keep up with regular vet check-ups, maintain a healthy diet, and ensure consistent exercise.`;
+                progressPercent = 35 + ((ageInYears - 3) / 10) * 100;
+            } else {
+                stage = 'Senior';
+                stageIcon = '🌟';
+                stageDescription = `${dogName} is a distinguished senior! They may be slowing down but still have lots of love to give. Consider joint supplements, more frequent vet visits, and adjusting exercise to their comfort level.`;
+                progressPercent = 70 + ((ageInYears - 7) / 8) * 100;
+            }
+            
+            progressPercent = Math.min(progressPercent, 100);
+            
+            // Update results
+            document.getElementById('humanAge').textContent = humanAge;
+            document.getElementById('stageTitle').textContent = stage;
+            document.getElementById('stageIcon').textContent = stageIcon;
+            document.getElementById('stageDescription').textContent = stageDescription;
+            document.getElementById('progressFill').style.width = progressPercent + '%';
+            
+            // Generate milestones
+            generateMilestones(stage, ageInYears);
+            
+            // Generate age chart
+            generateAgeChart(breedSize);
+            
+            // Show results
+            document.getElementById('results').classList.remove('hidden');
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        
+        function generateMilestones(stage, age) {
+            const milestonesDiv = document.getElementById('milestones');
+            let milestones = [];
+            
+            switch(stage) {
+                case 'Puppy':
+                    milestones = [
+                        { icon: '🦷', text: 'Teething phase' },
+                        { icon: '🎓', text: 'Basic training time' },
+                        { icon: '💉', text: 'Vaccination schedule' },
+                        { icon: '🤝', text: 'Socialization critical' }
+                    ];
+                    break;
+                case 'Young Adult':
+                    milestones = [
+                        { icon: '💪', text: 'Peak energy levels' },
+                        { icon: '🧠', text: 'Mental maturity developing' },
+                        { icon: '🏃', text: 'High exercise needs' },
+                        { icon: '🦴', text: 'Strong bones & muscles' }
+                    ];
+                    break;
+                case 'Adult':
+                    milestones = [
+                        { icon: '⚖️', text: 'Weight management important' },
+                        { icon: '🦷', text: 'Dental care crucial' },
+                        { icon: '🩺', text: 'Annual health checks' },
+                        { icon: '🧘', text: 'Balanced lifestyle' }
+                    ];
+                    break;
+                case 'Senior':
+                    milestones = [
+                        { icon: '💊', text: 'Joint care needed' },
+                        { icon: '👁️', text: 'Vision/hearing checks' },
+                        { icon: '🥗', text: 'Senior diet beneficial' },
+                        { icon: '🛏️', text: 'Comfort is priority' }
+                    ];
+                    break;
+            }
+            
+            milestonesDiv.innerHTML = milestones.map(m => `
+                <div class="milestone">
+                    <div class="milestone-icon">${m.icon}</div>
+                    <div class="milestone-text">${m.text}</div>
+                </div>
+            `).join('');
+        }
+        
+        function generateAgeChart(size) {
+            const chartDiv = document.getElementById('ageChart');
+            const multipliers = breedMultipliers[size];
+            const ages = [0.5, 1, 2, 3, 5, 7, 10, 12, 15];
+            
+            chartDiv.innerHTML = ages.map(age => {
+                let humanAge;
+                if (age <= 1) {
+                    humanAge = age * multipliers.year1;
+                } else if (age <= 2) {
+                    humanAge = multipliers.year1 + ((age - 1) * multipliers.year2);
+                } else {
+                    humanAge = multipliers.year1 + multipliers.year2 + ((age - 2) * multipliers.subsequent);
+                }
+                
+                let stage = age < 1 ? 'Puppy' : age < 3 ? 'Young' : age < 7 ? 'Adult' : 'Senior';
+                
+                return `
+                    <div class="chart-row">
+                        <div>${age} ${age === 1 ? 'year' : 'years'}</div>
+                        <div style="text-align: center;">${stage}</div>
+                        <div style="text-align: right;">${Math.round(humanAge)} years</div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Breed search functionality
+        document.getElementById('breedSearch').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const breedCards = document.querySelectorAll('.breed-card');
+            
+            breedCards.forEach(card => {
+                const breedName = card.querySelector('.breed-name').textContent.toLowerCase();
+                if (breedName.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        
+        // Share functionality
+        function shareResults() {
+            const humanAge = document.getElementById('humanAge').textContent;
+            const dogName = document.getElementById('dogName').value || 'My dog';
+            const text = `${dogName} is ${humanAge} years old in human years! Calculate your dog's age at [YourSite.com]`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Dog Age Calculator Results',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                // Fallback - copy to clipboard
+                navigator.clipboard.writeText(text);
+                alert('Results copied to clipboard!');
+            }
+        }
+        
+        function saveResults() {
+            // In a real implementation, this would save to a database or generate a PDF
+            const humanAge = document.getElementById('humanAge').textContent;
+            const dogName = document.getElementById('dogName').value || 'Your dog';
+            alert(`${dogName}'s age (${humanAge} human years) has been saved!`);
+        }
+        
+        // Add event listeners
+        document.getElementById('dogAge').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                calculateAge();
+            }
+        });
+    </script>
+</body>
+</html>
