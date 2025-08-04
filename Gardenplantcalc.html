@@ -736,11 +736,11 @@
             <h2>Enter Your ZIP Code to Get Started</h2>
             <div class="input-group">
                 <input type="text" id="zipCode" placeholder="Enter ZIP code (e.g., 10001)" maxlength="5">
-                <button class="btn" onclick="findZone()">Find My Zone</button>
+                <button class="btn" id="findZoneBtn">Find My Zone</button>
             </div>
             <p style="text-align: center; color: var(--text-secondary); margin-top: 8px;">
                 Or manually select zone: 
-                <select id="manualZone" onchange="setManualZone()" style="margin-left: 8px; padding: 4px 8px;">
+                <select id="manualZone" style="margin-left: 8px; padding: 4px 8px;">
                     <option value="">Choose zone...</option>
                     <option value="3">Zone 3 (-40 to -30°F)</option>
                     <option value="4">Zone 4 (-30 to -20°F)</option>
@@ -778,18 +778,18 @@
         
         <!-- Month Tabs -->
         <div class="month-tabs" id="monthTabs" style="display: none;">
-            <div class="month-tab" onclick="selectMonth(1)">January</div>
-            <div class="month-tab" onclick="selectMonth(2)">February</div>
-            <div class="month-tab" onclick="selectMonth(3)">March</div>
-            <div class="month-tab" onclick="selectMonth(4)">April</div>
-            <div class="month-tab" onclick="selectMonth(5)">May</div>
-            <div class="month-tab" onclick="selectMonth(6)">June</div>
-            <div class="month-tab" onclick="selectMonth(7)">July</div>
-            <div class="month-tab" onclick="selectMonth(8)">August</div>
-            <div class="month-tab" onclick="selectMonth(9)">September</div>
-            <div class="month-tab" onclick="selectMonth(10)">October</div>
-            <div class="month-tab" onclick="selectMonth(11)">November</div>
-            <div class="month-tab" onclick="selectMonth(12)">December</div>
+            <div class="month-tab" data-month="1">January</div>
+            <div class="month-tab" data-month="2">February</div>
+            <div class="month-tab" data-month="3">March</div>
+            <div class="month-tab" data-month="4">April</div>
+            <div class="month-tab" data-month="5">May</div>
+            <div class="month-tab" data-month="6">June</div>
+            <div class="month-tab" data-month="7">July</div>
+            <div class="month-tab" data-month="8">August</div>
+            <div class="month-tab" data-month="9">September</div>
+            <div class="month-tab" data-month="10">October</div>
+            <div class="month-tab" data-month="11">November</div>
+            <div class="month-tab" data-month="12">December</div>
         </div>
         
         <!-- Planting Recommendations -->
@@ -827,15 +827,15 @@
             <h2 style="text-align: center; margin-bottom: 24px;">Plan Your Garden Bed</h2>
             
             <div class="bed-size-selector">
-                <div class="bed-size-option" onclick="selectBedSize('4x4')">
+                <div class="bed-size-option" data-size="4x4">
                     <strong>4×4 ft</strong><br>
                     <span style="font-size: 0.9rem; color: var(--text-secondary);">16 sq ft</span>
                 </div>
-                <div class="bed-size-option" onclick="selectBedSize('4x8')">
+                <div class="bed-size-option" data-size="4x8">
                     <strong>4×8 ft</strong><br>
                     <span style="font-size: 0.9rem; color: var(--text-secondary);">32 sq ft</span>
                 </div>
-                <div class="bed-size-option" onclick="selectBedSize('6x6')">
+                <div class="bed-size-option" data-size="6x6">
                     <strong>6×6 ft</strong><br>
                     <span style="font-size: 0.9rem; color: var(--text-secondary);">36 sq ft</span>
                 </div>
@@ -852,7 +852,7 @@
         <!-- Year Calendar View -->
         <div class="calendar-view" id="calendarView" style="display: none;">
             <h2 style="text-align: center; margin-bottom: 24px;">Your Year-Round Planting Calendar</h2>
-            <button class="print-button" onclick="window.print()">🖨️ Print Calendar</button>
+            <button class="print-button" onclick="window.print()" style="margin: 0 auto 24px; display: block;">🖨️ Print Calendar</button>
             
             <div class="calendar-legend">
                 <div class="legend-item">
