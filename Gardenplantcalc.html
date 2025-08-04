@@ -888,1200 +888,1091 @@
             </div>
         </div>
     </footer>
+
+<script>
+// Plant Database - Expanded with 25+ most popular vegetables
+const plantDatabase = {
+    tomatoes: {
+        name: "Tomatoes",
+        latin: "Solanum lycopersicum",
+        icon: "🍅",
+        zones: {
+            3: { indoor: [4, 5], transplant: [6], harvest: 85 },
+            4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
+            5: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
+            6: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
+            7: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
+            8: { indoor: [1, 2], transplant: [3, 4], harvest: 85 },
+            9: { indoor: [1, 2], transplant: [3, 4], outdoor: [4, 5], harvest: 85 },
+            10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4, 5], harvest: 85 }
+        },
+        companions: ["basil", "carrots", "marigolds", "nasturtiums", "parsley"],
+        avoid: ["brassicas", "fennel", "corn"],
+        spacing: 24,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Rich, well-draining"
+    },
+    lettuce: {
+        name: "Lettuce",
+        latin: "Lactuca sativa",
+        icon: "🥬",
+        zones: {
+            3: { outdoor: [5, 6, 7, 8], harvest: 45 },
+            4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
+            5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
+            6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
+            7: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
+            8: { outdoor: [2, 3, 4, 5, 8, 9, 10, 11], harvest: 45 },
+            9: { outdoor: [1, 2, 3, 4, 9, 10, 11, 12], harvest: 45 },
+            10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 45 }
+        },
+        companions: ["carrots", "radishes", "strawberries", "cucumbers"],
+        avoid: ["broccoli", "cabbage"],
+        spacing: 6,
+        sun: "Partial Shade OK",
+        water: "Keep moist",
+        soil: "Cool, moist soil",
+        succession: true
+    },
+    peppers: {
+        name: "Peppers",
+        latin: "Capsicum annuum",
+        icon: "🌶️",
+        zones: {
+            3: { indoor: [4, 5], transplant: [6], harvest: 75 },
+            4: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
+            5: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
+            6: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
+            7: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
+            8: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
+            9: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
+            10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4], harvest: 75 }
+        },
+        companions: ["basil", "tomatoes", "spinach", "onions"],
+        avoid: ["fennel", "kohlrabi"],
+        spacing: 18,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Well-draining"
+    },
+    cucumbers: {
+        name: "Cucumbers",
+        latin: "Cucumis sativus",
+        icon: "🥒",
+        zones: {
+            3: { outdoor: [6], harvest: 60 },
+            4: { outdoor: [5, 6], harvest: 60 },
+            5: { outdoor: [5, 6], harvest: 60 },
+            6: { outdoor: [4, 5, 6], harvest: 60 },
+            7: { outdoor: [4, 5, 6, 7], harvest: 60 },
+            8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
+            9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+            10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
+        },
+        companions: ["beans", "peas", "radishes", "sunflowers"],
+        avoid: ["sage", "aromatic herbs"],
+        spacing: 36,
+        sun: "Full Sun",
+        water: "Consistent",
+        soil: "Rich, moist"
+    },
+    strawberries: {
+        name: "Strawberries",
+        latin: "Fragaria × ananassa",
+        icon: "🍓",
+        zones: {
+            3: { outdoor: [5], harvest: 365 },
+            4: { outdoor: [4, 5], harvest: 365 },
+            5: { outdoor: [4, 5], harvest: 365 },
+            6: { outdoor: [3, 4, 5], harvest: 365 },
+            7: { outdoor: [3, 4, 10], harvest: 365 },
+            8: { outdoor: [2, 3, 10, 11], harvest: 365 },
+            9: { outdoor: [1, 2, 11, 12], harvest: 365 },
+            10: { outdoor: [1, 12], harvest: 365 }
+        },
+        companions: ["lettuce", "spinach", "beans", "onions"],
+        avoid: ["brassicas", "fennel"],
+        spacing: 12,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Rich, well-draining"
+    },
+    basil: {
+        name: "Basil",
+        latin: "Ocimum basilicum",
+        icon: "🌿",
+        zones: {
+            3: { indoor: [4], transplant: [6], harvest: 60 },
+            4: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
+            5: { indoor: [3], transplant: [5], outdoor: [5, 6], harvest: 60 },
+            6: { indoor: [2, 3], transplant: [4, 5], outdoor: [5, 6], harvest: 60 },
+            7: { indoor: [2], transplant: [4], outdoor: [4, 5, 6], harvest: 60 },
+            8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
+            9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+            10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
+        },
+        companions: ["tomatoes", "peppers", "oregano", "lettuce"],
+        avoid: ["rue", "sage"],
+        spacing: 12,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Well-draining"
+    },
+    carrots: {
+        name: "Carrots",
+        latin: "Daucus carota",
+        icon: "🥕",
+        zones: {
+            3: { outdoor: [5, 6, 7], harvest: 75 },
+            4: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
+            5: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
+            6: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
+            7: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
+            8: { outdoor: [2, 3, 4, 5, 8, 9, 10], harvest: 75 },
+            9: { outdoor: [1, 2, 3, 4, 9, 10, 11], harvest: 75 },
+            10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 75 }
+        },
+        companions: ["onions", "leeks", "rosemary", "sage", "lettuce"],
+        avoid: ["dill", "parsnips"],
+        spacing: 3,
+        sun: "Full Sun",
+        water: "Moderate",
+        soil: "Loose, sandy",
+        succession: true
+    },
+    beans: {
+        name: "Green Beans",
+        latin: "Phaseolus vulgaris",
+        icon: "🫘",
+        zones: {
+            3: { outdoor: [6], harvest: 60 },
+            4: { outdoor: [5, 6], harvest: 60 },
+            5: { outdoor: [5, 6, 7], harvest: 60 },
+            6: { outdoor: [4, 5, 6, 7], harvest: 60 },
+            7: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
+            8: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+            9: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+            10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
+        },
+        companions: ["corn", "squash", "strawberries", "cucumbers"],
+        avoid: ["onions", "garlic", "fennel"],
+        spacing: 6,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Well-draining",
+        succession: true
+    },
+    squash: {
+        name: "Squash (Summer)",
+        latin: "Cucurbita pepo",
+        icon: "🎃",
+        zones: {
+            3: { indoor: [5], transplant: [6], harvest: 55 },
+            4: { indoor: [4], transplant: [5, 6], harvest: 55 },
+            5: { indoor: [4], transplant: [5], outdoor: [5, 6], harvest: 55 },
+            6: { outdoor: [4, 5, 6], harvest: 55 },
+            7: { outdoor: [4, 5, 6, 7], harvest: 55 },
+            8: { outdoor: [3, 4, 5, 6, 7], harvest: 55 },
+            9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 55 },
+            10: { outdoor: [2, 3, 4, 5, 6, 7, 8], harvest: 55 }
+        },
+        companions: ["corn", "beans", "nasturtiums", "marigolds"],
+        avoid: ["potatoes"],
+        spacing: 48,
+        sun: "Full Sun",
+        water: "Deep watering",
+        soil: "Rich, composted"
+    },
+    kale: {
+        name: "Kale",
+        latin: "Brassica oleracea",
+        icon: "🥬",
+        zones: {
+            3: { outdoor: [5, 6, 7, 8], harvest: 55 },
+            4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 55 },
+            5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 55 },
+            6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 55 },
+            7: { outdoor: [3, 4, 5, 8, 9, 10], harvest: 55 },
+            8: { outdoor: [2, 3, 4, 9, 10, 11], harvest: 55 },
+            9: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 55 },
+            10: { outdoor: [1, 2, 3, 10, 11, 12], harvest: 55 }
+        },
+        companions: ["beets", "celery", "onions", "potatoes"],
+        avoid: ["tomatoes", "strawberries"],
+        spacing: 18,
+        sun: "Full to Partial",
+        water: "Consistent",
+        soil: "Rich, well-draining"
+    },
+    radishes: {
+        name: "Radishes",
+        latin: "Raphanus sativus",
+        icon: "🌱",
+        zones: {
+            3: { outdoor: [5, 6, 7, 8], harvest: 30 },
+            4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 30 },
+            5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 30 },
+            6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 30 },
+            7: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 30 },
+            8: { outdoor: [2, 3, 4, 5, 8, 9, 10, 11], harvest: 30 },
+            9: { outdoor: [1, 2, 3, 4, 5, 9, 10, 11, 12], harvest: 30 },
+            10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 30 }
+        },
+        companions: ["carrots", "lettuce", "peas", "spinach"],
+        avoid: ["hyssop", "turnips"],
+        spacing: 2,
+        sun: "Full to Partial",
+        water: "Consistent",
+        soil: "Loose, fertile",
+        succession: true
+    },
+    spinach: {
+        name: "Spinach",
+        latin: "Spinacia oleracea",
+        icon: "🍃",
+        zones: {
+            3: { outdoor: [5, 6, 8], harvest: 45 },
+            4: { outdoor: [4, 5, 6, 8, 9], harvest: 45 },
+            5: { outdoor: [4, 5, 6, 8, 9], harvest: 45 },
+            6: { outdoor: [3, 4, 5, 9, 10], harvest: 45 },
+            7: { outdoor: [3, 4, 5, 9, 10, 11], harvest: 45 },
+            8: { outdoor: [2, 3, 4, 10, 11], harvest: 45 },
+            9: { outdoor: [1, 2, 3, 11, 12], harvest: 45 },
+            10: { outdoor: [1, 2, 11, 12], harvest: 45 }
+        },
+        companions: ["strawberries", "radishes", "beans"],
+        avoid: ["potatoes"],
+        spacing: 6,
+        sun: "Partial Shade OK",
+        water: "Keep moist",
+        soil: "Rich, moist",
+        succession: true
+    },
+    peas: {
+        name: "Peas",
+        latin: "Pisum sativum",
+        icon: "🟢",
+        zones: {
+            3: { outdoor: [5, 6], harvest: 70 },
+            4: { outdoor: [4, 5, 6], harvest: 70 },
+            5: { outdoor: [3, 4, 5], harvest: 70 },
+            6: { outdoor: [3, 4, 5, 9], harvest: 70 },
+            7: { outdoor: [2, 3, 4, 9, 10], harvest: 70 },
+            8: { outdoor: [2, 3, 10, 11], harvest: 70 },
+            9: { outdoor: [1, 2, 11, 12], harvest: 70 },
+            10: { outdoor: [1, 12], harvest: 70 }
+        },
+        companions: ["carrots", "turnips", "radishes", "cucumbers"],
+        avoid: ["onions", "garlic"],
+        spacing: 4,
+        sun: "Full to Partial",
+        water: "Regular",
+        soil: "Well-draining"
+    },
+    onions: {
+        name: "Onions",
+        latin: "Allium cepa",
+        icon: "🧅",
+        zones: {
+            3: { indoor: [2, 3], transplant: [5], harvest: 100 },
+            4: { indoor: [2, 3], transplant: [4, 5], harvest: 100 },
+            5: { indoor: [1, 2], transplant: [4], outdoor: [4], harvest: 100 },
+            6: { indoor: [1, 2], transplant: [3, 4], outdoor: [3, 4], harvest: 100 },
+            7: { indoor: [1], transplant: [3], outdoor: [2, 3, 10], harvest: 100 },
+            8: { outdoor: [2, 3, 10, 11], harvest: 100 },
+            9: { outdoor: [1, 2, 11, 12], harvest: 100 },
+            10: { outdoor: [1, 11, 12], harvest: 100 }
+        },
+        companions: ["carrots", "lettuce", "strawberries", "cabbage"],
+        avoid: ["beans", "peas"],
+        spacing: 4,
+        sun: "Full Sun",
+        water: "Moderate",
+        soil: "Well-draining"
+    },
+    broccoli: {
+        name: "Broccoli",
+        latin: "Brassica oleracea",
+        icon: "🥦",
+        zones: {
+            3: { indoor: [4, 5], transplant: [5, 6], harvest: 85 },
+            4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
+            5: { indoor: [3, 4], transplant: [4, 5], outdoor: [8], harvest: 85 },
+            6: { indoor: [2, 3], transplant: [4], outdoor: [8, 9], harvest: 85 },
+            7: { indoor: [2], transplant: [3, 4], outdoor: [8, 9], harvest: 85 },
+            8: { indoor: [1], transplant: [3], outdoor: [9, 10], harvest: 85 },
+            9: { outdoor: [1, 2, 9, 10, 11], harvest: 85 },
+            10: { outdoor: [1, 2, 10, 11, 12], harvest: 85 }
+        },
+        companions: ["onions", "garlic", "beets", "lettuce"],
+        avoid: ["tomatoes", "strawberries"],
+        spacing: 18,
+        sun: "Full Sun",
+        water: "Consistent",
+        soil: "Rich, moist"
+    },
+    zucchini: {
+        name: "Zucchini",
+        latin: "Cucurbita pepo",
+        icon: "🥒",
+        zones: {
+            3: { outdoor: [6], harvest: 55 },
+            4: { outdoor: [5, 6], harvest: 55 },
+            5: { outdoor: [5, 6], harvest: 55 },
+            6: { outdoor: [4, 5, 6, 7], harvest: 55 },
+            7: { outdoor: [4, 5, 6, 7], harvest: 55 },
+            8: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 55 },
+            9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 55 },
+            10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 55 }
+        },
+        companions: ["nasturtiums", "beans", "oregano"],
+        avoid: ["potatoes"],
+        spacing: 36,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Rich, well-draining"
+    },
+    corn: {
+        name: "Corn",
+        latin: "Zea mays",
+        icon: "🌽",
+        zones: {
+            3: { outdoor: [6], harvest: 90 },
+            4: { outdoor: [5, 6], harvest: 90 },
+            5: { outdoor: [5, 6], harvest: 90 },
+            6: { outdoor: [4, 5, 6], harvest: 90 },
+            7: { outdoor: [4, 5, 6, 7], harvest: 90 },
+            8: { outdoor: [3, 4, 5, 6, 7], harvest: 90 },
+            9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 90 },
+            10: { outdoor: [2, 3, 4, 5, 6, 7, 8], harvest: 90 }
+        },
+        companions: ["beans", "squash", "cucumbers", "melons"],
+        avoid: ["tomatoes"],
+        spacing: 12,
+        sun: "Full Sun",
+        water: "Deep watering",
+        soil: "Rich, well-draining"
+    },
+    potatoes: {
+        name: "Potatoes",
+        latin: "Solanum tuberosum",
+        icon: "🥔",
+        zones: {
+            3: { outdoor: [5], harvest: 90 },
+            4: { outdoor: [4, 5], harvest: 90 },
+            5: { outdoor: [4, 5], harvest: 90 },
+            6: { outdoor: [3, 4], harvest: 90 },
+            7: { outdoor: [3, 4, 8], harvest: 90 },
+            8: { outdoor: [2, 3, 8, 9], harvest: 90 },
+            9: { outdoor: [1, 2, 9, 10], harvest: 90 },
+            10: { outdoor: [1, 10, 11, 12], harvest: 90 }
+        },
+        companions: ["beans", "corn", "cabbage", "horseradish"],
+        avoid: ["tomatoes", "squash", "sunflowers"],
+        spacing: 12,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Loose, well-draining"
+    },
+    beets: {
+        name: "Beets",
+        latin: "Beta vulgaris",
+        icon: "🟣",
+        zones: {
+            3: { outdoor: [5, 6, 7], harvest: 60 },
+            4: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
+            5: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
+            6: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+            7: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+            8: { outdoor: [2, 3, 4, 5, 8, 9, 10], harvest: 60 },
+            9: { outdoor: [1, 2, 3, 4, 9, 10, 11], harvest: 60 },
+            10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 60 }
+        },
+        companions: ["lettuce", "onions", "kohlrabi", "garlic"],
+        avoid: ["pole beans"],
+        spacing: 4,
+        sun: "Full Sun",
+        water: "Consistent",
+        soil: "Loose, fertile"
+    },
+    eggplant: {
+        name: "Eggplant",
+        latin: "Solanum melongena",
+        icon: "🍆",
+        zones: {
+            3: { indoor: [4, 5], transplant: [6], harvest: 80 },
+            4: { indoor: [3, 4], transplant: [6], harvest: 80 },
+            5: { indoor: [3, 4], transplant: [5, 6], harvest: 80 },
+            6: { indoor: [2, 3], transplant: [5], harvest: 80 },
+            7: { indoor: [2, 3], transplant: [4, 5], harvest: 80 },
+            8: { indoor: [1, 2], transplant: [4], harvest: 80 },
+            9: { indoor: [1, 2], transplant: [3, 4], harvest: 80 },
+            10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4], harvest: 80 }
+        },
+        companions: ["beans", "peppers", "marigolds"],
+        avoid: ["fennel"],
+        spacing: 24,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Rich, well-draining"
+    },
+    cabbage: {
+        name: "Cabbage",
+        latin: "Brassica oleracea",
+        icon: "🥬",
+        zones: {
+            3: { indoor: [4], transplant: [5, 6], harvest: 90 },
+            4: { indoor: [3, 4], transplant: [5, 6], harvest: 90 },
+            5: { indoor: [3], transplant: [4, 5], outdoor: [8], harvest: 90 },
+            6: { indoor: [2], transplant: [3, 4], outdoor: [8, 9], harvest: 90 },
+            7: { indoor: [1, 2], transplant: [3], outdoor: [9, 10], harvest: 90 },
+            8: { outdoor: [1, 2, 3, 9, 10, 11], harvest: 90 },
+            9: { outdoor: [1, 2, 10, 11, 12], harvest: 90 },
+            10: { outdoor: [1, 11, 12], harvest: 90 }
+        },
+        companions: ["onions", "garlic", "beets", "herbs"],
+        avoid: ["strawberries", "tomatoes"],
+        spacing: 18,
+        sun: "Full Sun",
+        water: "Consistent",
+        soil: "Rich, firm"
+    },
+    cauliflower: {
+        name: "Cauliflower",
+        latin: "Brassica oleracea",
+        icon: "🥦",
+        zones: {
+            3: { indoor: [4, 5], transplant: [6], harvest: 85 },
+            4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
+            5: { indoor: [3, 4], transplant: [5], outdoor: [8], harvest: 85 },
+            6: { indoor: [2, 3], transplant: [4], outdoor: [8, 9], harvest: 85 },
+            7: { indoor: [2], transplant: [3, 4], outdoor: [9], harvest: 85 },
+            8: { indoor: [1], transplant: [3], outdoor: [9, 10], harvest: 85 },
+            9: { outdoor: [1, 2, 10, 11], harvest: 85 },
+            10: { outdoor: [1, 2, 11, 12], harvest: 85 }
+        },
+        companions: ["onions", "garlic", "beets", "celery"],
+        avoid: ["strawberries", "tomatoes"],
+        spacing: 18,
+        sun: "Full Sun",
+        water: "Consistent",
+        soil: "Rich, moist"
+    },
+    brussels_sprouts: {
+        name: "Brussels Sprouts",
+        latin: "Brassica oleracea",
+        icon: "🥦",
+        zones: {
+            3: { indoor: [5], transplant: [6], harvest: 100 },
+            4: { indoor: [4, 5], transplant: [6], harvest: 100 },
+            5: { indoor: [4], transplant: [5, 6], harvest: 100 },
+            6: { indoor: [3, 4], transplant: [5], harvest: 100 },
+            7: { indoor: [3], transplant: [4, 5], harvest: 100 },
+            8: { indoor: [2, 3], transplant: [4], harvest: 100 },
+            9: { outdoor: [1, 2, 9, 10], harvest: 100 },
+            10: { outdoor: [1, 10, 11, 12], harvest: 100 }
+        },
+        companions: ["onions", "garlic", "beets", "herbs"],
+        avoid: ["strawberries", "tomatoes"],
+        spacing: 24,
+        sun: "Full Sun",
+        water: "Consistent",
+        soil: "Rich, firm"
+    },
+    garlic: {
+        name: "Garlic",
+        latin: "Allium sativum",
+        icon: "🧄",
+        zones: {
+            3: { outdoor: [10], harvest: 240 },
+            4: { outdoor: [10], harvest: 240 },
+            5: { outdoor: [10], harvest: 240 },
+            6: { outdoor: [10, 11], harvest: 240 },
+            7: { outdoor: [10, 11], harvest: 240 },
+            8: { outdoor: [10, 11, 12], harvest: 210 },
+            9: { outdoor: [11, 12], harvest: 210 },
+            10: { outdoor: [11, 12], harvest: 180 }
+        },
+        companions: ["tomatoes", "roses", "fruit trees", "beets"],
+        avoid: ["beans", "peas", "sage"],
+        spacing: 4,
+        sun: "Full Sun",
+        water: "Moderate",
+        soil: "Well-draining"
+    },
+    herbs: {
+        name: "Mixed Herbs",
+        latin: "Various",
+        icon: "🌱",
+        zones: {
+            3: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
+            4: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
+            5: { indoor: [2, 3], transplant: [4, 5], outdoor: [5, 6], harvest: 60 },
+            6: { indoor: [2], transplant: [4], outdoor: [4, 5, 6, 7], harvest: 60 },
+            7: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+            8: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+            9: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9, 10], harvest: 60 },
+            10: { outdoor: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], harvest: 60 }
+        },
+        companions: ["most vegetables"],
+        avoid: ["varies by herb"],
+        spacing: 12,
+        sun: "Full Sun",
+        water: "Moderate",
+        soil: "Well-draining"
+    },
+    sweet_potatoes: {
+        name: "Sweet Potatoes",
+        latin: "Ipomoea batatas",
+        icon: "🍠",
+        zones: {
+            3: { indoor: [4], transplant: [6], harvest: 120 },
+            4: { indoor: [4], transplant: [6], harvest: 120 },
+            5: { indoor: [3], transplant: [5], harvest: 120 },
+            6: { indoor: [3], transplant: [5], harvest: 120 },
+            7: { outdoor: [5, 6], harvest: 120 },
+            8: { outdoor: [4, 5, 6], harvest: 120 },
+            9: { outdoor: [4, 5, 6], harvest: 120 },
+            10: { outdoor: [3, 4, 5, 6], harvest: 120 }
+        },
+        companions: ["beans", "peas", "oregano", "parsley"],
+        avoid: ["squash", "tomatoes", "sunflowers"],
+        spacing: 12,
+        sun: "Full Sun",
+        water: "Regular",
+        soil: "Loose, well-draining"
+    },
+    watermelon: {
+        name: "Watermelon",
+        latin: "Citrullus lanatus",
+        icon: "🍉",
+        zones: {
+            3: { indoor: [5], transplant: [6], harvest: 85 },
+            4: { indoor: [4, 5], transplant: [6], harvest: 85 },
+            5: { indoor: [4], transplant: [5], harvest: 85 },
+            6: { outdoor: [5, 6], harvest: 85 },
+            7: { outdoor: [4, 5, 6], harvest: 85 },
+            8: { outdoor: [3, 4, 5, 6, 7], harvest: 85 },
+            9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 85 },
+            10: { outdoor: [2, 3, 4, 5, 6, 7, 8], harvest: 85 }
+        },
+        companions: ["radishes", "nasturtiums", "marigolds"],
+        avoid: ["potatoes"],
+        spacing: 72,
+        sun: "Full Sun",
+        water: "Deep watering",
+        soil: "Sandy, well-draining"
+    }
+};
+
+// Zone data
+const zoneData = {
+    3: { lastFrost: "May 15", firstFrost: "Sep 15", minTemp: -40 },
+    4: { lastFrost: "May 1", firstFrost: "Oct 1", minTemp: -30 },
+    5: { lastFrost: "April 15", firstFrost: "Oct 15", minTemp: -20 },
+    6: { lastFrost: "April 1", firstFrost: "Nov 1", minTemp: -10 },
+    7: { lastFrost: "March 15", firstFrost: "Nov 15", minTemp: 0 },
+    8: { lastFrost: "March 1", firstFrost: "Dec 1", minTemp: 10 },
+    9: { lastFrost: "February 15", firstFrost: "Dec 15", minTemp: 20 },
+    10: { lastFrost: "January 31", firstFrost: "December 31", minTemp: 30 }
+};
+
+// ZIP to Zone mapping (expanded for better coverage)
+const zipToZone = {
+    // Northeast
+    '0': 6, '01': 5, '02': 6, '03': 5, '04': 5, '05': 5, '06': 6, '07': 7, '08': 7, '09': 6,
+    '10': 7, '11': 7, '12': 6, '13': 5, '14': 5, '15': 6, '16': 6, '17': 6, '18': 6, '19': 6,
+    // Mid-Atlantic
+    '20': 7, '21': 7, '22': 7, '23': 7, '24': 6, '25': 6, '26': 5, '27': 7, '28': 7, '29': 7,
+    // Southeast
+    '30': 8, '31': 8, '32': 9, '33': 9, '34': 9, '35': 7, '36': 7, '37': 7, '38': 7, '39': 7,
+    '40': 6, '41': 6, '42': 6, '43': 6, '44': 6, '45': 6, '46': 6, '47': 6, '48': 6, '49': 6,
+    // Midwest
+    '50': 5, '51': 5, '52': 5, '53': 5, '54': 5, '55': 5, '56': 5, '57': 5, '58': 4, '59': 5,
+    '60': 5, '61': 5, '62': 6, '63': 6, '64': 6, '65': 6, '66': 6, '67': 6, '68': 5, '69': 5,
+    // South
+    '70': 8, '71': 8, '72': 7, '73': 7, '74': 7, '75': 8, '76': 8, '77': 9, '78': 9, '79': 8,
+    '80': 5, '81': 5, '82': 4, '83': 6, '84': 7, '85': 9, '86': 8, '87': 7, '88': 7, '89': 6,
+    // West
+    '90': 10, '91': 10, '92': 10, '93': 10, '94': 9, '95': 9, '96': 8, '97': 7, '98': 8, '99': 8
+};
+
+// Global variables
+let currentZone = null;
+let currentMonth = new Date().getMonth() + 1;
+let selectedPlants = new Set();
+let gardenSize = null;
+
+// Find zone from ZIP
+function findZone() {
+    console.log('Finding zone...');
+    const zip = document.getElementById('zipCode').value.trim();
+    if (zip.length < 3) {
+        alert('Please enter at least 3 digits of your ZIP code');
+        return;
+    }
     
-    <script>
-        // Plant Database
-        const plantDatabase = {
-            tomatoes: {
-                name: "Tomatoes",
-                latin: "Solanum lycopersicum",
-                icon: "🍅",
-                zones: {
-                    3: { indoor: [4, 5], transplant: [6], harvest: 85 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
-                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
-                    6: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
-                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
-                    8: { indoor: [1, 2], transplant: [3, 4], harvest: 85 },
-                    9: { indoor: [1, 2], transplant: [3, 4], outdoor: [4, 5], harvest: 85 },
-                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4, 5], harvest: 85 }
-                },
-                companions: ["basil", "carrots", "marigolds", "nasturtiums", "parsley"],
-                avoid: ["brassicas", "fennel", "corn"],
-                spacing: 24,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Rich, well-draining"
-            },
-            lettuce: {
-                name: "Lettuce",
-                latin: "Lactuca sativa",
-                icon: "🥬",
-                zones: {
-                    3: { outdoor: [5, 6, 7, 8], harvest: 45 },
-                    4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
-                    5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
-                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
-                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
-                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10, 11], harvest: 45 },
-                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11, 12], harvest: 45 },
-                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 45 }
-                },
-                companions: ["carrots", "radishes", "strawberries", "cucumbers"],
-                avoid: ["broccoli", "cabbage"],
-                spacing: 6,
-                sun: "Partial Shade OK",
-                water: "Keep moist",
-                soil: "Cool, moist soil",
-                succession: true
-            },
-            peppers: {
-                name: "Peppers",
-                latin: "Capsicum annuum",
-                icon: "🌶️",
-                zones: {
-                    3: { indoor: [4, 5], transplant: [6], harvest: 75 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
-                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
-                    6: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
-                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
-                    8: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
-                    9: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
-                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4], harvest: 75 }
-                },
-                companions: ["basil", "tomatoes", "spinach", "onions"],
-                avoid: ["fennel", "kohlrabi"],
-                spacing: 18,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Well-draining"
-            },
-            cucumbers: {
-                name: "Cucumbers",
-                latin: "Cucumis sativus",
-                icon: "🥒",
-                zones: {
-                    3: { outdoor: [6], harvest: 60 },
-                    4: { outdoor: [5, 6], harvest: 60 },
-                    5: { outdoor: [5, 6], harvest: 60 },
-                    6: { outdoor: [4, 5, 6], harvest: 60 },
-                    7: { outdoor: [4, 5, 6, 7], harvest: 60 },
-                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
-                },
-                companions: ["beans", "peas", "radishes", "sunflowers"],
-                avoid: ["sage", "aromatic herbs"],
-                spacing: 36,
-                sun: "Full Sun",
-                water: "Consistent",
-                soil: "Rich, moist"
-            },
-            basil: {
-                name: "Basil",
-                latin: "Ocimum basilicum",
-                icon: "🌿",
-                zones: {
-                    3: { indoor: [4], transplant: [6], harvest: 60 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
-                    5: { indoor: [3], transplant: [5], outdoor: [5, 6], harvest: 60 },
-                    6: { indoor: [2, 3], transplant: [4, 5], outdoor: [5, 6], harvest: 60 },
-                    7: { indoor: [2], transplant: [4], outdoor: [4, 5, 6], harvest: 60 },
-                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
-                },
-                companions: ["tomatoes", "peppers", "oregano", "lettuce"],
-                avoid: ["rue", "sage"],
-                spacing: 12,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Well-draining"
-            },
-            carrots: {
-                name: "Carrots",
-                latin: "Daucus carota",
-                icon: "🥕",
-                zones: {
-                    3: { outdoor: [5, 6, 7], harvest: 75 },
-                    4: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
-                    5: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
-                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
-                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
-                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10], harvest: 75 },
-                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11], harvest: 75 },
-                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 75 }
-                },
-                companions: ["onions", "leeks", "rosemary", "sage", "lettuce"],
-                avoid: ["dill", "parsnips"],
-                spacing: 3,
-                sun: "Full Sun",
-                water: "Moderate",
-                soil: "Loose, sandy",
-                succession: true
-            }
-        };
+    // Get first 2 digits for zone lookup
+    const prefix = zip.substring(0, 2);
+    const zone = zipToZone[prefix] || 6; // Default to zone 6
+    
+    console.log('ZIP:', zip, 'Prefix:', prefix, 'Zone:', zone);
+    setZone(zone);
+}
+
+// Set zone manually
+function setManualZone() {
+    const zone = parseInt(document.getElementById('manualZone').value);
+    console.log('Manual zone selected:', zone);
+    if (zone) {
+        setZone(zone);
+    }
+}
+
+// Set zone and display info
+function setZone(zone) {
+    console.log('Setting zone:', zone);
+    currentZone = zone;
+    const zoneInfo = zoneData[zone];
+    
+    if (!zoneInfo) {
+        console.error('No zone data for zone:', zone);
+        return;
+    }
+    
+    document.getElementById('userZone').textContent = zone;
+    document.getElementById('lastFrost').textContent = zoneInfo.lastFrost;
+    document.getElementById('firstFrost').textContent = zoneInfo.firstFrost;
+    
+    // Calculate growing days
+    const lastFrost = new Date('2024-' + zoneInfo.lastFrost);
+    const firstFrost = new Date('2024-' + zoneInfo.firstFrost);
+    const growingDays = Math.round((firstFrost - lastFrost) / (1000 * 60 * 60 * 24));
+    document.getElementById('growingDays').textContent = growingDays;
+    
+    // Show zone display
+    document.getElementById('zoneDisplay').classList.add('active');
+    document.getElementById('monthTabs').style.display = 'flex';
+    document.getElementById('plantingContent').style.display = 'block';
+    document.getElementById('companionSection').style.display = 'block';
+    document.getElementById('gardenPlanner').style.display = 'block';
+    document.getElementById('calendarView').style.display = 'block';
+    
+    // Auto-select current month
+    selectMonth(currentMonth);
+    
+    // Generate year calendar
+    generateYearCalendar();
+    
+    // Scroll to results
+    document.getElementById('zoneDisplay').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// Select month
+function selectMonth(month) {
+    console.log('Selecting month:', month);
+    currentMonth = month;
+    
+    // Update active tab
+    document.querySelectorAll('.month-tab').forEach((tab, index) => {
+        tab.classList.toggle('active', index + 1 === month);
+    });
+    
+    // Display plants for this month
+    displayPlantsForMonth();
+}
+
+// Display plants for selected month
+function displayPlantsForMonth() {
+    const indoorContainer = document.getElementById('indoorPlants');
+    const outdoorContainer = document.getElementById('outdoorPlants');
+    const transplantContainer = document.getElementById('transplantPlants');
+    
+    // Clear containers
+    indoorContainer.innerHTML = '';
+    outdoorContainer.innerHTML = '';
+    transplantContainer.innerHTML = '';
+    
+    // Check each plant
+    Object.entries(plantDatabase).forEach(([key, plant]) => {
+        const zoneInfo = plant.zones[currentZone];
+        if (!zoneInfo) return;
         
-        // Zone data
-        const zoneData = {
-            3: { lastFrost: "May 15", firstFrost: "Sep 15", minTemp: -40 },
-            4: { lastFrost: "May 1", firstFrost: "Oct 1", minTemp: -30 },
-            5: { lastFrost: "April 15", firstFrost: "Oct 15", minTemp: -20 },
-            6: { lastFrost: "April 1", firstFrost: "Nov 1", minTemp: -10 },
-            7: { lastFrost: "March 15", firstFrost: "Nov 15", minTemp: 0 },
-            8: { lastFrost: "March 1", firstFrost: "Dec 1", minTemp: 10 },
-            9: { lastFrost: "February 15", firstFrost: "Dec 15", minTemp: 20 },
-            10: { lastFrost: "January 31", firstFrost: "December 31", minTemp: 30 }
-        };
-        
-        // ZIP to Zone mapping (expanded for better coverage)
-        const zipToZone = {
-            // Northeast
-            '0': 6, '01': 5, '02': 6, '03': 5, '04': 5, '05': 5, '06': 6, '07': 7, '08': 7, '09': 6,
-            '10': 7, '11': 7, '12': 6, '13': 5, '14': 5, '15': 6, '16': 6, '17': 6, '18': 6, '19': 6,
-            // Mid-Atlantic
-            '20': 7, '21': 7, '22': 7, '23': 7, '24': 6, '25': 6, '26': 5, '27': 7, '28': 7, '29': 7,
-            // Southeast
-            '30': 8, '31': 8, '32': 9, '33': 9, '34': 9, '35': 7, '36': 7, '37': 7, '38': 7, '39': 7,
-            '40': 6, '41': 6, '42': 6, '43': 6, '44': 6, '45': 6, '46': 6, '47': 6, '48': 6, '49': 6,
-            // Midwest
-            '50': 5, '51': 5, '52': 5, '53': 5, '54': 5, '55': 5, '56': 5, '57': 5, '58': 4, '59': 5,
-            '60': 5, '61': 5, '62': 6, '63': 6, '64': 6, '65': 6, '66': 6, '67': 6, '68': 5, '69': 5,
-            // South
-            '70': 8, '71': 8, '72': 7, '73': 7, '74': 7, '75': 8, '76': 8, '77': 9, '78': 9, '79': 8,
-            '80': 5, '81': 5, '82': 4, '83': 6, '84': 7, '85': 9, '86': 8, '87': 7, '88': 7, '89': 6,
-            // West
-            '90': 10, '91': 10, '92': 10, '93': 10, '94': 9, '95': 9, '96': 8, '97': 7, '98': 8, '99': 8
-        };
-        
-        // Global variables
-        let currentZone = null;
-        let currentMonth = new Date().getMonth() + 1;
-        let selectedPlants = new Set();
-        let gardenSize = null;
-        
-        // Find zone from ZIP
-        function findZone() {
-            console.log('Finding zone...');
-            const zip = document.getElementById('zipCode').value.trim();
-            if (zip.length < 3) {
-                alert('Please enter at least 3 digits of your ZIP code');
-                return;
-            }
-            
-            // Get first 2 digits for zone lookup
-            const prefix = zip.substring(0, 2);
-            const zone = zipToZone[prefix] || 6; // Default to zone 6
-            
-            console.log('ZIP:', zip, 'Prefix:', prefix, 'Zone:', zone);
-            setZone(zone);
+        // Check indoor starts
+        if (zoneInfo.indoor && zoneInfo.indoor.includes(currentMonth)) {
+            indoorContainer.appendChild(createPlantCard(key, plant, 'start-indoors'));
         }
         
-        // Set zone manually
-        function setManualZone() {
-            const zone = parseInt(document.getElementById('manualZone').value);
-            console.log('Manual zone selected:', zone);
-            if (zone) {
-                setZone(zone);
+        // Check outdoor sowing
+        if (zoneInfo.outdoor && zoneInfo.outdoor.includes(currentMonth)) {
+            outdoorContainer.appendChild(createPlantCard(key, plant, 'direct-sow'));
+        }
+        
+        // Check transplants
+        if (zoneInfo.transplant && zoneInfo.transplant.includes(currentMonth)) {
+            transplantContainer.appendChild(createPlantCard(key, plant, 'transplant'));
+        }
+    });
+    
+    // Add empty state messages
+    if (indoorContainer.children.length === 0) {
+        indoorContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No seeds to start indoors this month in your zone.</p>';
+    }
+    if (outdoorContainer.children.length === 0) {
+        outdoorContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No direct sowing recommended this month in your zone.</p>';
+    }
+    if (transplantContainer.children.length === 0) {
+        transplantContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No transplants scheduled for this month in your zone.</p>';
+    }
+}
+
+// Create plant card
+function createPlantCard(key, plant, actionType) {
+    const card = document.createElement('div');
+    card.className = 'plant-card';
+    card.addEventListener('click', () => selectPlant(key, plant));
+    
+    const actionClass = actionType.replace(' ', '-');
+    const actionLabel = actionType.split('-').map(word => 
+        word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+    
+    card.innerHTML = `
+        <div class="plant-header">
+            <span class="plant-icon">${plant.icon}</span>
+            <div>
+                <div class="plant-name">${plant.name}</div>
+                <div class="plant-latin">${plant.latin}</div>
+            </div>
+        </div>
+        <div class="plant-details">
+            <div class="plant-detail">
+                <span class="plant-detail-label">Action:</span>
+                <span class="action-type ${actionClass}">${actionLabel}</span>
+            </div>
+            <div class="plant-detail">
+                <span class="plant-detail-label">Days to Harvest:</span>
+                <span class="plant-detail-value">${plant.zones[currentZone].harvest} days</span>
+            </div>
+            <div class="plant-detail">
+                <span class="plant-detail-label">Spacing:</span>
+                <span class="plant-detail-value">${plant.spacing}"</span>
+            </div>
+            <div class="plant-detail">
+                <span class="plant-detail-label">Sun:</span>
+                <span class="plant-detail-value">${plant.sun}</span>
+            </div>
+        </div>
+    `;
+    
+    if (selectedPlants.has(key)) {
+        card.classList.add('selected');
+    }
+    
+    return card;
+}
+
+// Select plant and show companions
+function selectPlant(key, plant) {
+    if (selectedPlants.has(key)) {
+        selectedPlants.delete(key);
+    } else {
+        selectedPlants.add(key);
+    }
+    
+    // Update UI
+    displayPlantsForMonth();
+    updateCompanionDisplay();
+    updateShoppingList();
+}
+
+// Update companion planting display
+function updateCompanionDisplay() {
+    const container = document.getElementById('companionGrid');
+    container.innerHTML = '';
+    
+    if (selectedPlants.size === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Select plants above to see companion planting suggestions.</p>';
+        return;
+    }
+    
+    selectedPlants.forEach(plantKey => {
+        const plant = plantDatabase[plantKey];
+        if (!plant) return;
+        
+        const plantDiv = document.createElement('div');
+        plantDiv.className = 'companion-plant';
+        
+        let companionsHtml = plant.companions.map(comp => 
+            `<span class="companion-item good-companion">${comp}</span>`
+        ).join('');
+        
+        let avoidHtml = plant.avoid.map(avoid => 
+            `<span class="companion-item bad-companion">${avoid}</span>`
+        ).join('');
+        
+        plantDiv.innerHTML = `
+            <h4>${plant.icon} ${plant.name}</h4>
+            <div style="margin-bottom: 8px;">
+                <strong style="color: var(--success);">Good Companions:</strong>
+                <div class="companion-list">${companionsHtml}</div>
+            </div>
+            <div>
+                <strong style="color: var(--danger);">Avoid Planting Near:</strong>
+                <div class="companion-list">${avoidHtml}</div>
+            </div>
+        `;
+        
+        container.appendChild(plantDiv);
+    });
+}
+
+// Garden bed planning
+function selectBedSize(size) {
+    gardenSize = size;
+    
+    // Update UI
+    document.querySelectorAll('.bed-size-option').forEach(option => {
+        option.classList.remove('selected');
+    });
+    
+    // Find the clicked option
+    document.querySelector(`[data-size="${size}"]`).classList.add('selected');
+    
+    // Generate grid
+    generateGardenGrid(size);
+}
+
+// Generate garden grid
+function generateGardenGrid(size) {
+    const container = document.getElementById('gardenGrid');
+    container.innerHTML = '';
+    
+    let rows, cols;
+    switch(size) {
+        case '4x4':
+            rows = cols = 4;
+            break;
+        case '4x8':
+            rows = 4;
+            cols = 8;
+            break;
+        case '6x6':
+            rows = cols = 6;
+            break;
+    }
+    
+    const grid = document.createElement('div');
+    grid.className = 'garden-grid';
+    grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+    
+    for (let i = 0; i < rows * cols; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'garden-cell';
+        cell.addEventListener('click', () => toggleCell(cell));
+        grid.appendChild(cell);
+    }
+    
+    container.appendChild(grid);
+    
+    // Add instructions
+    const instructions = document.createElement('p');
+    instructions.style.textAlign = 'center';
+    instructions.style.color = 'var(--text-secondary)';
+    instructions.style.marginTop = '16px';
+    instructions.textContent = 'Click cells to plan where each plant will go. Each cell = 1 square foot.';
+    container.appendChild(instructions);
+}
+
+// Toggle garden cell
+function toggleCell(cell) {
+    if (selectedPlants.size === 0) {
+        alert('Please select plants from above first!');
+        return;
+    }
+    
+    // For simplicity, just toggle planted state
+    cell.classList.toggle('planted');
+    if (cell.classList.contains('planted')) {
+        // Add random plant from selected
+        const plants = Array.from(selectedPlants);
+        const randomPlant = plantDatabase[plants[Math.floor(Math.random() * plants.length)]];
+        cell.textContent = randomPlant.icon;
+    } else {
+        cell.textContent = '';
+    }
+    
+    updateShoppingList();
+}
+
+// Update shopping list
+function updateShoppingList() {
+    if (selectedPlants.size === 0) {
+        document.getElementById('shoppingList').style.display = 'none';
+        return;
+    }
+    
+    document.getElementById('shoppingList').style.display = 'block';
+    const container = document.getElementById('shoppingItems');
+    container.innerHTML = '';
+    
+    // Calculate quantities based on planted cells
+    const plantedCells = document.querySelectorAll('.garden-cell.planted').length;
+    
+    selectedPlants.forEach(plantKey => {
+        const plant = plantDatabase[plantKey];
+        
+        // Seeds/plants needed
+        const item = document.createElement('div');
+        item.className = 'shopping-item';
+        
+        const quantity = Math.ceil(plantedCells / (plant.spacing / 12));
+        
+        item.innerHTML = `
+            <div class="item-info">
+                <span>${plant.icon}</span>
+                <span>${plant.name} Seeds</span>
+                <span class="item-quantity">${quantity} packets</span>
+            </div>
+            <a href="https://www.amazon.com/s?k=${encodeURIComponent(plant.name + ' seeds organic')}&tag=porchlightgdn-20" 
+               class="buy-button" target="_blank" rel="noopener">
+                Buy Seeds
+            </a>
+        `;
+        
+        container.appendChild(item);
+    });
+    
+    // Add soil amendment
+    const soilItem = document.createElement('div');
+    soilItem.className = 'shopping-item';
+    soilItem.innerHTML = `
+        <div class="item-info">
+            <span>🪴</span>
+            <span>Organic Compost</span>
+            <span class="item-quantity">${Math.ceil(plantedCells / 4)} bags</span>
+        </div>
+        <a href="https://www.amazon.com/s?k=organic+compost+garden&tag=porchlightgdn-20" 
+           class="buy-button" target="_blank" rel="noopener">
+            Buy Compost
+        </a>
+    `;
+    container.appendChild(soilItem);
+    
+    // Add fertilizer
+    const fertItem = document.createElement('div');
+    fertItem.className = 'shopping-item';
+    fertItem.innerHTML = `
+        <div class="item-info">
+            <span>💊</span>
+            <span>Organic Fertilizer</span>
+            <span class="item-quantity">1 bag</span>
+        </div>
+        <a href="https://www.amazon.com/s?k=organic+vegetable+fertilizer&tag=porchlightgdn-20" 
+           class="buy-button" target="_blank" rel="noopener">
+            Buy Fertilizer
+        </a>
+    `;
+    container.appendChild(fertItem);
+}
+
+// Generate year calendar
+function generateYearCalendar() {
+    const table = document.getElementById('yearCalendar');
+    table.innerHTML = '';
+    
+    // Create header
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    headerRow.innerHTML = '<th>Plant</th>';
+    
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    months.forEach(month => {
+        headerRow.innerHTML += `<th>${month}</th>`;
+    });
+    
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+    
+    // Create body
+    const tbody = document.createElement('tbody');
+    
+    Object.entries(plantDatabase).forEach(([key, plant]) => {
+        const row = document.createElement('tr');
+        row.className = 'plant-row';
+        row.innerHTML = `<td style="text-align: left; font-weight: 600;">${plant.icon} ${plant.name}</td>`;
+        
+        const zoneInfo = plant.zones[currentZone];
+        if (!zoneInfo) {
+            for (let i = 0; i < 12; i++) {
+                row.innerHTML += '<td></td>';
             }
-        }
-        
-        // Set zone and display info
-        function setZone(zone) {
-            console.log('Setting zone:', zone);
-            currentZone = zone;
-            const zoneInfo = zoneData[zone];
-            
-            if (!zoneInfo) {
-                console.error('No zone data for zone:', zone);
-                return;
-            }
-            
-            document.getElementById('userZone').textContent = zone;
-            document.getElementById('lastFrost').textContent = zoneInfo.lastFrost;
-            document.getElementById('firstFrost').textContent = zoneInfo.firstFrost;
-            
-            // Calculate growing days
-            const lastFrost = new Date('2024-' + zoneInfo.lastFrost);
-            const firstFrost = new Date('2024-' + zoneInfo.firstFrost);
-            const growingDays = Math.round((firstFrost - lastFrost) / (1000 * 60 * 60 * 24));
-            document.getElementById('growingDays').textContent = growingDays;
-            
-            // Show zone display
-            document.getElementById('zoneDisplay').classList.add('active');
-            document.getElementById('monthTabs').style.display = 'flex';
-            document.getElementById('plantingContent').style.display = 'block';
-            document.getElementById('companionSection').style.display = 'block';
-            document.getElementById('gardenPlanner').style.display = 'block';
-            document.getElementById('calendarView').style.display = 'block';
-            
-            // Auto-select current month
-            selectMonth(currentMonth);
-            
-            // Generate year calendar
-            generateYearCalendar();
-            
-            // Scroll to results
-            document.getElementById('zoneDisplay').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        // Select month
-        function selectMonth(month) {
-            console.log('Selecting month:', month);
-            currentMonth = month;
-            
-            // Update active tab
-            document.querySelectorAll('.month-tab').forEach((tab, index) => {
-                tab.classList.toggle('active', index + 1 === month);
-            });
-            
-            // Display plants for this month
-            displayPlantsForMonth();
-        }
-        
-        // Display plants for selected month
-        function displayPlantsForMonth() {
-            const indoorContainer = document.getElementById('indoorPlants');
-            const outdoorContainer = document.getElementById('outdoorPlants');
-            const transplantContainer = document.getElementById('transplantPlants');
-            
-            // Clear containers
-            indoorContainer.innerHTML = '';
-            outdoorContainer.innerHTML = '';
-            transplantContainer.innerHTML = '';
-            
-            // Check each plant
-            Object.entries(plantDatabase).forEach(([key, plant]) => {
-                const zoneInfo = plant.zones[currentZone];
-                if (!zoneInfo) return;
+        } else {
+            for (let month = 1; month <= 12; month++) {
+                let cellContent = '';
                 
-                // Check indoor starts
-                if (zoneInfo.indoor && zoneInfo.indoor.includes(currentMonth)) {
-                    indoorContainer.appendChild(createPlantCard(key, plant, 'start-indoors'));
+                if (zoneInfo.indoor && zoneInfo.indoor.includes(month)) {
+                    cellContent += '<div class="planting-bar indoor" style="width: 90%; left: 5%;"></div>';
+                }
+                if (zoneInfo.outdoor && zoneInfo.outdoor.includes(month)) {
+                    cellContent += '<div class="planting-bar outdoor" style="width: 90%; left: 5%;"></div>';
+                }
+                if (zoneInfo.transplant && zoneInfo.transplant.includes(month)) {
+                    cellContent += '<div class="planting-bar transplant" style="width: 90%; left: 5%;"></div>';
                 }
                 
-                // Check outdoor sowing
-                if (zoneInfo.outdoor && zoneInfo.outdoor.includes(currentMonth)) {
-                    outdoorContainer.appendChild(createPlantCard(key, plant, 'direct-sow'));
-                }
-                
-                // Check transplants
-                if (zoneInfo.transplant && zoneInfo.transplant.includes(currentMonth)) {
-                    transplantContainer.appendChild(createPlantCard(key, plant, 'transplant'));
-                }
-            });
-            
-            // Add empty state messages
-            if (indoorContainer.children.length === 0) {
-                indoorContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No seeds to start indoors this month in your zone.</p>';
-            }
-            if (outdoorContainer.children.length === 0) {
-                outdoorContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No direct sowing recommended this month in your zone.</p>';
-            }
-            if (transplantContainer.children.length === 0) {
-                transplantContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">No transplants scheduled for this month in your zone.</p>';
+                row.innerHTML += `<td style="position: relative; height: 30px;">${cellContent}</td>`;
             }
         }
         
-        // Create plant card
-        function createPlantCard(key, plant, actionType) {
-            const card = document.createElement('div');
-            card.className = 'plant-card';
-            card.addEventListener('click', () => selectPlant(key, plant));
-            
-            const actionClass = actionType.replace(' ', '-');
-            const actionLabel = actionType.split('-').map(word => 
-                word.charAt(0).toUpperCase() + word.slice(1)
-            ).join(' ');
-            
-            card.innerHTML = `
-                <div class="plant-header">
-                    <span class="plant-icon">${plant.icon}</span>
-                    <div>
-                        <div class="plant-name">${plant.name}</div>
-                        <div class="plant-latin">${plant.latin}</div>
-                    </div>
-                </div>
-                <div class="plant-details">
-                    <div class="plant-detail">
-                        <span class="plant-detail-label">Action:</span>
-                        <span class="action-type ${actionClass}">${actionLabel}</span>
-                    </div>
-                    <div class="plant-detail">
-                        <span class="plant-detail-label">Days to Harvest:</span>
-                        <span class="plant-detail-value">${plant.zones[currentZone].harvest} days</span>
-                    </div>
-                    <div class="plant-detail">
-                        <span class="plant-detail-label">Spacing:</span>
-                        <span class="plant-detail-value">${plant.spacing}"</span>
-                    </div>
-                    <div class="plant-detail">
-                        <span class="plant-detail-label">Sun:</span>
-                        <span class="plant-detail-value">${plant.sun}</span>
-                    </div>
-                </div>
-            `;
-            
-            if (selectedPlants.has(key)) {
-                card.classList.add('selected');
-            }
-            
-            return card;
-        }
-        
-        // Select plant and show companions
-        function selectPlant(key, plant) {
-            if (selectedPlants.has(key)) {
-                selectedPlants.delete(key);
-            } else {
-                selectedPlants.add(key);
-            }
-            
-            // Update UI
-            displayPlantsForMonth();
-            updateCompanionDisplay();
-            updateShoppingList();
-        }
-        
-        // Update companion planting display
-        function updateCompanionDisplay() {
-            const container = document.getElementById('companionGrid');
-            container.innerHTML = '';
-            
-            if (selectedPlants.size === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Select plants above to see companion planting suggestions.</p>';
-                return;
-            }
-            
-            selectedPlants.forEach(plantKey => {
-                const plant = plantDatabase[plantKey];
-                if (!plant) return;
-                
-                const plantDiv = document.createElement('div');
-                plantDiv.className = 'companion-plant';
-                
-                let companionsHtml = plant.companions.map(comp => 
-                    `<span class="companion-item good-companion">${comp}</span>`
-                ).join('');
-                
-                let avoidHtml = plant.avoid.map(avoid => 
-                    `<span class="companion-item bad-companion">${avoid}</span>`
-                ).join('');
-                
-                plantDiv.innerHTML = `
-                    <h4>${plant.icon} ${plant.name}</h4>
-                    <div style="margin-bottom: 8px;">
-                        <strong style="color: var(--success);">Good Companions:</strong>
-                        <div class="companion-list">${companionsHtml}</div>
-                    </div>
-                    <div>
-                        <strong style="color: var(--danger);">Avoid Planting Near:</strong>
-                        <div class="companion-list">${avoidHtml}</div>
-                    </div>
-                `;
-                
-                container.appendChild(plantDiv);
-            });
-        }
-        
-        // Garden bed planning
-        function selectBedSize(size) {
-            gardenSize = size;
-            
-            // Update UI
-            document.querySelectorAll('.bed-size-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // Find the clicked option
-            document.querySelector(`[data-size="${size}"]`).classList.add('selected');
-            
-            // Generate grid
-            generateGardenGrid(size);
-        }
-        
-        // Generate garden grid
-        function generateGardenGrid(size) {
-            const container = document.getElementById('gardenGrid');
-            container.innerHTML = '';
-            
-            let rows, cols;
-            switch(size) {
-                case '4x4':
-                    rows = cols = 4;
-                    break;
-                case '4x8':
-                    rows = 4;
-                    cols = 8;
-                    break;
-                case '6x6':
-                    rows = cols = 6;
-                    break;
-            }
-            
-            const grid = document.createElement('div');
-            grid.className = 'garden-grid';
-            grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-            
-            for (let i = 0; i < rows * cols; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'garden-cell';
-                cell.addEventListener('click', () => toggleCell(cell));
-                grid.appendChild(cell);
-            }
-            
-            container.appendChild(grid);
-            
-            // Add instructions
-            const instructions = document.createElement('p');
-            instructions.style.textAlign = 'center';
-            instructions.style.color = 'var(--text-secondary)';
-            instructions.style.marginTop = '16px';
-            instructions.textContent = 'Click cells to plan where each plant will go. Each cell = 1 square foot.';
-            container.appendChild(instructions);
-        }
-        
-        // Toggle garden cell
-        function toggleCell(cell) {
-            if (selectedPlants.size === 0) {
-                alert('Please select plants from above first!');
-                return;
-            }
-            
-            // For simplicity, just toggle planted state
-            cell.classList.toggle('planted');
-            if (cell.classList.contains('planted')) {
-                // Add random plant from selected
-                const plants = Array.from(selectedPlants);
-                const randomPlant = plantDatabase[plants[Math.floor(Math.random() * plants.length)]];
-                cell.textContent = randomPlant.icon;
-            } else {
-                cell.textContent = '';
-            }
-            
-            updateShoppingList();
-        }
-        
-        // Update shopping list
-        function updateShoppingList() {
-            if (selectedPlants.size === 0) {
-                document.getElementById('shoppingList').style.display = 'none';
-                return;
-            }
-            
-            document.getElementById('shoppingList').style.display = 'block';
-            const container = document.getElementById('shoppingItems');
-            container.innerHTML = '';
-            
-            // Calculate quantities based on planted cells
-            const plantedCells = document.querySelectorAll('.garden-cell.planted').length;
-            
-            selectedPlants.forEach(plantKey => {
-                const plant = plantDatabase[plantKey];
-                
-                // Seeds/plants needed
-                const item = document.createElement('div');
-                item.className = 'shopping-item';
-                
-                const quantity = Math.ceil(plantedCells / (plant.spacing / 12));
-                
-                item.innerHTML = `
-                    <div class="item-info">
-                        <span>${plant.icon}</span>
-                        <span>${plant.name} Seeds</span>
-                        <span class="item-quantity">${quantity} packets</span>
-                    </div>
-                    <a href="https://www.amazon.com/s?k=${encodeURIComponent(plant.name + ' seeds organic')}&tag=porchlightgdn-20" 
-                       class="buy-button" target="_blank" rel="noopener">
-                        Buy Seeds
-                    </a>
-                `;
-                
-                container.appendChild(item);
-            });
-            
-            // Add soil amendment
-            const soilItem = document.createElement('div');
-            soilItem.className = 'shopping-item';
-            soilItem.innerHTML = `
-                <div class="item-info">
-                    <span>🪴</span>
-                    <span>Organic Compost</span>
-                    <span class="item-quantity">${Math.ceil(plantedCells / 4)} bags</span>
-                </div>
-                <a href="https://www.amazon.com/s?k=organic+compost+garden&tag=porchlightgdn-20" 
-                   class="buy-button" target="_blank" rel="noopener">
-                    Buy Compost
-                </a>
-            `;
-            container.appendChild(soilItem);
-            
-            // Add fertilizer
-            const fertItem = document.createElement('div');
-            fertItem.className = 'shopping-item';
-            fertItem.innerHTML = `
-                <div class="item-info">
-                    <span>💊</span>
-                    <span>Organic Fertilizer</span>
-                    <span class="item-quantity">1 bag</span>
-                </div>
-                <a href="https://www.amazon.com/s?k=organic+vegetable+fertilizer&tag=porchlightgdn-20" 
-                   class="buy-button" target="_blank" rel="noopener">
-                    Buy Fertilizer
-                </a>
-            `;
-            container.appendChild(fertItem);
-        }
-        
-        // Generate year calendar
-        function generateYearCalendar() {
-            const table = document.getElementById('yearCalendar');
-            table.innerHTML = '';
-            
-            // Create header
-            const thead = document.createElement('thead');
-            const headerRow = document.createElement('tr');
-            headerRow.innerHTML = '<th>Plant</th>';
-            
-            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-            months.forEach(month => {
-                headerRow.innerHTML += `<th>${month}</th>`;
-            });
-            
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-            
-            // Create body
-            const tbody = document.createElement('tbody');
-            
-            Object.entries(plantDatabase).forEach(([key, plant]) => {
-                const row = document.createElement('tr');
-                row.className = 'plant-row';
-                row.innerHTML = `<td style="text-align: left; font-weight: 600;">${plant.icon} ${plant.name}</td>`;
-                
-                const zoneInfo = plant.zones[currentZone];
-                if (!zoneInfo) {
-                    for (let i = 0; i < 12; i++) {
-                        row.innerHTML += '<td></td>';
-                    }
-                } else {
-                    for (let month = 1; month <= 12; month++) {
-                        let cellContent = '';
-                        
-                        if (zoneInfo.indoor && zoneInfo.indoor.includes(month)) {
-                            cellContent += '<div class="planting-bar indoor" style="width: 90%; left: 5%;"></div>';
-                        }
-                        if (zoneInfo.outdoor && zoneInfo.outdoor.includes(month)) {
-                            cellContent += '<div class="planting-bar outdoor" style="width: 90%; left: 5%;"></div>';
-                        }
-                        if (zoneInfo.transplant && zoneInfo.transplant.includes(month)) {
-                            cellContent += '<div class="planting-bar transplant" style="width: 90%; left: 5%;"></div>';
-                        }
-                        
-                        row.innerHTML += `<td style="position: relative; height: 30px;">${cellContent}</td>`;
-                    }
-                }
-                
-                tbody.appendChild(row);
-            });
-            
-            table.appendChild(tbody);
-        }
-        
-        // Initialize on load - wrap everything in DOMContentLoaded
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Garden tool initialized');
-            
-            // Auto-select current month
-            const now = new Date();
-            currentMonth = now.getMonth() + 1;
-            
-            // Add event listeners
-            document.getElementById('findZoneBtn').addEventListener('click', findZone);
-            document.getElementById('manualZone').addEventListener('change', setManualZone);
-            
-            // Add month tab listeners
-            document.querySelectorAll('.month-tab').forEach(tab => {
-                tab.addEventListener('click', function() {
-                    selectMonth(parseInt(this.dataset.month));
-                });
-            });
-            
-            // Add bed size listeners
-            document.querySelectorAll('.bed-size-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    selectBedSize(this.dataset.size);
-                });
-            });
-            
-            // Enter key support for ZIP code
-            document.getElementById('zipCode').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    findZone();
-                }
-            });
-            
-            // Check for URL parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            const zone = urlParams.get('zone');
-            if (zone) {
-                setZone(parseInt(zone));
-            }
+        tbody.appendChild(row);
+    });
+    
+    table.appendChild(tbody);
+}
+
+// Initialize on load - wrap everything in DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Garden tool initialized');
+    
+    // Auto-select current month
+    const now = new Date();
+    currentMonth = now.getMonth() + 1;
+    
+    // Add event listeners
+    document.getElementById('findZoneBtn').addEventListener('click', findZone);
+    document.getElementById('manualZone').addEventListener('change', setManualZone);
+    
+    // Add month tab listeners
+    document.querySelectorAll('.month-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            selectMonth(parseInt(this.dataset.month));
         });
-    </script>
-            tomatoes: {
-                name: "Tomatoes",
-                latin: "Solanum lycopersicum",
-                icon: "🍅",
-                zones: {
-                    3: { indoor: [4, 5], transplant: [6], harvest: 85 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
-                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
-                    6: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
-                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
-                    8: { indoor: [1, 2], transplant: [3, 4], harvest: 85 },
-                    9: { indoor: [1, 2], transplant: [3, 4], outdoor: [4, 5], harvest: 85 },
-                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4, 5], harvest: 85 }
-                },
-                companions: ["basil", "carrots", "marigolds", "nasturtiums", "parsley"],
-                avoid: ["brassicas", "fennel", "corn"],
-                spacing: 24,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Rich, well-draining"
-            },
-            lettuce: {
-                name: "Lettuce",
-                latin: "Lactuca sativa",
-                icon: "🥬",
-                zones: {
-                    3: { outdoor: [5, 6, 7, 8], harvest: 45 },
-                    4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
-                    5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
-                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
-                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
-                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10, 11], harvest: 45 },
-                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11, 12], harvest: 45 },
-                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 45 }
-                },
-                companions: ["carrots", "radishes", "strawberries", "cucumbers"],
-                avoid: ["broccoli", "cabbage"],
-                spacing: 6,
-                sun: "Partial Shade OK",
-                water: "Keep moist",
-                soil: "Cool, moist soil",
-                succession: true
-            },
-            peppers: {
-                name: "Peppers",
-                latin: "Capsicum annuum",
-                icon: "🌶️",
-                zones: {
-                    3: { indoor: [4, 5], transplant: [6], harvest: 75 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
-                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
-                    6: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
-                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
-                    8: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
-                    9: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
-                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4], harvest: 75 }
-                },
-                companions: ["basil", "tomatoes", "spinach", "onions"],
-                avoid: ["fennel", "kohlrabi"],
-                spacing: 18,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Well-draining"
-            },
-            cucumbers: {
-                name: "Cucumbers",
-                latin: "Cucumis sativus",
-                icon: "🥒",
-                zones: {
-                    3: { outdoor: [6], harvest: 60 },
-                    4: { outdoor: [5, 6], harvest: 60 },
-                    5: { outdoor: [5, 6], harvest: 60 },
-                    6: { outdoor: [4, 5, 6], harvest: 60 },
-                    7: { outdoor: [4, 5, 6, 7], harvest: 60 },
-                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
-                },
-                companions: ["beans", "peas", "radishes", "sunflowers"],
-                avoid: ["sage", "aromatic herbs"],
-                spacing: 36,
-                sun: "Full Sun",
-                water: "Consistent",
-                soil: "Rich, moist"
-            },
-            basil: {
-                name: "Basil",
-                latin: "Ocimum basilicum",
-                icon: "🌿",
-                zones: {
-                    3: { indoor: [4], transplant: [6], harvest: 60 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
-                    5: { indoor: [3], transplant: [5], outdoor: [5, 6], harvest: 60 },
-                    6: { indoor: [2, 3], transplant: [4, 5], outdoor: [5, 6], harvest: 60 },
-                    7: { indoor: [2], transplant: [4], outdoor: [4, 5, 6], harvest: 60 },
-                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
-                },
-                companions: ["tomatoes", "peppers", "oregano", "lettuce"],
-                avoid: ["rue", "sage"],
-                spacing: 12,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Well-draining"
-            },
-            carrots: {
-                name: "Carrots",
-                latin: "Daucus carota",
-                icon: "🥕",
-                zones: {
-                    3: { outdoor: [5, 6, 7], harvest: 75 },
-                    4: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
-                    5: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
-                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
-                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
-                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10], harvest: 75 },
-                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11], harvest: 75 },
-                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 75 }
-                },
-                companions: ["onions", "leeks", "rosemary", "sage", "lettuce"],
-                avoid: ["dill", "parsnips"],
-                spacing: 3,
-                sun: "Full Sun",
-                water: "Moderate",
-                soil: "Loose, sandy",
-                succession: true
-            },
-            beans: {
-                name: "Beans",
-                latin: "Phaseolus vulgaris",
-                icon: "🫘",
-                zones: {
-                    3: { outdoor: [6], harvest: 60 },
-                    4: { outdoor: [5, 6], harvest: 60 },
-                    5: { outdoor: [5, 6, 7], harvest: 60 },
-                    6: { outdoor: [4, 5, 6, 7], harvest: 60 },
-                    7: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
-                    8: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
-                },
-                companions: ["corn", "squash", "strawberries", "cucumbers"],
-                avoid: ["onions", "garlic", "fennel"],
-                spacing: 6,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Well-draining",
-                succession: true
-            },
-            squash: {
-                name: "Squash",
-                latin: "Cucurbita spp.",
-                icon: "🎃",
-                zones: {
-                    3: { indoor: [5], transplant: [6], harvest: 90 },
-                    4: { indoor: [4], transplant: [5, 6], harvest: 90 },
-                    5: { indoor: [4], transplant: [5], outdoor: [5, 6], harvest: 90 },
-                    6: { outdoor: [4, 5, 6], harvest: 90 },
-                    7: { outdoor: [4, 5, 6, 7], harvest: 90 },
-                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 90 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 90 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8], harvest: 90 }
-                },
-                companions: ["corn", "beans", "nasturtiums", "marigolds"],
-                avoid: ["potatoes"],
-                spacing: 48,
-                sun: "Full Sun",
-                water: "Deep watering",
-                soil: "Rich, composted"
-            },
-            kale: {
-                name: "Kale",
-                latin: "Brassica oleracea",
-                icon: "🥬",
-                zones: {
-                    3: { outdoor: [5, 6, 7, 8], harvest: 55 },
-                    4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 55 },
-                    5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 55 },
-                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 55 },
-                    7: { outdoor: [3, 4, 5, 8, 9, 10], harvest: 55 },
-                    8: { outdoor: [2, 3, 4, 9, 10, 11], harvest: 55 },
-                    9: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 55 },
-                    10: { outdoor: [1, 2, 3, 10, 11, 12], harvest: 55 }
-                },
-                companions: ["beets", "celery", "onions", "potatoes"],
-                avoid: ["tomatoes", "strawberries"],
-                spacing: 18,
-                sun: "Full to Partial",
-                water: "Consistent",
-                soil: "Rich, well-draining"
-            },
-            radishes: {
-                name: "Radishes",
-                latin: "Raphanus sativus",
-                icon: "🌱",
-                zones: {
-                    3: { outdoor: [5, 6, 7, 8], harvest: 30 },
-                    4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 30 },
-                    5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 30 },
-                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 30 },
-                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 30 },
-                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10, 11], harvest: 30 },
-                    9: { outdoor: [1, 2, 3, 4, 5, 9, 10, 11, 12], harvest: 30 },
-                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 30 }
-                },
-                companions: ["carrots", "lettuce", "peas", "spinach"],
-                avoid: ["hyssop", "turnips"],
-                spacing: 2,
-                sun: "Full to Partial",
-                water: "Consistent",
-                soil: "Loose, fertile",
-                succession: true
-            },
-            spinach: {
-                name: "Spinach",
-                latin: "Spinacia oleracea",
-                icon: "🍃",
-                zones: {
-                    3: { outdoor: [5, 6, 8], harvest: 45 },
-                    4: { outdoor: [4, 5, 6, 8, 9], harvest: 45 },
-                    5: { outdoor: [4, 5, 6, 8, 9], harvest: 45 },
-                    6: { outdoor: [3, 4, 5, 9, 10], harvest: 45 },
-                    7: { outdoor: [3, 4, 5, 9, 10, 11], harvest: 45 },
-                    8: { outdoor: [2, 3, 4, 10, 11], harvest: 45 },
-                    9: { outdoor: [1, 2, 3, 11, 12], harvest: 45 },
-                    10: { outdoor: [1, 2, 11, 12], harvest: 45 }
-                },
-                companions: ["strawberries", "radishes", "beans"],
-                avoid: ["potatoes"],
-                spacing: 6,
-                sun: "Partial Shade OK",
-                water: "Keep moist",
-                soil: "Rich, moist",
-                succession: true
-            },
-            peas: {
-                name: "Peas",
-                latin: "Pisum sativum",
-                icon: "🟢",
-                zones: {
-                    3: { outdoor: [5, 6], harvest: 70 },
-                    4: { outdoor: [4, 5, 6], harvest: 70 },
-                    5: { outdoor: [3, 4, 5], harvest: 70 },
-                    6: { outdoor: [3, 4, 5, 9], harvest: 70 },
-                    7: { outdoor: [2, 3, 4, 9, 10], harvest: 70 },
-                    8: { outdoor: [2, 3, 10, 11], harvest: 70 },
-                    9: { outdoor: [1, 2, 11, 12], harvest: 70 },
-                    10: { outdoor: [1, 12], harvest: 70 }
-                },
-                companions: ["carrots", "turnips", "radishes", "cucumbers"],
-                avoid: ["onions", "garlic"],
-                spacing: 4,
-                sun: "Full to Partial",
-                water: "Regular",
-                soil: "Well-draining"
-            },
-            herbs: {
-                name: "Mixed Herbs",
-                latin: "Various",
-                icon: "🌱",
-                zones: {
-                    3: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
-                    5: { indoor: [2, 3], transplant: [4, 5], outdoor: [5, 6], harvest: 60 },
-                    6: { indoor: [2], transplant: [4], outdoor: [4, 5, 6, 7], harvest: 60 },
-                    7: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
-                    8: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
-                    9: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9, 10], harvest: 60 },
-                    10: { outdoor: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], harvest: 60 }
-                },
-                companions: ["most vegetables"],
-                avoid: ["varies by herb"],
-                spacing: 12,
-                sun: "Full Sun",
-                water: "Moderate",
-                soil: "Well-draining"
-            },
-            onions: {
-                name: "Onions",
-                latin: "Allium cepa",
-                icon: "🧅",
-                zones: {
-                    3: { indoor: [2, 3], transplant: [5], harvest: 100 },
-                    4: { indoor: [2, 3], transplant: [4, 5], harvest: 100 },
-                    5: { indoor: [1, 2], transplant: [4], outdoor: [4], harvest: 100 },
-                    6: { indoor: [1, 2], transplant: [3, 4], outdoor: [3, 4], harvest: 100 },
-                    7: { indoor: [1], transplant: [3], outdoor: [2, 3, 10], harvest: 100 },
-                    8: { outdoor: [2, 3, 10, 11], harvest: 100 },
-                    9: { outdoor: [1, 2, 11, 12], harvest: 100 },
-                    10: { outdoor: [1, 11, 12], harvest: 100 }
-                },
-                companions: ["carrots", "lettuce", "strawberries", "cabbage"],
-                avoid: ["beans", "peas"],
-                spacing: 4,
-                sun: "Full Sun",
-                water: "Moderate",
-                soil: "Well-draining"
-            },
-            broccoli: {
-                name: "Broccoli",
-                latin: "Brassica oleracea",
-                icon: "🥦",
-                zones: {
-                    3: { indoor: [4, 5], transplant: [5, 6], harvest: 85 },
-                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
-                    5: { indoor: [3, 4], transplant: [4, 5], outdoor: [8], harvest: 85 },
-                    6: { indoor: [2, 3], transplant: [4], outdoor: [8, 9], harvest: 85 },
-                    7: { indoor: [2], transplant: [3, 4], outdoor: [8, 9], harvest: 85 },
-                    8: { indoor: [1], transplant: [3], outdoor: [9, 10], harvest: 85 },
-                    9: { outdoor: [1, 2, 9, 10, 11], harvest: 85 },
-                    10: { outdoor: [1, 2, 10, 11, 12], harvest: 85 }
-                },
-                companions: ["onions", "garlic", "beets", "lettuce"],
-                avoid: ["tomatoes", "strawberries"],
-                spacing: 18,
-                sun: "Full Sun",
-                water: "Consistent",
-                soil: "Rich, moist"
-            },
-            zucchini: {
-                name: "Zucchini",
-                latin: "Cucurbita pepo",
-                icon: "🥒",
-                zones: {
-                    3: { outdoor: [6], harvest: 55 },
-                    4: { outdoor: [5, 6], harvest: 55 },
-                    5: { outdoor: [5, 6], harvest: 55 },
-                    6: { outdoor: [4, 5, 6, 7], harvest: 55 },
-                    7: { outdoor: [4, 5, 6, 7], harvest: 55 },
-                    8: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 55 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 55 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 55 }
-                },
-                companions: ["nasturtiums", "beans", "oregano"],
-                avoid: ["potatoes"],
-                spacing: 36,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Rich, well-draining"
-            },
-            corn: {
-                name: "Corn",
-                latin: "Zea mays",
-                icon: "🌽",
-                zones: {
-                    3: { outdoor: [6], harvest: 90 },
-                    4: { outdoor: [5, 6], harvest: 90 },
-                    5: { outdoor: [5, 6], harvest: 90 },
-                    6: { outdoor: [4, 5, 6], harvest: 90 },
-                    7: { outdoor: [4, 5, 6, 7], harvest: 90 },
-                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 90 },
-                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 90 },
-                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8], harvest: 90 }
-                },
-                companions: ["beans", "squash", "cucumbers", "melons"],
-                avoid: ["tomatoes"],
-                spacing: 12,
-                sun: "Full Sun",
-                water: "Deep watering",
-                soil: "Rich, well-draining"
-            },
-            potatoes: {
-                name: "Potatoes",
-                latin: "Solanum tuberosum",
-                icon: "🥔",
-                zones: {
-                    3: { outdoor: [5], harvest: 90 },
-                    4: { outdoor: [4, 5], harvest: 90 },
-                    5: { outdoor: [4, 5], harvest: 90 },
-                    6: { outdoor: [3, 4], harvest: 90 },
-                    7: { outdoor: [3, 4, 8], harvest: 90 },
-                    8: { outdoor: [2, 3, 8, 9], harvest: 90 },
-                    9: { outdoor: [1, 2, 9, 10], harvest: 90 },
-                    10: { outdoor: [1, 10, 11, 12], harvest: 90 }
-                },
-                companions: ["beans", "corn", "cabbage", "horseradish"],
-                avoid: ["tomatoes", "squash", "sunflowers"],
-                spacing: 12,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Loose, well-draining"
-            },
-            beets: {
-                name: "Beets",
-                latin: "Beta vulgaris",
-                icon: "🟣",
-                zones: {
-                    3: { outdoor: [5, 6, 7], harvest: 60 },
-                    4: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
-                    5: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
-                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
-                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
-                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10], harvest: 60 },
-                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11], harvest: 60 },
-                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 60 }
-                },
-                companions: ["lettuce", "onions", "kohlrabi", "garlic"],
-                avoid: ["pole beans"],
-                spacing: 4,
-                sun: "Full Sun",
-                water: "Consistent",
-                soil: "Loose, fertile"
-            },
-            eggplant: {
-                name: "Eggplant",
-                latin: "Solanum melongena",
-                icon: "🍆",
-                zones: {
-                    3: { indoor: [4, 5], transplant: [6], harvest: 80 },
-                    4: { indoor: [3, 4], transplant: [6], harvest: 80 },
-                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 80 },
-                    6: { indoor: [2, 3], transplant: [5], harvest: 80 },
-                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 80 },
-                    8: { indoor: [1, 2], transplant: [4], harvest: 80 },
-                    9: { indoor: [1, 2], transplant: [3, 4], harvest: 80 },
-                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4], harvest: 80 }
-                },
-                companions: ["beans", "peppers", "marigolds"],
-                avoid: ["fennel"],
-                spacing: 24,
-                sun: "Full Sun",
-                water: "Regular",
-                soil: "Rich, well-draining"
-            }
-        };
-        
-        // Zone data
-        const zoneData = {
-            3: { lastFrost: "May 15", firstFrost: "Sep 15", minTemp: -40 },
-            4: { lastFrost: "May 1", firstFrost: "Oct 1", minTemp: -30 },
-            5: { lastFrost: "April 15", firstFrost: "Oct 15", minTemp: -20 },
-            6: { lastFrost: "April 1", firstFrost: "Nov 1", minTemp: -10 },
-            7: { lastFrost: "March 15", firstFrost: "Nov 15", minTemp: 0 },
-            8: { lastFrost: "March 1", firstFrost: "Dec 1", minTemp: 10 },
-            9: { lastFrost: "February 15", firstFrost: "Dec 15", minTemp: 20 },
-            10: { lastFrost: "January 31", firstFrost: "December 31", minTemp: 30 }
-        };
-        
-        // ZIP to Zone mapping (simplified - in production would use full database)
-        const zipToZone = {
-            '100': 7, '101': 7, '102': 7, '103': 7, '104': 7, // NYC area
-            '200': 6, '201': 6, '202': 6, // DC area
-            '300': 8, '301': 8, '302': 8, // Atlanta area
-            '331': 9, '332': 9, '333': 9, // Miami area
-            '500': 5, '501': 5, '502': 5, // Des Moines area
-            '600': 6, '601': 6, '602': 6, // Chicago area
-            '700': 8, '701': 8, '702': 8, // New Orleans area
-            '750': 7, '751': 7, '752': 7, // Dallas area
-            '800': 5, '801': 5, '802': 5, // Denver area
-            '900': 10, '901': 10, '902': 10, // LA area
-            '941': 9, '942': 9, '943': 9, // San Francisco area
-            '980': 8, '981': 8, '982': 8 // Seattle area
-        };
-        
-        // Global variables
-        let currentZone = null;
-        let currentMonth = new Date().getMonth() + 1;
-        let selectedPlants = new Set();
-        let gardenSize = null;
-        
-        // Find zone from ZIP
-        function findZone() {
-            const zip = document.getElementById('zipCode').value;
-            if (zip.length !== 5) {
-                alert('Please enter a valid 5-digit ZIP code');
-                return;
-            }
-            
-            // Get first 3 digits for zone lookup
-            const prefix = zip.substring(0, 3);
-            const zone = zipToZone[prefix] || 6; // Default to zone 6
-            
-            setZone(zone);
+    });
+    
+    // Add bed size listeners
+    document.querySelectorAll('.bed-size-option').forEach(option => {
+        option.addEventListener('click', function() {
+            selectBedSize(this.dataset.size);
+        });
+    });
+    
+    // Enter key support for ZIP code
+    document.getElementById('zipCode').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            findZone();
         }
-        
-        // Set zone manually
-        function setManualZone() {
-            const zone = parseInt(document.getElementById('manualZone').value);
-            if (zone) {
-                setZone(zone);
-            }
-        }
-        
-        // Set zone and display info
-        function setZone(zone) {
-            console.log('Setting zone:', zone);
-            currentZone = zone;
-            const zoneInfo = zoneData[zone];
-            
-            if (!zoneInfo) {
-                console.error('No zone data for zone:', zone);
-                return;
-            }
-            
-            document.getElementById('userZone').textContent = zone;
-            document.getElementById('lastFrost').textContent = zoneInfo.lastFrost;
-            document.getElementById('firstFrost').textContent = zoneInfo.firstFrost;
-            
-            // Calculate growing days
-            const lastFrost = new Date('2024-' + zoneInfo.lastFrost);
-            const firstFrost = new Date('2024-' + zoneInfo.firstFrost);
-            const growingDays = Math.round((firstFrost - lastFrost) / (1000 * 60 * 60 * 24));
-            document.getElementById('growingDays').textContent = growingDays;
-            
-            // Show zone display
-            document.getElementById('zoneDisplay').classList.add('active');
-            document.getElementById('monthTabs').style.display = 'flex';
-            document.getElementById('plantingContent').style.display = 'block';
-            document.getElementById('companionSection').style.display = 'block';
-            document.getElementById('gardenPlanner').style.display = 'block';
-            document.getElementById('calendarView').style.display = 'block';
-            
-            // Auto-select current month
-            selectMonth(currentMonth);
-            
-            // Generate year calendar
-            generateYearCalendar();
-            
-            // Scroll to results
-            document.getElementById('zoneDisplay').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-        
-        // Select month
-        function selectMonth(month) {
-            console.log('Selecting month:', month);
-            currentMonth = month;
-            
-            // Update active tab
-            document.querySelectorAll('.month-tab').forEach((tab, index) => {
-                tab.classList.toggle('active', index + 1 === month);
-            });
-            
-            // Display plants for this month
-            displayPlantsForMonth();
-        }
-        
-        // Display plants for selected month
-        function displayPlantsForMonth() {
-            const indoorContainer = document.getElementById('indoorPlants');
-            const outdoorContainer = document.getElementById('outdoorPlants');
-            const transplantContainer = document.getElementById('transplantPlants');
-            
-            // Clear containers
-            indoorContainer.innerHTML = '';
-            outdoorContainer.innerHTML = '';
-            transplantContainer.innerHTML = '';
-            
-            // Check each plant
-            Object.entries(plantDatabase).forEach(([key, plant]) => {
-                const zoneInfo = plant.zones[currentZone];
-                if (!zoneInfo) return;
-                
-                // Check indoor starts
-                if (zoneInfo.indoor && zoneInfo.indoor.includes(currentMonth)) {
-                    indoorContainer.appendChild(createPlantCard(key, plant, 'start-indoors'));
+    });
+    
+    // Check for URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const zone = urlParams.get('zone');
+    if (zone) {
+        setZone(parseInt(zone));
+    }
+});
+</script>
+
+</body>
+</html>
