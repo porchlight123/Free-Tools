@@ -1,0 +1,1439 @@
+/* CTA Section */
+        .cta-section {
+            background: var(--gradient-1);
+            border-radius: 24px;
+            padding: 48px;
+            text-align: center;
+            margin-top: 48px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitcoin Mining Calculator 2024 - Free Profitability Calculator | Real-Time BTC Mining Costs</title>
+    <meta name="description" content="Calculate Bitcoin mining profitability instantly. Free calculator shows real-time costs, revenue, ROI & break-even analysis. Compare ASIC miners, electricity rates & pool fees.">
+    <meta name="keywords" content="bitcoin mining calculator, btc mining profitability, mining calculator 2024, bitcoin mining costs, ASIC miner calculator, crypto mining profitability, mining ROI calculator">
+    <link rel="canonical" href="https://yoursite.com/tools/bitcoin-mining-calculator">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Bitcoin Mining Calculator - Is BTC Mining Profitable in 2024?">
+    <meta property="og:description" content="Calculate your Bitcoin mining profitability with real-time difficulty, hash rates, and electricity costs. Free tool shows ROI, break-even point, and daily profits.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.com/tools/bitcoin-mining-calculator">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Bitcoin Mining Profitability Calculator",
+        "description": "Calculate Bitcoin mining profitability based on hash rate, power consumption, electricity cost, and current BTC price",
+        "url": "https://yoursite.com/tools/bitcoin-mining-calculator",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Modern, professional color palette */
+            --primary: #6366F1;
+            --primary-light: #818CF8;
+            --primary-dark: #4F46E5;
+            --secondary: #10B981;
+            --secondary-light: #34D399;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --dark: #111827;
+            --gray-900: #1F2937;
+            --gray-800: #374151;
+            --gray-700: #4B5563;
+            --gray-600: #6B7280;
+            --gray-500: #9CA3AF;
+            --gray-400: #D1D5DB;
+            --gray-300: #E5E7EB;
+            --gray-200: #F3F4F6;
+            --gray-100: #F9FAFB;
+            --white: #FFFFFF;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-900);
+            background-color: var(--gray-100);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Header */
+        .header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 15s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-30%, -30%) scale(1.1); }
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.025em;
+        }
+        
+        .header p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Live Stats Bar */
+        .stats-bar {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin: -40px auto 40px;
+            max-width: 1000px;
+            box-shadow: var(--shadow-xl);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+        
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: -12px;
+            top: 0;
+            height: 100%;
+            width: 1px;
+            background: var(--gray-300);
+        }
+        
+        @media (max-width: 768px) {
+            .stat-item::after {
+                display: none;
+            }
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 4px;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+        
+        .stat-value.live {
+            color: var(--primary);
+        }
+        
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--gray-900);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-top: 4px;
+        }
+        
+        .card-body {
+            padding: 24px;
+        }
+        
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+        
+        @media (max-width: 968px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 16px;
+            border: 2px solid var(--gray-300);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            background: white;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+        
+        .input-group {
+            display: flex;
+            align-items: stretch;
+            position: relative;
+        }
+        
+        .input-prefix,
+        .input-suffix {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-600);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .input-prefix {
+            left: 16px;
+        }
+        
+        .input-suffix {
+            right: 16px;
+        }
+        
+        .input-with-prefix {
+            padding-left: 40px;
+        }
+        
+        .input-with-suffix {
+            padding-right: 60px;
+        }
+        
+        /* Select */
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 20px;
+            padding-right: 48px;
+        }
+        
+        /* Range Slider */
+        .range-container {
+            margin-bottom: 24px;
+        }
+        
+        .range-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .range-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .form-range {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-300);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+            position: relative;
+        }
+        
+        .form-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+        }
+        
+        .form-range::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        
+        .form-range::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        /* Button */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(99, 102, 241, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 2px solid var(--gray-300);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-400);
+        }
+        
+        .btn-block {
+            width: 100%;
+        }
+        
+        /* Results Cards */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .result-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-1);
+        }
+        
+        .result-card.positive::before {
+            background: var(--gradient-3);
+        }
+        
+        .result-card.negative::before {
+            background: var(--gradient-2);
+        }
+        
+        .result-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .result-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 24px;
+        }
+        
+        .result-label {
+            font-size: 14px;
+            color: var(--gray-600);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .result-value {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.025em;
+        }
+        
+        .result-value.positive {
+            color: var(--secondary);
+        }
+        
+        .result-value.negative {
+            color: var(--danger);
+        }
+        
+        .result-subtitle {
+            font-size: 12px;
+            color: var(--gray-500);
+        }
+        
+        /* Progress Bar */
+        .progress {
+            height: 32px;
+            background: var(--gray-200);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: var(--gradient-1);
+            transition: width 0.6s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-top: 24px;
+        }
+        
+        .chart-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+            font-size: 18px;
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--gray-100);
+            padding: 4px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 20px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--gray-600);
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        
+        .tab:hover {
+            color: var(--gray-900);
+        }
+        
+        .tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        /* Table */
+        .table-container {
+            overflow-x: auto;
+            margin-top: 24px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        thead {
+            background: var(--gray-100);
+        }
+        
+        th {
+            padding: 16px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-600);
+        }
+        
+        td {
+            padding: 16px;
+            border-top: 1px solid var(--gray-200);
+            font-size: 14px;
+        }
+        
+        tbody tr:hover {
+            background: var(--gray-50);
+        }
+        
+        /* Badge */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 9999px;
+        }
+        
+        .badge-success {
+            background: var(--secondary-light);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+        }
+        
+        .badge-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        .badge-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            cursor: help;
+        }
+        
+        .tooltip-icon {
+            width: 16px;
+            height: 16px;
+            background: var(--gray-300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            color: var(--gray-600);
+            margin-left: 4px;
+        }
+        
+        .tooltip-content {
+            visibility: hidden;
+            width: 250px;
+            background: var(--gray-900);
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -125px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .tooltip-content::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: var(--gray-900) transparent transparent transparent;
+        }
+        
+        .tooltip:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Footer - Removed */
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--gray-300);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 32px;
+            }
+            
+            .header p {
+                font-size: 16px;
+            }
+            
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .tabs {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .cta-section {
+                padding: 32px 24px;
+            }
+            
+            .cta-title {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Bitcoin Mining Calculator</h1>
+            <p>Calculate your mining profitability with real-time data and advanced analytics</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Live Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-label">Bitcoin Price</div>
+                <div class="stat-value live">
+                    <span style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;" onclick="toggleBtcPriceInput()">
+                        $<span id="btcPrice">114,215</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                    </span>
+                    <input type="number" id="btcPriceInput" value="114215" style="display: none; width: 120px; padding: 4px 8px; border: 2px solid var(--primary); border-radius: 8px; font-size: 20px; font-weight: 700;" onblur="updateBtcPrice()" onkeypress="if(event.key==='Enter') updateBtcPrice()">
+                </div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Network Difficulty</div>
+                <div class="stat-value">72.01T</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Block Reward</div>
+                <div class="stat-value">3.125 BTC</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-label">Next Halving</div>
+                <div class="stat-value">~2028</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- Mining Setup Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="card-icon">⚙️</div>
+                        <div>
+                            <h2 class="card-title">Mining Configuration</h2>
+                            <p class="card-subtitle">Set up your mining hardware and costs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Miner Selection -->
+                    <div class="form-group">
+                        <label class="form-label">ASIC Miner Model</label>
+                        <select class="form-control form-select" id="minerSelect">
+                            <option value="custom">Custom Configuration</option>
+                            <option value="s19jpro" selected>Antminer S19J Pro (100 TH/s)</option>
+                            <option value="s19xp">Antminer S19 XP (140 TH/s)</option>
+                            <option value="m50s">Whatsminer M50S (126 TH/s)</option>
+                            <option value="m30s">Whatsminer M30S++ (112 TH/s)</option>
+                            <option value="s9">Antminer S9 (14 TH/s)</option>
+                        </select>
+                    </div>
+
+                    <!-- Hash Rate -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            Hash Rate
+                            <span class="tooltip">
+                                <span class="tooltip-icon">?</span>
+                                <span class="tooltip-content">
+                                    The computational power of your miner. Higher hash rate means more chances to mine Bitcoin successfully.
+                                </span>
+                            </span>
+                        </label>
+                        <div class="input-group">
+                            <input type="number" class="form-control input-with-suffix" id="hashRate" value="100" step="0.1">
+                            <span class="input-suffix">TH/s</span>
+                        </div>
+                    </div>
+
+                    <!-- Power Consumption -->
+                    <div class="form-group">
+                        <label class="form-label">Power Consumption</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control input-with-suffix" id="powerConsumption" value="3250" step="10">
+                            <span class="input-suffix">W</span>
+                        </div>
+                    </div>
+
+                    <!-- Electricity Cost -->
+                    <div class="range-container">
+                        <div class="range-header">
+                            <label class="form-label">Electricity Cost</label>
+                            <span class="range-value">$<span id="electricityCostValue">0.12</span>/kWh</span>
+                        </div>
+                        <input type="range" class="form-range" id="electricityCost" min="0" max="0.5" step="0.01" value="0.12">
+                        <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                            <span style="font-size: 12px; color: var(--gray-500);">$0/kWh</span>
+                            <span style="font-size: 12px; color: var(--gray-500);">$0.50/kWh</span>
+                        </div>
+                    </div>
+
+                    <!-- Pool Fee -->
+                    <div class="form-group">
+                        <label class="form-label">Mining Pool Fee</label>
+                        <div class="input-group">
+                            <input type="number" class="form-control input-with-suffix" id="poolFee" value="2" step="0.1" min="0" max="10">
+                            <span class="input-suffix">%</span>
+                        </div>
+                    </div>
+
+                    <!-- Hardware Cost -->
+                    <div class="form-group">
+                        <label class="form-label">Hardware Cost (Optional)</label>
+                        <div class="input-group">
+                            <span class="input-prefix">$</span>
+                            <input type="number" class="form-control input-with-prefix" id="hardwareCost" value="3000" step="100">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" onclick="calculateProfitability()">
+                        Calculate Profitability →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div style="display: flex; align-items: center; gap: 16px;">
+                        <div class="card-icon">📊</div>
+                        <div>
+                            <h2 class="card-title">Profitability Analysis</h2>
+                            <p class="card-subtitle">Your mining operation results</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="results-grid">
+                        <div class="result-card positive">
+                            <div class="result-icon">💰</div>
+                            <div class="result-label">Daily Profit</div>
+                            <div class="result-value positive" id="dailyProfit">$28.71</div>
+                            <div class="result-subtitle">After all costs</div>
+                        </div>
+                        
+                        <div class="result-card positive">
+                            <div class="result-icon">📅</div>
+                            <div class="result-label">Monthly Profit</div>
+                            <div class="result-value positive" id="monthlyProfit">$861.30</div>
+                            <div class="result-subtitle">30-day average</div>
+                        </div>
+                        
+                        <div class="result-card positive">
+                            <div class="result-icon">📈</div>
+                            <div class="result-label">Yearly Profit</div>
+                            <div class="result-value positive" id="yearlyProfit">$10,479</div>
+                            <div class="result-subtitle">Annual projection</div>
+                        </div>
+                        
+                        <div class="result-card">
+                            <div class="result-icon">⏱️</div>
+                            <div class="result-label">Break Even</div>
+                            <div class="result-value" id="breakEven">105 days</div>
+                            <div class="result-subtitle">ROI timeline</div>
+                        </div>
+                    </div>
+
+                    <!-- Profit Margin -->
+                    <div style="margin-top: 32px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+                            <span style="font-weight: 700; color: var(--gray-700);">Profit Margin</span>
+                            <span id="profitMarginPercent" style="color: var(--secondary); font-weight: 700;">73.9%</span>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" id="profitMarginBar" style="width: 73.9%;">73.9%</div>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown -->
+                    <div style="margin-top: 32px; padding: 20px; background: var(--gray-100); border-radius: 12px;">
+                        <h3 style="font-size: 16px; margin-bottom: 16px; color: var(--gray-700);">Daily Breakdown</h3>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: var(--gray-600);">Bitcoin Mined</span>
+                                <span style="font-weight: 700;">₿<span id="btcMined">0.000898</span></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: var(--gray-600);">Gross Revenue</span>
+                                <span style="font-weight: 700; color: var(--secondary);">$<span id="grossRevenue">38.85</span></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: var(--gray-600);">Electricity Cost</span>
+                                <span style="font-weight: 700; color: var(--danger);">-$<span id="electricityCostDaily">9.36</span></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;">
+                                <span style="color: var(--gray-600);">Pool Fees</span>
+                                <span style="font-weight: 700; color: var(--danger);">-$<span id="poolFeesDaily">0.78</span></span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; padding-top: 12px; border-top: 2px solid var(--gray-300);">
+                                <span style="font-weight: 700; color: var(--gray-700);">Net Profit</span>
+                                <span style="font-weight: 700; font-size: 20px; color: var(--secondary);">$<span id="netProfit">28.71</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Analysis -->
+        <div class="card">
+            <div class="card-body">
+                <div class="tabs">
+                    <button class="tab active" onclick="showTab('overview')">Overview</button>
+                    <button class="tab" onclick="showTab('projections')">Projections</button>
+                    <button class="tab" onclick="showTab('comparison')">Comparison</button>
+                    <button class="tab" onclick="showTab('scenarios')">Scenarios</button>
+                </div>
+
+                <!-- Overview Tab -->
+                <div id="overviewTab" class="tab-content">
+                    <h3 style="font-size: 18px; margin-bottom: 20px;">Mining Operation Summary</h3>
+                    
+                    <div class="results-grid">
+                        <div style="padding: 20px; background: var(--gray-100); border-radius: 12px;">
+                            <h4 style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">Hash Rate Efficiency</h4>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--primary);">32.5 J/TH</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">Power per terahash</div>
+                        </div>
+                        
+                        <div style="padding: 20px; background: var(--gray-100); border-radius: 12px;">
+                            <h4 style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">Daily Energy Usage</h4>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--primary);">78 kWh</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">24-hour consumption</div>
+                        </div>
+                        
+                        <div style="padding: 20px; background: var(--gray-100); border-radius: 12px;">
+                            <h4 style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">Mining Share</h4>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--primary);">0.000021%</div>
+                            <div style="font-size: 12px; color: var(--gray-500);">Of network hash rate</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <div class="chart-placeholder">
+                            <div style="text-align: center;">
+                                <div style="font-size: 48px; margin-bottom: 8px;">📊</div>
+                                <div>Revenue vs Costs Chart</div>
+                                <div style="font-size: 14px; color: var(--gray-400); margin-top: 8px;">Visual analysis available in pro version</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projections Tab -->
+                <div id="projectionsTab" class="tab-content" style="display: none;">
+                    <h3 style="font-size: 18px; margin-bottom: 20px;">Profit Projections</h3>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Time Period</th>
+                                    <th>BTC Mined</th>
+                                    <th>Revenue</th>
+                                    <th>Costs</th>
+                                    <th>Net Profit</th>
+                                    <th>Cumulative</th>
+                                </tr>
+                            </thead>
+                            <tbody id="projectionsTableBody">
+                                <tr>
+                                    <td>1 Day</td>
+                                    <td>₿0.000898</td>
+                                    <td>$38.85</td>
+                                    <td>$10.14</td>
+                                    <td><span class="badge badge-success">$28.71</span></td>
+                                    <td>$28.71</td>
+                                </tr>
+                                <tr>
+                                    <td>1 Week</td>
+                                    <td>₿0.006286</td>
+                                    <td>$271.95</td>
+                                    <td>$70.98</td>
+                                    <td><span class="badge badge-success">$200.97</span></td>
+                                    <td>$200.97</td>
+                                </tr>
+                                <tr>
+                                    <td>1 Month</td>
+                                    <td>₿0.026940</td>
+                                    <td>$1,165.50</td>
+                                    <td>$304.20</td>
+                                    <td><span class="badge badge-success">$861.30</span></td>
+                                    <td>$861.30</td>
+                                </tr>
+                                <tr>
+                                    <td>3 Months</td>
+                                    <td>₿0.080820</td>
+                                    <td>$3,496.50</td>
+                                    <td>$912.60</td>
+                                    <td><span class="badge badge-success">$2,583.90</span></td>
+                                    <td>$2,583.90</td>
+                                </tr>
+                                <tr>
+                                    <td>6 Months</td>
+                                    <td>₿0.161640</td>
+                                    <td>$6,993.00</td>
+                                    <td>$1,825.20</td>
+                                    <td><span class="badge badge-success">$5,167.80</span></td>
+                                    <td>$5,167.80</td>
+                                </tr>
+                                <tr>
+                                    <td>1 Year</td>
+                                    <td>₿0.327770</td>
+                                    <td>$14,178.00</td>
+                                    <td>$3,701.10</td>
+                                    <td><span class="badge badge-success">$10,476.90</span></td>
+                                    <td>$10,476.90</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Comparison Tab -->
+                <div id="comparisonTab" class="tab-content" style="display: none;">
+                    <h3 style="font-size: 18px; margin-bottom: 20px;">ASIC Miner Comparison</h3>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Model</th>
+                                    <th>Hash Rate</th>
+                                    <th>Power</th>
+                                    <th>Efficiency</th>
+                                    <th>Daily Profit</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Antminer S19 XP</strong></td>
+                                    <td>140 TH/s</td>
+                                    <td>3,010W</td>
+                                    <td>21.5 J/TH</td>
+                                    <td>$45.32</td>
+                                    <td><span class="badge badge-success">Most Efficient</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Whatsminer M50S</strong></td>
+                                    <td>126 TH/s</td>
+                                    <td>3,276W</td>
+                                    <td>26.0 J/TH</td>
+                                    <td>$36.84</td>
+                                    <td><span class="badge badge-success">Profitable</span></td>
+                                </tr>
+                                <tr style="background: var(--gray-100);">
+                                    <td><strong>Antminer S19J Pro</strong></td>
+                                    <td>100 TH/s</td>
+                                    <td>3,250W</td>
+                                    <td>32.5 J/TH</td>
+                                    <td>$28.71</td>
+                                    <td><span class="badge badge-success">Your Selection</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Whatsminer M30S++</strong></td>
+                                    <td>112 TH/s</td>
+                                    <td>3,472W</td>
+                                    <td>31.0 J/TH</td>
+                                    <td>$31.58</td>
+                                    <td><span class="badge badge-success">Profitable</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Antminer S9</strong></td>
+                                    <td>14 TH/s</td>
+                                    <td>1,375W</td>
+                                    <td>98.2 J/TH</td>
+                                    <td>$1.43</td>
+                                    <td><span class="badge badge-warning">Low Profit</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Scenarios Tab -->
+                <div id="scenariosTab" class="tab-content" style="display: none;">
+                    <h3 style="font-size: 18px; margin-bottom: 20px;">Market Scenarios</h3>
+                    
+                    <div class="range-container">
+                        <div class="range-header">
+                            <label class="form-label">Bitcoin Price Simulation</label>
+                            <span class="range-value">$<span id="btcSimPrice">114,215</span></span>
+                        </div>
+                        <input type="range" class="form-range" id="btcPriceSlider" min="50000" max="150000" step="1000" value="114215" oninput="updateScenario()">\                            <span style="font-size: 12px; color: var(--gray-500);">$50K</span>
+                            <span style="font-size: 12px; color: var(--gray-500);">$150K</span>
+                        <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                            <span style="font-size: 12px; color: var(--gray-500);">$20K</span>
+                            <span style="font-size: 12px; color: var(--gray-500);">$150K</span>
+                        </div>
+                    </div>
+
+                    <div class="results-grid" style="margin-top: 24px;">
+                        <div style="padding: 20px; background: var(--gray-100); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">Daily Profit</div>
+                            <div style="font-size: 28px; font-weight: 700; color: var(--secondary);" id="scenarioDailyProfit">$28.71</div>
+                        </div>
+                        <div style="padding: 20px; background: var(--gray-100); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">Monthly Profit</div>
+                            <div style="font-size: 28px; font-weight: 700; color: var(--secondary);" id="scenarioMonthlyProfit">$861.30</div>
+                        </div>
+                        <div style="padding: 20px; background: var(--gray-100); border-radius: 12px; text-align: center;">
+                            <div style="font-size: 14px; color: var(--gray-600); margin-bottom: 8px;">Break Even</div>
+                            <div style="font-size: 28px; font-weight: 700; color: var(--primary);" id="scenarioBreakEven">105 days</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 32px; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; border: 1px solid rgba(99, 102, 241, 0.2);">
+                        <h4 style="font-size: 16px; margin-bottom: 12px; color: var(--primary);">⚡ Key Insights</h4>
+                        <ul style="margin: 0; padding-left: 20px; color: var(--gray-700);">
+                            <li>Mining remains profitable above $<span id="breakEvenPrice">11,600</span> BTC price</li>
+                            <li>Every $10K increase in BTC price adds ~$<span id="profitPerIncrease">7.42</span> to daily profit</li>
+                            <li>Current electricity rate allows profitability up to <span id="maxDifficulty">95T</span> network difficulty</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Miner presets
+        const minerPresets = {
+            s19jpro: { hashRate: 100, power: 3250, cost: 3000 },
+            s19xp: { hashRate: 140, power: 3010, cost: 8000 },
+            m50s: { hashRate: 126, power: 3276, cost: 7000 },
+            m30s: { hashRate: 112, power: 3472, cost: 5000 },
+            s9: { hashRate: 14, power: 1375, cost: 500 }
+        };
+
+        // Bitcoin network constants (would be fetched from API in production)
+        let btcPrice = 114215; // Current Bitcoin price as of August 2025
+        const blockReward = 3.125; // Post-halving April 2024
+        const blocksPerDay = 144;
+        const networkHashRate = 475000000; // TH/s
+        const difficulty = 72.01; // Trillion
+
+        // Toggle BTC price input
+        function toggleBtcPriceInput() {
+            const priceDisplay = document.getElementById('btcPrice').parentElement;
+            const priceInput = document.getElementById('btcPriceInput');
+            
+            if (priceInput.style.display === 'none') {
+                priceDisplay.style.display = 'none';
+                priceInput.style.display = 'block';
+                priceInput.focus();
+                priceInput.select();
+            } else {
+                priceDisplay.style.display = 'inline-flex';
+                priceInput.style.display = 'none';
+            }
+        }
+
+        // Update BTC price from input
+        function updateBtcPrice() {
+            const newPrice = parseFloat(document.getElementById('btcPriceInput').value);
+            if (newPrice && newPrice > 0) {
+                btcPrice = newPrice;
+                document.getElementById('btcPrice').textContent = btcPrice.toLocaleString();
+                document.getElementById('btcPriceSlider').value = btcPrice;
+                document.getElementById('btcSimPrice').textContent = btcPrice.toLocaleString();
+                calculateProfitability();
+            }
+            toggleBtcPriceInput();
+        }
+
+        // Update electricity cost display
+        document.getElementById('electricityCost').addEventListener('input', function(e) {
+            document.getElementById('electricityCostValue').textContent = e.target.value;
+        });
+
+        // Handle miner selection
+        document.getElementById('minerSelect').addEventListener('change', function(e) {
+            const preset = minerPresets[e.target.value];
+            if (preset) {
+                document.getElementById('hashRate').value = preset.hashRate;
+                document.getElementById('powerConsumption').value = preset.power;
+                document.getElementById('hardwareCost').value = preset.cost;
+                calculateProfitability();
+            }
+        });
+
+        // Calculate profitability
+        function calculateProfitability() {
+            // Get inputs
+            const hashRate = parseFloat(document.getElementById('hashRate').value);
+            const powerConsumption = parseFloat(document.getElementById('powerConsumption').value);
+            const electricityCost = parseFloat(document.getElementById('electricityCost').value);
+            const poolFee = parseFloat(document.getElementById('poolFee').value) / 100;
+            const hardwareCost = parseFloat(document.getElementById('hardwareCost').value) || 0;
+
+            // Calculate daily BTC mined
+            const myHashRateShare = hashRate / networkHashRate;
+            const btcMinedDaily = myHashRateShare * blockReward * blocksPerDay;
+            
+            // Calculate revenue
+            const grossRevenueDaily = btcMinedDaily * btcPrice;
+            const poolFeesDaily = grossRevenueDaily * poolFee;
+            const revenueAfterFeesDaily = grossRevenueDaily - poolFeesDaily;
+
+            // Calculate costs
+            const powerConsumptionKWh = (powerConsumption / 1000) * 24;
+            const electricityCostDaily = powerConsumptionKWh * electricityCost;
+
+            // Calculate profit
+            const dailyProfit = revenueAfterFeesDaily - electricityCostDaily;
+            const monthlyProfit = dailyProfit * 30;
+            const yearlyProfit = dailyProfit * 365;
+
+            // Calculate ROI
+            const breakEvenDays = hardwareCost > 0 && dailyProfit > 0 ? Math.ceil(hardwareCost / dailyProfit) : 0;
+
+            // Calculate profit margin
+            const profitMargin = grossRevenueDaily > 0 ? (dailyProfit / grossRevenueDaily) * 100 : 0;
+
+            // Update UI
+            updateResults({
+                btcMinedDaily,
+                grossRevenueDaily,
+                poolFeesDaily,
+                electricityCostDaily,
+                dailyProfit,
+                monthlyProfit,
+                yearlyProfit,
+                breakEvenDays,
+                profitMargin
+            });
+        }
+
+        // Update results display
+        function updateResults(results) {
+            // Update profit values
+            document.getElementById('dailyProfit').textContent = formatCurrency(results.dailyProfit);
+            document.getElementById('monthlyProfit').textContent = formatCurrency(results.monthlyProfit);
+            document.getElementById('yearlyProfit').textContent = formatCurrency(results.yearlyProfit);
+            
+            // Update colors based on profitability
+            const profitElements = ['dailyProfit', 'monthlyProfit', 'yearlyProfit'];
+            profitElements.forEach(id => {
+                const element = document.getElementById(id);
+                element.className = results.dailyProfit >= 0 ? 'result-value positive' : 'result-value negative';
+            });
+
+            // Update result cards
+            const resultCards = document.querySelectorAll('.result-card');
+            resultCards.forEach((card, index) => {
+                if (index < 3) { // First three cards are profit cards
+                    card.className = results.dailyProfit >= 0 ? 'result-card positive' : 'result-card negative';
+                }
+            });
+
+            // Update break-even
+            if (results.breakEvenDays > 0 && results.dailyProfit > 0) {
+                document.getElementById('breakEven').textContent = results.breakEvenDays + ' days';
+            } else if (results.dailyProfit <= 0) {
+                document.getElementById('breakEven').textContent = 'Never';
+            } else {
+                document.getElementById('breakEven').textContent = 'N/A';
+            }
+
+            // Update profit margin
+            document.getElementById('profitMarginPercent').textContent = results.profitMargin.toFixed(1) + '%';
+            document.getElementById('profitMarginBar').style.width = Math.max(0, results.profitMargin) + '%';
+            document.getElementById('profitMarginBar').textContent = results.profitMargin.toFixed(1) + '%';
+
+            // Update cost breakdown
+            document.getElementById('btcMined').textContent = results.btcMinedDaily.toFixed(6);
+            document.getElementById('grossRevenue').textContent = results.grossRevenueDaily.toFixed(2);
+            document.getElementById('electricityCostDaily').textContent = results.electricityCostDaily.toFixed(2);
+            document.getElementById('poolFeesDaily').textContent = results.poolFeesDaily.toFixed(2);
+            document.getElementById('netProfit').textContent = results.dailyProfit.toFixed(2);
+        }
+
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.style.display = 'none';
+            });
+            
+            // Remove active class from all tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').style.display = 'block';
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        // Update scenario analysis
+        function updateScenario() {
+            const newBtcPrice = parseFloat(document.getElementById('btcPriceSlider').value);
+            document.getElementById('btcSimPrice').textContent = newBtcPrice.toLocaleString();
+            
+            // Update main BTC price as well
+            btcPrice = newBtcPrice;
+            document.getElementById('btcPrice').textContent = btcPrice.toLocaleString();
+            document.getElementById('btcPriceInput').value = btcPrice;
+            
+            // Recalculate with new BTC price
+            const hashRate = parseFloat(document.getElementById('hashRate').value);
+            const electricityCost = parseFloat(document.getElementById('electricityCost').value);
+            const powerConsumption = parseFloat(document.getElementById('powerConsumption').value);
+            const poolFee = parseFloat(document.getElementById('poolFee').value) / 100;
+            
+            // Calculate with new price
+            const myHashRateShare = hashRate / networkHashRate;
+            const btcMinedDaily = myHashRateShare * blockReward * blocksPerDay;
+            const grossRevenue = btcMinedDaily * newBtcPrice;
+            const poolFeesDaily = grossRevenue * poolFee;
+            const powerConsumptionKWh = (powerConsumption / 1000) * 24;
+            const electricityCostDaily = powerConsumptionKWh * electricityCost;
+            const dailyProfit = grossRevenue - poolFeesDaily - electricityCostDaily;
+            
+            // Update scenario display
+            document.getElementById('scenarioDailyProfit').textContent = formatCurrency(dailyProfit);
+            document.getElementById('scenarioMonthlyProfit').textContent = formatCurrency(dailyProfit * 30);
+            
+            const hardwareCost = parseFloat(document.getElementById('hardwareCost').value) || 3000;
+            const breakEven = dailyProfit > 0 ? Math.ceil(hardwareCost / dailyProfit) : 'Never';
+            document.getElementById('scenarioBreakEven').textContent = breakEven + (breakEven !== 'Never' ? ' days' : '');
+            
+            // Update scenario profit color
+            const profitColor = dailyProfit >= 0 ? 'var(--secondary)' : 'var(--danger)';
+            document.getElementById('scenarioDailyProfit').style.color = profitColor;
+            document.getElementById('scenarioMonthlyProfit').style.color = profitColor;
+        }
+
+        // Format currency
+        function formatCurrency(value) {
+            const formatted = Math.abs(value).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return (value < 0 ? '-$' : '$') + formatted;
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            calculateProfitability();
+            
+            // Auto-calculate on input changes
+            const inputs = ['hashRate', 'powerConsumption', 'electricityCost', 'poolFee', 'hardwareCost'];
+            inputs.forEach(id => {
+                document.getElementById(id).addEventListener('input', calculateProfitability);
+            });
+        });
+    </script>
+</body>
+</html>
