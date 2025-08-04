@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Garden Planting Calendar 2024 - Find What to Plant Now by Zone</title>
+    <meta name="description" content="Discover what to plant this month in your garden. Free planting calendar by USDA zone, companion planting guide, and garden planning tools. Know exactly when to start seeds and transplant.">
+    <meta name="keywords" content="planting calendar, when to plant vegetables, garden planner, planting guide by zone, vegetable planting calendar, companion planting chart, succession planting calculator">
+    <link rel="canonical" href="https://yoursite.com/tools/garden-planting-calendar">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Garden Planting Calendar - What to Plant Now in Your Zone">
+    <meta property="og:description" content="Never miss planting time again. Get your personalized planting calendar, companion planting guide, and harvest timeline based on your USDA zone.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.com/tools/garden-planting-calendar">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Garden Planting Calendar",
+        "description": "Interactive planting calendar and garden planning tool based on USDA hardiness zones",
+        "url": "https://yoursite.com/tools/garden-planting-calendar",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #2d6e3e;
+            --primary-dark: #1e4d2b;
+            --secondary: #8bc34a;
+            --accent: #ff6b35;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --info: #2196f3;
+            --background: #f8faf6;
+            --card-bg: #ffffff;
+            --text-primary: #212121;
+            --text-secondary: #616161;
+            --border: #e0e0e0;
+            --shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--background);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '🌱';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            transform: rotate(-15deg);
+        }
+        
+        header::after {
+            content: '🌿';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            bottom: -40px;
+            left: -30px;
+            transform: rotate(20deg);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Zone Selector */
+        .zone-selector {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin: -40px auto 32px;
+            max-width: 800px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .zone-selector h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--primary);
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .input-group input {
+            flex: 1;
+            min-width: 200px;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(45, 110, 62, 0.3);
+        }
+        
+        .zone-display {
+            display: none;
+            text-align: center;
+            margin-top: 24px;
+            padding: 20px;
+            background: var(--background);
+            border-radius: 12px;
+        }
+        
+        .zone-display.active {
+            display: block;
+        }
+        
+        .zone-info {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        
+        .zone-stat {
+            text-align: center;
+        }
+        
+        .zone-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .zone-stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Month Tabs */
+        .month-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+        
+        .month-tab {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+        
+        .month-tab:hover {
+            border-color: var(--primary);
+            background: rgba(45, 110, 62, 0.05);
+        }
+        
+        .month-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        /* Plant Grid */
+        .planting-section {
+            margin-bottom: 48px;
+        }
+        
+        .planting-section h3 {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .plant-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .plant-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plant-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .plant-card.selected {
+            border: 2px solid var(--primary);
+        }
+        
+        .plant-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .plant-icon {
+            font-size: 2.5rem;
+        }
+        
+        .plant-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .plant-latin {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        .plant-details {
+            display: grid;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .plant-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .plant-detail-label {
+            color: var(--text-secondary);
+        }
+        
+        .plant-detail-value {
+            font-weight: 500;
+        }
+        
+        .action-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        
+        .action-type.start-indoors {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .action-type.direct-sow {
+            background: #f1f8e9;
+            color: #558b2f;
+        }
+        
+        .action-type.transplant {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        /* Companion Planting Section */
+        .companion-section {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        
+        .companion-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 24px;
+        }
+        
+        .companion-plant {
+            padding: 16px;
+            background: var(--background);
+            border-radius: 12px;
+        }
+        
+        .companion-plant h4 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+        
+        .companion-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .companion-item {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .good-companion {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .bad-companion {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        /* Garden Planner */
+        .garden-planner {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        
+        .bed-size-selector {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .bed-size-option {
+            flex: 1;
+            min-width: 150px;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .bed-size-option:hover {
+            border-color: var(--primary);
+            background: rgba(45, 110, 62, 0.05);
+        }
+        
+        .bed-size-option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+        }
+        
+        .garden-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 4px;
+            margin: 24px auto;
+            max-width: 400px;
+            background: var(--border);
+            padding: 4px;
+            border-radius: 8px;
+        }
+        
+        .garden-cell {
+            aspect-ratio: 1;
+            background: white;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .garden-cell:hover {
+            background: var(--background);
+        }
+        
+        .garden-cell.planted {
+            background: #e8f5e9;
+        }
+        
+        /* Shopping List */
+        .shopping-list {
+            background: #fffbf0;
+            border: 2px solid #ffecb3;
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 32px;
+        }
+        
+        .shopping-list h3 {
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .shopping-items {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .shopping-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+        }
+        
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .item-quantity {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .buy-button {
+            padding: 8px 16px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .buy-button:hover {
+            background: #e55a2b;
+            transform: translateY(-1px);
+        }
+        
+        /* Calendar View */
+        .calendar-view {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        
+        .calendar-legend {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .calendar-grid {
+            overflow-x: auto;
+        }
+        
+        .calendar-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        
+        .calendar-table th,
+        .calendar-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+        
+        .calendar-table th {
+            background: var(--background);
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .calendar-table th:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background: white;
+            z-index: 1;
+        }
+        
+        .plant-row td {
+            position: relative;
+        }
+        
+        .planting-bar {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 20px;
+            border-radius: 10px;
+            opacity: 0.8;
+        }
+        
+        .planting-bar.indoor {
+            background: #2196f3;
+        }
+        
+        .planting-bar.outdoor {
+            background: #4caf50;
+        }
+        
+        .planting-bar.transplant {
+            background: #ff9800;
+        }
+        
+        /* Print Styles */
+        .print-button {
+            padding: 12px 24px;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .print-button:hover {
+            background: #7cb342;
+            transform: translateY(-2px);
+        }
+        
+        /* Footer */
+        .footer-section {
+            background: var(--primary-dark);
+            color: white;
+            padding: 48px 20px;
+            margin-top: 64px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .tool-links {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .tool-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .tool-links a:hover {
+            opacity: 1;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .zone-selector {
+                padding: 24px 16px;
+                margin: -30px 16px 24px;
+            }
+            
+            .month-tabs {
+                justify-content: flex-start;
+            }
+            
+            .plant-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .garden-grid {
+                max-width: 300px;
+            }
+        }
+        
+        @media print {
+            header, .zone-selector, .btn, .buy-button {
+                display: none;
+            }
+            
+            .plant-card {
+                break-inside: avoid;
+            }
+        }
+        
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Garden Planting Calendar & Planner</h1>
+        <p class="subtitle">Find out what to plant right now based on your location and get a personalized planting schedule for the entire year</p>
+    </header>
+    
+    <div class="container">
+        <!-- Zone Selector -->
+        <div class="zone-selector">
+            <h2>Enter Your ZIP Code to Get Started</h2>
+            <div class="input-group">
+                <input type="text" id="zipCode" placeholder="Enter ZIP code (e.g., 10001)" maxlength="5">
+                <button class="btn" onclick="findZone()">Find My Zone</button>
+            </div>
+            <p style="text-align: center; color: var(--text-secondary); margin-top: 8px;">
+                Or manually select zone: 
+                <select id="manualZone" onchange="setManualZone()" style="margin-left: 8px; padding: 4px 8px;">
+                    <option value="">Choose zone...</option>
+                    <option value="3">Zone 3 (-40 to -30°F)</option>
+                    <option value="4">Zone 4 (-30 to -20°F)</option>
+                    <option value="5">Zone 5 (-20 to -10°F)</option>
+                    <option value="6">Zone 6 (-10 to 0°F)</option>
+                    <option value="7">Zone 7 (0 to 10°F)</option>
+                    <option value="8">Zone 8 (10 to 20°F)</option>
+                    <option value="9">Zone 9 (20 to 30°F)</option>
+                    <option value="10">Zone 10 (30 to 40°F)</option>
+                </select>
+            </p>
+            
+            <div class="zone-display" id="zoneDisplay">
+                <h3 style="color: var(--primary); margin-bottom: 16px;">Your Growing Information</h3>
+                <div class="zone-info">
+                    <div class="zone-stat">
+                        <div class="zone-stat-value" id="userZone">6b</div>
+                        <div class="zone-stat-label">USDA Zone</div>
+                    </div>
+                    <div class="zone-stat">
+                        <div class="zone-stat-value" id="lastFrost">April 15</div>
+                        <div class="zone-stat-label">Last Frost</div>
+                    </div>
+                    <div class="zone-stat">
+                        <div class="zone-stat-value" id="firstFrost">Oct 15</div>
+                        <div class="zone-stat-label">First Frost</div>
+                    </div>
+                    <div class="zone-stat">
+                        <div class="zone-stat-value" id="growingDays">180</div>
+                        <div class="zone-stat-label">Growing Days</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Month Tabs -->
+        <div class="month-tabs" id="monthTabs" style="display: none;">
+            <div class="month-tab" onclick="selectMonth(1)">January</div>
+            <div class="month-tab" onclick="selectMonth(2)">February</div>
+            <div class="month-tab" onclick="selectMonth(3)">March</div>
+            <div class="month-tab" onclick="selectMonth(4)">April</div>
+            <div class="month-tab" onclick="selectMonth(5)">May</div>
+            <div class="month-tab" onclick="selectMonth(6)">June</div>
+            <div class="month-tab" onclick="selectMonth(7)">July</div>
+            <div class="month-tab" onclick="selectMonth(8)">August</div>
+            <div class="month-tab" onclick="selectMonth(9)">September</div>
+            <div class="month-tab" onclick="selectMonth(10)">October</div>
+            <div class="month-tab" onclick="selectMonth(11)">November</div>
+            <div class="month-tab" onclick="selectMonth(12)">December</div>
+        </div>
+        
+        <!-- Planting Recommendations -->
+        <div id="plantingContent" style="display: none;">
+            <!-- Start Indoors -->
+            <div class="planting-section">
+                <h3>🌱 Start Indoors This Month</h3>
+                <div class="plant-grid" id="indoorPlants"></div>
+            </div>
+            
+            <!-- Direct Sow -->
+            <div class="planting-section">
+                <h3>🌿 Direct Sow Outdoors</h3>
+                <div class="plant-grid" id="outdoorPlants"></div>
+            </div>
+            
+            <!-- Transplant -->
+            <div class="planting-section">
+                <h3>🌳 Transplant This Month</h3>
+                <div class="plant-grid" id="transplantPlants"></div>
+            </div>
+        </div>
+        
+        <!-- Companion Planting Guide -->
+        <div class="companion-section" id="companionSection" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 8px;">Companion Planting Guide</h2>
+            <p style="text-align: center; color: var(--text-secondary); margin-bottom: 24px;">
+                Click on plants above to see their best companions and what to avoid planting nearby
+            </p>
+            <div class="companion-grid" id="companionGrid"></div>
+        </div>
+        
+        <!-- Garden Bed Planner -->
+        <div class="garden-planner" id="gardenPlanner" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 24px;">Plan Your Garden Bed</h2>
+            
+            <div class="bed-size-selector">
+                <div class="bed-size-option" onclick="selectBedSize('4x4')">
+                    <strong>4×4 ft</strong><br>
+                    <span style="font-size: 0.9rem; color: var(--text-secondary);">16 sq ft</span>
+                </div>
+                <div class="bed-size-option" onclick="selectBedSize('4x8')">
+                    <strong>4×8 ft</strong><br>
+                    <span style="font-size: 0.9rem; color: var(--text-secondary);">32 sq ft</span>
+                </div>
+                <div class="bed-size-option" onclick="selectBedSize('6x6')">
+                    <strong>6×6 ft</strong><br>
+                    <span style="font-size: 0.9rem; color: var(--text-secondary);">36 sq ft</span>
+                </div>
+            </div>
+            
+            <div id="gardenGrid"></div>
+            
+            <div class="shopping-list" id="shoppingList" style="display: none;">
+                <h3>🛒 Your Garden Shopping List</h3>
+                <div class="shopping-items" id="shoppingItems"></div>
+            </div>
+        </div>
+        
+        <!-- Year Calendar View -->
+        <div class="calendar-view" id="calendarView" style="display: none;">
+            <h2 style="text-align: center; margin-bottom: 24px;">Your Year-Round Planting Calendar</h2>
+            <button class="print-button" onclick="window.print()">🖨️ Print Calendar</button>
+            
+            <div class="calendar-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #2196f3;"></div>
+                    <span>Start Indoors</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4caf50;"></div>
+                    <span>Direct Sow</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #ff9800;"></div>
+                    <span>Transplant</span>
+                </div>
+            </div>
+            
+            <div class="calendar-grid">
+                <table class="calendar-table" id="yearCalendar">
+                    <!-- Calendar will be generated here -->
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer-section">
+        <div class="footer-content">
+            <p>&copy; 2024 Porch Light. Free garden planning tools to help you grow.</p>
+            <div class="tool-links">
+                <a href="/tools">All Tools</a>
+                <a href="/how-to/garden">Garden Guides</a>
+                <a href="/products/garden">Garden Products</a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Plant Database
+        const plantDatabase = {
+            tomatoes: {
+                name: "Tomatoes",
+                latin: "Solanum lycopersicum",
+                icon: "🍅",
+                zones: {
+                    3: { indoor: [4, 5], transplant: [6], harvest: 85 },
+                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
+                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
+                    6: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
+                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 85 },
+                    8: { indoor: [1, 2], transplant: [3, 4], harvest: 85 },
+                    9: { indoor: [1, 2], transplant: [3, 4], outdoor: [4, 5], harvest: 85 },
+                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4, 5], harvest: 85 }
+                },
+                companions: ["basil", "carrots", "marigolds", "nasturtiums", "parsley"],
+                avoid: ["brassicas", "fennel", "corn"],
+                spacing: 24,
+                sun: "Full Sun",
+                water: "Regular",
+                soil: "Rich, well-draining"
+            },
+            lettuce: {
+                name: "Lettuce",
+                latin: "Lactuca sativa",
+                icon: "🥬",
+                zones: {
+                    3: { outdoor: [5, 6, 7, 8], harvest: 45 },
+                    4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
+                    5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 45 },
+                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
+                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 45 },
+                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10, 11], harvest: 45 },
+                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11, 12], harvest: 45 },
+                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 45 }
+                },
+                companions: ["carrots", "radishes", "strawberries", "cucumbers"],
+                avoid: ["broccoli", "cabbage"],
+                spacing: 6,
+                sun: "Partial Shade OK",
+                water: "Keep moist",
+                soil: "Cool, moist soil",
+                succession: true
+            },
+            peppers: {
+                name: "Peppers",
+                latin: "Capsicum annuum",
+                icon: "🌶️",
+                zones: {
+                    3: { indoor: [4, 5], transplant: [6], harvest: 75 },
+                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
+                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 75 },
+                    6: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
+                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 75 },
+                    8: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
+                    9: { indoor: [1, 2], transplant: [3, 4], harvest: 75 },
+                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4], harvest: 75 }
+                },
+                companions: ["basil", "tomatoes", "spinach", "onions"],
+                avoid: ["fennel", "kohlrabi"],
+                spacing: 18,
+                sun: "Full Sun",
+                water: "Regular",
+                soil: "Well-draining"
+            },
+            cucumbers: {
+                name: "Cucumbers",
+                latin: "Cucumis sativus",
+                icon: "🥒",
+                zones: {
+                    3: { outdoor: [6], harvest: 60 },
+                    4: { outdoor: [5, 6], harvest: 60 },
+                    5: { outdoor: [5, 6], harvest: 60 },
+                    6: { outdoor: [4, 5, 6], harvest: 60 },
+                    7: { outdoor: [4, 5, 6, 7], harvest: 60 },
+                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
+                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
+                },
+                companions: ["beans", "peas", "radishes", "sunflowers"],
+                avoid: ["sage", "aromatic herbs"],
+                spacing: 36,
+                sun: "Full Sun",
+                water: "Consistent",
+                soil: "Rich, moist"
+            },
+            basil: {
+                name: "Basil",
+                latin: "Ocimum basilicum",
+                icon: "🌿",
+                zones: {
+                    3: { indoor: [4], transplant: [6], harvest: 60 },
+                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
+                    5: { indoor: [3], transplant: [5], outdoor: [5, 6], harvest: 60 },
+                    6: { indoor: [2, 3], transplant: [4, 5], outdoor: [5, 6], harvest: 60 },
+                    7: { indoor: [2], transplant: [4], outdoor: [4, 5, 6], harvest: 60 },
+                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 60 },
+                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
+                },
+                companions: ["tomatoes", "peppers", "oregano", "lettuce"],
+                avoid: ["rue", "sage"],
+                spacing: 12,
+                sun: "Full Sun",
+                water: "Regular",
+                soil: "Well-draining"
+            },
+            carrots: {
+                name: "Carrots",
+                latin: "Daucus carota",
+                icon: "🥕",
+                zones: {
+                    3: { outdoor: [5, 6, 7], harvest: 75 },
+                    4: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
+                    5: { outdoor: [4, 5, 6, 7, 8], harvest: 75 },
+                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
+                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 75 },
+                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10], harvest: 75 },
+                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11], harvest: 75 },
+                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 75 }
+                },
+                companions: ["onions", "leeks", "rosemary", "sage", "lettuce"],
+                avoid: ["dill", "parsnips"],
+                spacing: 3,
+                sun: "Full Sun",
+                water: "Moderate",
+                soil: "Loose, sandy",
+                succession: true
+            },
+            beans: {
+                name: "Beans",
+                latin: "Phaseolus vulgaris",
+                icon: "🫘",
+                zones: {
+                    3: { outdoor: [6], harvest: 60 },
+                    4: { outdoor: [5, 6], harvest: 60 },
+                    5: { outdoor: [5, 6, 7], harvest: 60 },
+                    6: { outdoor: [4, 5, 6, 7], harvest: 60 },
+                    7: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
+                    8: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+                    9: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 60 }
+                },
+                companions: ["corn", "squash", "strawberries", "cucumbers"],
+                avoid: ["onions", "garlic", "fennel"],
+                spacing: 6,
+                sun: "Full Sun",
+                water: "Regular",
+                soil: "Well-draining",
+                succession: true
+            },
+            squash: {
+                name: "Squash",
+                latin: "Cucurbita spp.",
+                icon: "🎃",
+                zones: {
+                    3: { indoor: [5], transplant: [6], harvest: 90 },
+                    4: { indoor: [4], transplant: [5, 6], harvest: 90 },
+                    5: { indoor: [4], transplant: [5], outdoor: [5, 6], harvest: 90 },
+                    6: { outdoor: [4, 5, 6], harvest: 90 },
+                    7: { outdoor: [4, 5, 6, 7], harvest: 90 },
+                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 90 },
+                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 90 },
+                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8], harvest: 90 }
+                },
+                companions: ["corn", "beans", "nasturtiums", "marigolds"],
+                avoid: ["potatoes"],
+                spacing: 48,
+                sun: "Full Sun",
+                water: "Deep watering",
+                soil: "Rich, composted"
+            },
+            kale: {
+                name: "Kale",
+                latin: "Brassica oleracea",
+                icon: "🥬",
+                zones: {
+                    3: { outdoor: [5, 6, 7, 8], harvest: 55 },
+                    4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 55 },
+                    5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 55 },
+                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 55 },
+                    7: { outdoor: [3, 4, 5, 8, 9, 10], harvest: 55 },
+                    8: { outdoor: [2, 3, 4, 9, 10, 11], harvest: 55 },
+                    9: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 55 },
+                    10: { outdoor: [1, 2, 3, 10, 11, 12], harvest: 55 }
+                },
+                companions: ["beets", "celery", "onions", "potatoes"],
+                avoid: ["tomatoes", "strawberries"],
+                spacing: 18,
+                sun: "Full to Partial",
+                water: "Consistent",
+                soil: "Rich, well-draining"
+            },
+            radishes: {
+                name: "Radishes",
+                latin: "Raphanus sativus",
+                icon: "🌱",
+                zones: {
+                    3: { outdoor: [5, 6, 7, 8], harvest: 30 },
+                    4: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 30 },
+                    5: { outdoor: [4, 5, 6, 7, 8, 9], harvest: 30 },
+                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 30 },
+                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9, 10], harvest: 30 },
+                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10, 11], harvest: 30 },
+                    9: { outdoor: [1, 2, 3, 4, 5, 9, 10, 11, 12], harvest: 30 },
+                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 30 }
+                },
+                companions: ["carrots", "lettuce", "peas", "spinach"],
+                avoid: ["hyssop", "turnips"],
+                spacing: 2,
+                sun: "Full to Partial",
+                water: "Consistent",
+                soil: "Loose, fertile",
+                succession: true
+            },
+            spinach: {
+                name: "Spinach",
+                latin: "Spinacia oleracea",
+                icon: "🍃",
+                zones: {
+                    3: { outdoor: [5, 6, 8], harvest: 45 },
+                    4: { outdoor: [4, 5, 6, 8, 9], harvest: 45 },
+                    5: { outdoor: [4, 5, 6, 8, 9], harvest: 45 },
+                    6: { outdoor: [3, 4, 5, 9, 10], harvest: 45 },
+                    7: { outdoor: [3, 4, 5, 9, 10, 11], harvest: 45 },
+                    8: { outdoor: [2, 3, 4, 10, 11], harvest: 45 },
+                    9: { outdoor: [1, 2, 3, 11, 12], harvest: 45 },
+                    10: { outdoor: [1, 2, 11, 12], harvest: 45 }
+                },
+                companions: ["strawberries", "radishes", "beans"],
+                avoid: ["potatoes"],
+                spacing: 6,
+                sun: "Partial Shade OK",
+                water: "Keep moist",
+                soil: "Rich, moist",
+                succession: true
+            },
+            peas: {
+                name: "Peas",
+                latin: "Pisum sativum",
+                icon: "🟢",
+                zones: {
+                    3: { outdoor: [5, 6], harvest: 70 },
+                    4: { outdoor: [4, 5, 6], harvest: 70 },
+                    5: { outdoor: [3, 4, 5], harvest: 70 },
+                    6: { outdoor: [3, 4, 5, 9], harvest: 70 },
+                    7: { outdoor: [2, 3, 4, 9, 10], harvest: 70 },
+                    8: { outdoor: [2, 3, 10, 11], harvest: 70 },
+                    9: { outdoor: [1, 2, 11, 12], harvest: 70 },
+                    10: { outdoor: [1, 12], harvest: 70 }
+                },
+                companions: ["carrots", "turnips", "radishes", "cucumbers"],
+                avoid: ["onions", "garlic"],
+                spacing: 4,
+                sun: "Full to Partial",
+                water: "Regular",
+                soil: "Well-draining"
+            },
+            herbs: {
+                name: "Mixed Herbs",
+                latin: "Various",
+                icon: "🌱",
+                zones: {
+                    3: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
+                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 60 },
+                    5: { indoor: [2, 3], transplant: [4, 5], outdoor: [5, 6], harvest: 60 },
+                    6: { indoor: [2], transplant: [4], outdoor: [4, 5, 6, 7], harvest: 60 },
+                    7: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 60 },
+                    8: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+                    9: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9, 10], harvest: 60 },
+                    10: { outdoor: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], harvest: 60 }
+                },
+                companions: ["most vegetables"],
+                avoid: ["varies by herb"],
+                spacing: 12,
+                sun: "Full Sun",
+                water: "Moderate",
+                soil: "Well-draining"
+            },
+            onions: {
+                name: "Onions",
+                latin: "Allium cepa",
+                icon: "🧅",
+                zones: {
+                    3: { indoor: [2, 3], transplant: [5], harvest: 100 },
+                    4: { indoor: [2, 3], transplant: [4, 5], harvest: 100 },
+                    5: { indoor: [1, 2], transplant: [4], outdoor: [4], harvest: 100 },
+                    6: { indoor: [1, 2], transplant: [3, 4], outdoor: [3, 4], harvest: 100 },
+                    7: { indoor: [1], transplant: [3], outdoor: [2, 3, 10], harvest: 100 },
+                    8: { outdoor: [2, 3, 10, 11], harvest: 100 },
+                    9: { outdoor: [1, 2, 11, 12], harvest: 100 },
+                    10: { outdoor: [1, 11, 12], harvest: 100 }
+                },
+                companions: ["carrots", "lettuce", "strawberries", "cabbage"],
+                avoid: ["beans", "peas"],
+                spacing: 4,
+                sun: "Full Sun",
+                water: "Moderate",
+                soil: "Well-draining"
+            },
+            broccoli: {
+                name: "Broccoli",
+                latin: "Brassica oleracea",
+                icon: "🥦",
+                zones: {
+                    3: { indoor: [4, 5], transplant: [5, 6], harvest: 85 },
+                    4: { indoor: [3, 4], transplant: [5, 6], harvest: 85 },
+                    5: { indoor: [3, 4], transplant: [4, 5], outdoor: [8], harvest: 85 },
+                    6: { indoor: [2, 3], transplant: [4], outdoor: [8, 9], harvest: 85 },
+                    7: { indoor: [2], transplant: [3, 4], outdoor: [8, 9], harvest: 85 },
+                    8: { indoor: [1], transplant: [3], outdoor: [9, 10], harvest: 85 },
+                    9: { outdoor: [1, 2, 9, 10, 11], harvest: 85 },
+                    10: { outdoor: [1, 2, 10, 11, 12], harvest: 85 }
+                },
+                companions: ["onions", "garlic", "beets", "lettuce"],
+                avoid: ["tomatoes", "strawberries"],
+                spacing: 18,
+                sun: "Full Sun",
+                water: "Consistent",
+                soil: "Rich, moist"
+            },
+            zucchini: {
+                name: "Zucchini",
+                latin: "Cucurbita pepo",
+                icon: "🥒",
+                zones: {
+                    3: { outdoor: [6], harvest: 55 },
+                    4: { outdoor: [5, 6], harvest: 55 },
+                    5: { outdoor: [5, 6], harvest: 55 },
+                    6: { outdoor: [4, 5, 6, 7], harvest: 55 },
+                    7: { outdoor: [4, 5, 6, 7], harvest: 55 },
+                    8: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 55 },
+                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 55 },
+                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8, 9], harvest: 55 }
+                },
+                companions: ["nasturtiums", "beans", "oregano"],
+                avoid: ["potatoes"],
+                spacing: 36,
+                sun: "Full Sun",
+                water: "Regular",
+                soil: "Rich, well-draining"
+            },
+            corn: {
+                name: "Corn",
+                latin: "Zea mays",
+                icon: "🌽",
+                zones: {
+                    3: { outdoor: [6], harvest: 90 },
+                    4: { outdoor: [5, 6], harvest: 90 },
+                    5: { outdoor: [5, 6], harvest: 90 },
+                    6: { outdoor: [4, 5, 6], harvest: 90 },
+                    7: { outdoor: [4, 5, 6, 7], harvest: 90 },
+                    8: { outdoor: [3, 4, 5, 6, 7], harvest: 90 },
+                    9: { outdoor: [3, 4, 5, 6, 7, 8], harvest: 90 },
+                    10: { outdoor: [2, 3, 4, 5, 6, 7, 8], harvest: 90 }
+                },
+                companions: ["beans", "squash", "cucumbers", "melons"],
+                avoid: ["tomatoes"],
+                spacing: 12,
+                sun: "Full Sun",
+                water: "Deep watering",
+                soil: "Rich, well-draining"
+            },
+            potatoes: {
+                name: "Potatoes",
+                latin: "Solanum tuberosum",
+                icon: "🥔",
+                zones: {
+                    3: { outdoor: [5], harvest: 90 },
+                    4: { outdoor: [4, 5], harvest: 90 },
+                    5: { outdoor: [4, 5], harvest: 90 },
+                    6: { outdoor: [3, 4], harvest: 90 },
+                    7: { outdoor: [3, 4, 8], harvest: 90 },
+                    8: { outdoor: [2, 3, 8, 9], harvest: 90 },
+                    9: { outdoor: [1, 2, 9, 10], harvest: 90 },
+                    10: { outdoor: [1, 10, 11, 12], harvest: 90 }
+                },
+                companions: ["beans", "corn", "cabbage", "horseradish"],
+                avoid: ["tomatoes", "squash", "sunflowers"],
+                spacing: 12,
+                sun: "Full Sun",
+                water: "Regular",
+                soil: "Loose, well-draining"
+            },
+            beets: {
+                name: "Beets",
+                latin: "Beta vulgaris",
+                icon: "🟣",
+                zones: {
+                    3: { outdoor: [5, 6, 7], harvest: 60 },
+                    4: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
+                    5: { outdoor: [4, 5, 6, 7, 8], harvest: 60 },
+                    6: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+                    7: { outdoor: [3, 4, 5, 6, 7, 8, 9], harvest: 60 },
+                    8: { outdoor: [2, 3, 4, 5, 8, 9, 10], harvest: 60 },
+                    9: { outdoor: [1, 2, 3, 4, 9, 10, 11], harvest: 60 },
+                    10: { outdoor: [1, 2, 3, 4, 10, 11, 12], harvest: 60 }
+                },
+                companions: ["lettuce", "onions", "kohlrabi", "garlic"],
+                avoid: ["pole beans"],
+                spacing: 4,
+                sun: "Full Sun",
+                water: "Consistent",
+                soil: "Loose, fertile"
+            },
+            eggplant: {
+                name: "Eggplant",
+                latin: "Solanum melongena",
+                icon: "🍆",
+                zones: {
+                    3: { indoor: [4, 5], transplant: [6], harvest: 80 },
+                    4: { indoor: [3, 4], transplant: [6], harvest: 80 },
+                    5: { indoor: [3, 4], transplant: [5, 6], harvest: 80 },
+                    6: { indoor: [2, 3], transplant: [5], harvest: 80 },
+                    7: { indoor: [2, 3], transplant: [4, 5], harvest: 80 },
+                    8: { indoor: [1, 2], transplant: [4], harvest: 80 },
+                    9: { indoor: [1, 2], transplant: [3, 4], harvest: 80 },
+                    10: { indoor: [1], transplant: [2, 3], outdoor: [3, 4], harvest: 80 }
+                },
+                companions: ["beans", "peppers", "marigolds"],
+                avoid: ["fennel"],
+                spacing: 24,
+                sun: "Full Sun",
+                water: "Regular",
+                soil: "Rich, well-draining"
+            }
+        };
+        
+        // Zone data
+        const zoneData = {
+            3: { lastFrost: "May 15", firstFrost: "Sep 15", minTemp: -40 },
+            4: { lastFrost: "May 1", firstFrost: "Oct 1", minTemp: -30 },
+            5: { lastFrost: "April 15", firstFrost: "Oct 15", minTemp: -20 },
+            6: { lastFrost: "April 1", firstFrost: "Nov 1", minTemp: -10 },
+            7: { lastFrost: "March 15", firstFrost: "Nov 15", minTemp: 0 },
+            8: { lastFrost: "March 1", firstFrost: "Dec 1", minTemp: 10 },
+            9: { lastFrost: "February 15", firstFrost: "Dec 15", minTemp: 20 },
+            10: { lastFrost: "January 31", firstFrost: "December 31", minTemp: 30 }
+        };
+        
+        // ZIP to Zone mapping (simplified - in production would use full database)
+        const zipToZone = {
+            '100': 7, '101': 7, '102': 7, '103': 7, '104': 7, // NYC area
+            '200': 6, '201': 6, '202': 6, // DC area
+            '300': 8, '301': 8, '302': 8, // Atlanta area
+            '331': 9, '332': 9, '333': 9, // Miami area
+            '500': 5, '501': 5, '502': 5, // Des Moines area
+            '600': 6, '601': 6, '602': 6, // Chicago area
+            '700': 8, '701': 8, '702': 8, // New Orleans area
+            '750': 7, '751': 7, '752': 7, // Dallas area
+            '800': 5, '801': 5, '802': 5, // Denver area
+            '900': 10, '901': 10, '902': 10, // LA area
+            '941': 9, '942': 9, '943': 9, // San Francisco area
+            '980': 8, '981': 8, '982': 8 // Seattle area
+        };
+        
+        // Global variables
+        let currentZone = null;
+        let currentMonth = new Date().getMonth() + 1;
+        let selectedPlants = new Set();
+        let gardenSize = null;
+        
+        // Find zone from ZIP
+        function findZone() {
+            const zip = document.getElementById('zipCode').value;
+            if (zip.length !== 5) {
+                alert('Please enter a valid 5-digit ZIP code');
+                return;
+            }
+            
+            // Get first 3 digits for zone lookup
+            const prefix = zip.substring(0, 3);
+            const zone = zipToZone[prefix] || 6; // Default to zone 6
+            
+            setZone(zone);
+        }
+        
+        // Set zone manually
+        function setManualZone() {
+            const zone = parseInt(document.getElementById('manualZone').value);
+            if (zone) {
+                setZone(zone);
+            }
+        }
+        
+        // Set zone and display info
+        function setZone(zone) {
+            currentZone = zone;
+            const zoneInfo = zoneData[zone];
+            
+            document.getElementById('userZone').textContent = zone;
+            document.getElementById('lastFrost').textContent = zoneInfo.lastFrost;
+            document.getElementById('firstFrost').textContent = zoneInfo.firstFrost;
+            
+            // Calculate growing days
+            const lastFrost = new Date('2024-' + zoneInfo.lastFrost);
+            const firstFrost = new Date('2024-' + zoneInfo.firstFrost);
+            const growingDays = Math.round((firstFrost - lastFrost) / (1000 * 60 * 60 * 24));
+            document.getElementById('growingDays').textContent = growingDays;
+            
+            // Show zone display
+            document.getElementById('zoneDisplay').classList.add('active');
+            document.getElementById('monthTabs').style.display = 'flex';
+            document.getElementById('plantingContent').style.display = 'block';
+            document.getElementById('companionSection').style.display = 'block';
+            document.getElementById('gardenPlanner').style.display = 'block';
+            document.getElementById('calendarView').style.display = 'block';
+            
+            // Auto-select current month
+            selectMonth(currentMonth);
+            
+            // Generate year calendar
+            generateYearCalendar();
+        }
+        
+        // Select month
+        function selectMonth(month) {
+            currentMonth = month;
+            
+            // Update active tab
+            document.querySelectorAll('.month-tab').forEach((tab, index) => {
+                tab.classList.toggle('active', index + 1 === month);
+            });
+            
+            // Display plants for this month
+            displayPlantsForMonth();
+        }
+        
+        // Display plants for selected month
+        function displayPlantsForMonth() {
+            const indoorContainer = document.getElementById('indoorPlants');
+            const outdoorContainer = document.getElementById('outdoorPlants');
+            const transplantContainer = document.getElementById('transplantPlants');
+            
+            // Clear containers
+            indoorContainer.innerHTML = '';
+            outdoorContainer.innerHTML = '';
+            transplantContainer.innerHTML = '';
+            
+            // Check each plant
+            Object.entries(plantDatabase).forEach(([key, plant]) => {
+                const zoneInfo = plant.zones[currentZone];
+                if (!zoneInfo) return;
+                
+                // Check indoor starts
+                if (zoneInfo.indoor && zoneInfo.indoor.includes(currentMonth)) {
+                    indoorContainer.appendChild(createPlantCard(key, plant, 'start-indoors'));
