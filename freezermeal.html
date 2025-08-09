@@ -1,0 +1,2222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freezer Meal Planner - Batch Cooking Calculator | Free Meal Prep Tool</title>
+    <meta name="description" content="Plan perfect freezer meals with ingredients you have. Free tool suggests batch-friendly recipes, portions & storage tips. Save time and money with smart meal prep.">
+    <meta name="keywords" content="freezer meal planner, batch cooking calculator, meal prep tool, freezer friendly meals, bulk cooking planner, meal prep calculator, freezer meal ideas">
+    <link rel="canonical" href="https://yoursite.com/tools/freezer-meal-planner">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Freezer Meal Planner - Batch Cooking Made Easy">
+    <meta property="og:description" content="Turn your ingredients into freezer-friendly meals. Free planner suggests recipes, portions, and storage times for perfect meal prep.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.com/tools/freezer-meal-planner">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Batch Freezer Meal Planner",
+        "description": "Interactive tool for planning freezer-friendly batch meals based on available ingredients",
+        "url": "https://yoursite.com/tools/freezer-meal-planner",
+        "applicationCategory": "LifestyleApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #E85D04;
+            --primary-light: #F48C06;
+            --primary-dark: #D00000;
+            --secondary: #03045E;
+            --secondary-light: #0077B6;
+            --accent: #00B4D8;
+            --success: #52B788;
+            --warning: #F77F00;
+            --danger: #D62828;
+            --light: #F8F9FA;
+            --lighter: #FFFFFF;
+            --gray-100: #F1F3F5;
+            --gray-200: #E9ECEF;
+            --gray-300: #DEE2E6;
+            --gray-400: #CED4DA;
+            --gray-500: #ADB5BD;
+            --gray-600: #6C757D;
+            --gray-700: #495057;
+            --gray-800: #343A40;
+            --gray-900: #212529;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow: 0 3px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 20px rgba(0,0,0,0.15);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-900);
+            background-color: var(--gray-100);
+            overflow-x: hidden;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '🍕';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+            transform: rotate(-15deg);
+        }
+        
+        .header::after {
+            content: '🥘';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            bottom: -40px;
+            left: -30px;
+            transform: rotate(20deg);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Progress Bar */
+        .progress-bar {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin: -40px auto 40px;
+            max-width: 800px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+        
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            right: -50%;
+            height: 2px;
+            background: var(--gray-300);
+            z-index: -1;
+        }
+        
+        .progress-step:last-child::before {
+            display: none;
+        }
+        
+        .progress-step.active::before {
+            background: var(--success);
+        }
+        
+        .step-circle {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            font-weight: 700;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .progress-step.active .step-circle,
+        .progress-step.completed .step-circle {
+            background: var(--success);
+        }
+        
+        .step-label {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        @media (max-width: 968px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Ingredients Panel */
+        .ingredients-panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+        
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .panel-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+        
+        .selected-count {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        /* Search Bar */
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(232, 93, 4, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-500);
+        }
+        
+        /* Category Tabs */
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+        
+        .category-tab {
+            padding: 8px 16px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+        
+        .category-tab:hover {
+            background: var(--gray-200);
+        }
+        
+        .category-tab.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Ingredient Grid */
+        .ingredient-grid {
+            display: grid;
+            gap: 8px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+        
+        .ingredient-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .ingredient-grid::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 3px;
+        }
+        
+        .ingredient-grid::-webkit-scrollbar-thumb {
+            background: var(--gray-400);
+            border-radius: 3px;
+        }
+        
+        .ingredient-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ingredient-item:hover {
+            background: var(--gray-200);
+            transform: translateX(4px);
+        }
+        
+        .ingredient-item.selected {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .ingredient-item.selected .ingredient-icon {
+            transform: scale(1.2);
+        }
+        
+        .ingredient-icon {
+            font-size: 1.5rem;
+            margin-right: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .ingredient-name {
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .ingredient-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-400);
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .ingredient-item.selected .ingredient-check {
+            background: white;
+            border-color: white;
+        }
+        
+        .ingredient-item.selected .ingredient-check::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        /* Results Panel */
+        .results-panel {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            padding: 32px;
+            min-height: 600px;
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        
+        .results-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 8px;
+        }
+        
+        .results-subtitle {
+            color: var(--gray-600);
+        }
+        
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-select {
+            padding: 10px 16px;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            font-size: 0.875rem;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Recipe Grid */
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        
+        .recipe-card {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .recipe-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        
+        .recipe-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .recipe-content {
+            padding: 20px;
+        }
+        
+        .recipe-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--gray-900);
+        }
+        
+        .recipe-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        
+        .recipe-tag {
+            padding: 4px 10px;
+            background: var(--gray-100);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        
+        .recipe-tag.match {
+            background: var(--success);
+            color: white;
+        }
+        
+        .recipe-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .recipe-stat {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .recipe-stat-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .recipe-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-600);
+        }
+        
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .empty-icon {
+            font-size: 5rem;
+            margin-bottom: 24px;
+            opacity: 0.3;
+        }
+        
+        .empty-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-700);
+            margin-bottom: 8px;
+        }
+        
+        .empty-text {
+            color: var(--gray-600);
+        }
+        
+        /* Generate Button */
+        .generate-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 16px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(232, 93, 4, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 32px auto;
+        }
+        
+        .generate-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(232, 93, 4, 0.4);
+        }
+        
+        .generate-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: var(--radius-lg);
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--gray-200);
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            width: 32px;
+            height: 32px;
+            background: var(--gray-100);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            background: var(--gray-200);
+        }
+        
+        .modal-body {
+            padding: 24px;
+        }
+        
+        /* Shopping List */
+        .shopping-section {
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            margin-top: 40px;
+        }
+        
+        .shopping-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .shopping-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+        
+        .print-button {
+            background: var(--secondary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            background: var(--secondary-light);
+        }
+        
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .ingredients-panel {
+                position: static;
+            }
+            
+            .recipe-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media print {
+            .header, .ingredients-panel, .filter-bar, .generate-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <h1>Batch Freezer Meal Planner</h1>
+            <p class="subtitle">Turn your ingredients into make-ahead meals that freeze perfectly</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-steps">
+                <div class="progress-step active" id="step1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Select Ingredients</div>
+                </div>
+                <div class="progress-step" id="step2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">Generate Meals</div>
+                </div>
+                <div class="progress-step" id="step3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Plan & Prep</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <!-- Ingredients Panel -->
+            <div class="ingredients-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Your Ingredients</h2>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span class="selected-count" id="selectedCount">0 selected</span>
+                        <button onclick="clearAllIngredients()" style="background: var(--danger); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.background='#B91C1C'" onmouseout="this.style.background='var(--danger)'">Clear All</button>
+                    </div>
+                </div>
+
+                <div class="search-bar">
+                    <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                    <input type="text" class="search-input" id="searchInput" placeholder="Search ingredients...">
+                </div>
+
+                <div class="category-tabs">
+                    <button class="category-tab active" onclick="filterCategory('all')">All</button>
+                    <button class="category-tab" onclick="filterCategory('proteins')">Proteins</button>
+                    <button class="category-tab" onclick="filterCategory('vegetables')">Vegetables</button>
+                    <button class="category-tab" onclick="filterCategory('grains')">Grains</button>
+                    <button class="category-tab" onclick="filterCategory('dairy')">Dairy</button>
+                    <button class="category-tab" onclick="filterCategory('pantry')">Pantry</button>
+                </div>
+
+                <div class="ingredient-grid" id="ingredientGrid">
+                    <!-- Ingredients will be populated here -->
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel">
+                <div class="results-header">
+                    <h2 class="results-title">Your Freezer Meal Options</h2>
+                    <p class="results-subtitle">Select at least 3 ingredients to see meal suggestions</p>
+                </div>
+
+                <div id="resultsContent">
+                    <div class="empty-state">
+                        <div class="empty-icon">🍱</div>
+                        <h3 class="empty-title">No ingredients selected yet</h3>
+                        <p class="empty-text">Choose ingredients from the left panel to discover freezer-friendly meals</p>
+                    </div>
+                </div>
+
+                <button class="generate-button" id="generateButton" onclick="generateMealPlan()" disabled>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v6m0 4v6m0 4v2M8 6h8m-8 4h8m-6 4h4m-5 4h6"></path>
+                    </svg>
+                    Generate Meal Plan
+                </button>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button onclick="showAllRecipes()" style="background: var(--secondary); color: white; padding: 12px 24px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;" onmouseover="this.style.background='var(--secondary-light)'" onmouseout="this.style.background='var(--secondary)'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        Browse All Recipes
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shopping List Section -->
+        <div class="shopping-section" id="shoppingSection" style="display: none;">
+            <div class="shopping-header">
+                <h2 class="shopping-title">🛒 Shopping List</h2>
+                <button class="print-button" onclick="window.print()">Print List</button>
+            </div>
+            <div id="shoppingList">
+                <!-- Shopping list will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Recipe Modal -->
+    <div class="modal" id="recipeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modalTitle">Recipe Details</h3>
+                <button class="modal-close" onclick="closeModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Recipe details will be populated here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ingredient Database
+        const ingredients = {
+            proteins: [
+                { id: 'chicken', name: 'Chicken', icon: '🍗', category: 'proteins' },
+                { id: 'beef', name: 'Ground Beef', icon: '🥩', category: 'proteins' },
+                { id: 'pork', name: 'Pork', icon: '🥓', category: 'proteins' },
+                { id: 'turkey', name: 'Ground Turkey', icon: '🦃', category: 'proteins' },
+                { id: 'fish', name: 'Fish', icon: '🐟', category: 'proteins' },
+                { id: 'shrimp', name: 'Shrimp', icon: '🦐', category: 'proteins' },
+                { id: 'beans', name: 'Beans', icon: '🫘', category: 'proteins' },
+                { id: 'lentils', name: 'Lentils', icon: '🟫', category: 'proteins' },
+                { id: 'tofu', name: 'Tofu', icon: '🟦', category: 'proteins' },
+                { id: 'eggs', name: 'Eggs', icon: '🥚', category: 'proteins' },
+                { id: 'sausage', name: 'Sausage', icon: '🌭', category: 'proteins' }
+            ],
+            vegetables: [
+                { id: 'onions', name: 'Onions', icon: '🧅', category: 'vegetables' },
+                { id: 'garlic', name: 'Garlic', icon: '🧄', category: 'vegetables' },
+                { id: 'tomatoes', name: 'Tomatoes', icon: '🍅', category: 'vegetables' },
+                { id: 'peppers', name: 'Bell Peppers', icon: '🫑', category: 'vegetables' },
+                { id: 'carrots', name: 'Carrots', icon: '🥕', category: 'vegetables' },
+                { id: 'celery', name: 'Celery', icon: '🥬', category: 'vegetables' },
+                { id: 'potatoes', name: 'Potatoes', icon: '🥔', category: 'vegetables' },
+                { id: 'sweetpotatoes', name: 'Sweet Potatoes', icon: '🍠', category: 'vegetables' },
+                { id: 'broccoli', name: 'Broccoli', icon: '🥦', category: 'vegetables' },
+                { id: 'spinach', name: 'Spinach', icon: '🍃', category: 'vegetables' },
+                { id: 'mushrooms', name: 'Mushrooms', icon: '🍄', category: 'vegetables' },
+                { id: 'corn', name: 'Corn', icon: '🌽', category: 'vegetables' },
+                { id: 'peas', name: 'Peas', icon: '🟢', category: 'vegetables' },
+                { id: 'greenbeans', name: 'Green Beans', icon: '🫛', category: 'vegetables' },
+                { id: 'zucchini', name: 'Zucchini', icon: '🥒', category: 'vegetables' }
+            ],
+            grains: [
+                { id: 'rice', name: 'Rice', icon: '🍚', category: 'grains' },
+                { id: 'pasta', name: 'Pasta', icon: '🍝', category: 'grains' },
+                { id: 'quinoa', name: 'Quinoa', icon: '🌾', category: 'grains' },
+                { id: 'bread', name: 'Bread', icon: '🍞', category: 'grains' },
+                { id: 'tortillas', name: 'Tortillas', icon: '🫓', category: 'grains' },
+                { id: 'oats', name: 'Oats', icon: '🥣', category: 'grains' },
+                { id: 'barley', name: 'Barley', icon: '🌾', category: 'grains' }
+            ],
+            dairy: [
+                { id: 'cheese', name: 'Cheese', icon: '🧀', category: 'dairy' },
+                { id: 'milk', name: 'Milk', icon: '🥛', category: 'dairy' },
+                { id: 'yogurt', name: 'Yogurt', icon: '🥛', category: 'dairy' },
+                { id: 'butter', name: 'Butter', icon: '🧈', category: 'dairy' },
+                { id: 'sourcream', name: 'Sour Cream', icon: '🥛', category: 'dairy' },
+                { id: 'cream', name: 'Heavy Cream', icon: '🥛', category: 'dairy' }
+            ],
+            pantry: [
+                { id: 'oil', name: 'Cooking Oil', icon: '🛢️', category: 'pantry' },
+                { id: 'flour', name: 'Flour', icon: '🌾', category: 'pantry' },
+                { id: 'sugar', name: 'Sugar', icon: '🍯', category: 'pantry' },
+                { id: 'salt', name: 'Salt & Pepper', icon: '🧂', category: 'pantry' },
+                { id: 'broth', name: 'Broth/Stock', icon: '🍲', category: 'pantry' },
+                { id: 'cannedtomatoes', name: 'Canned Tomatoes', icon: '🥫', category: 'pantry' },
+                { id: 'tomatosauce', name: 'Tomato Sauce', icon: '🍅', category: 'pantry' },
+                { id: 'herbs', name: 'Herbs & Spices', icon: '🌿', category: 'pantry' },
+                { id: 'vinegar', name: 'Vinegar', icon: '🍶', category: 'pantry' },
+                { id: 'soysauce', name: 'Soy Sauce', icon: '🥢', category: 'pantry' }
+            ]
+        };
+
+        // Freezer Meal Recipe Database - 100+ Recipes
+        const recipes = [
+            // Soups & Stews (1-20)
+            {
+                id: 1,
+                name: "Hearty Beef Chili",
+                requiredIngredients: ['beef', 'beans', 'tomatoes', 'onions'],
+                optionalIngredients: ['peppers', 'garlic', 'corn'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '20 min',
+                cookTime: '2 hours',
+                category: 'soup',
+                icon: '🌶️',
+                instructions: [
+                    'Brown ground beef with onions and garlic',
+                    'Add tomatoes, beans, and spices',
+                    'Simmer for 2 hours',
+                    'Cool completely before portioning',
+                    'Freeze in meal-sized containers'
+                ],
+                tips: 'Add fresh toppings after reheating for best flavor'
+            },
+            {
+                id: 7,
+                name: "Lentil Soup",
+                requiredIngredients: ['lentils', 'broth', 'vegetables'],
+                optionalIngredients: ['carrots', 'celery', 'tomatoes', 'spinach'],
+                servings: 10,
+                freezerTime: '3 months',
+                prepTime: '15 min',
+                cookTime: '45 min',
+                category: 'soup',
+                icon: '🍲',
+                instructions: [
+                    'Sauté vegetables',
+                    'Add lentils and broth',
+                    'Simmer until tender',
+                    'Portion into containers',
+                    'Leave room for expansion'
+                ]
+            },
+            {
+                id: 11,
+                name: "Chicken Noodle Soup",
+                requiredIngredients: ['chicken', 'pasta', 'broth', 'vegetables'],
+                optionalIngredients: ['carrots', 'celery', 'onions'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '1 hour',
+                category: 'soup',
+                icon: '🍜',
+                tips: 'Add fresh noodles when reheating to prevent mushiness'
+            },
+            {
+                id: 12,
+                name: "Minestrone",
+                requiredIngredients: ['beans', 'tomatoes', 'pasta', 'vegetables'],
+                optionalIngredients: ['zucchini', 'spinach', 'carrots'],
+                servings: 10,
+                freezerTime: '3 months',
+                prepTime: '25 min',
+                cookTime: '1.5 hours',
+                category: 'soup',
+                icon: '🥣'
+            },
+            {
+                id: 13,
+                name: "Beef Stew",
+                requiredIngredients: ['beef', 'potatoes', 'carrots', 'broth'],
+                optionalIngredients: ['peas', 'celery', 'onions'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '30 min',
+                cookTime: '2.5 hours',
+                category: 'soup',
+                icon: '🍲'
+            },
+            {
+                id: 14,
+                name: "Split Pea Soup",
+                requiredIngredients: ['peas', 'broth', 'vegetables'],
+                optionalIngredients: ['ham', 'carrots', 'celery'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '15 min',
+                cookTime: '2 hours',
+                category: 'soup',
+                icon: '🥣'
+            },
+            {
+                id: 15,
+                name: "Tomato Basil Soup",
+                requiredIngredients: ['tomatoes', 'cream', 'herbs'],
+                optionalIngredients: ['onions', 'garlic'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '45 min',
+                category: 'soup',
+                icon: '🍅'
+            },
+            {
+                id: 16,
+                name: "Chicken Tortilla Soup",
+                requiredIngredients: ['chicken', 'tomatoes', 'broth', 'peppers'],
+                optionalIngredients: ['corn', 'beans', 'tortillas'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '1 hour',
+                category: 'soup',
+                icon: '🌮'
+            },
+            {
+                id: 17,
+                name: "Butternut Squash Soup",
+                requiredIngredients: ['squash', 'broth', 'cream'],
+                optionalIngredients: ['onions', 'garlic', 'herbs'],
+                servings: 6,
+                freezerTime: '3 months',
+                prepTime: '20 min',
+                cookTime: '45 min',
+                category: 'soup',
+                icon: '🎃'
+            },
+            {
+                id: 18,
+                name: "Bean & Ham Soup",
+                requiredIngredients: ['beans', 'ham', 'broth'],
+                optionalIngredients: ['carrots', 'celery', 'onions'],
+                servings: 10,
+                freezerTime: '3 months',
+                prepTime: '20 min',
+                cookTime: '2 hours',
+                category: 'soup',
+                icon: '🍲'
+            },
+            {
+                id: 19,
+                name: "Broccoli Cheddar Soup",
+                requiredIngredients: ['broccoli', 'cheese', 'cream', 'broth'],
+                optionalIngredients: ['onions', 'carrots'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '30 min',
+                category: 'soup',
+                icon: '🥦'
+            },
+            {
+                id: 20,
+                name: "French Onion Soup",
+                requiredIngredients: ['onions', 'broth', 'cheese'],
+                optionalIngredients: ['bread', 'wine'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '1 hour',
+                category: 'soup',
+                icon: '🧅'
+            },
+
+            // Casseroles (21-40)
+            {
+                id: 2,
+                name: "Chicken & Rice Casserole",
+                requiredIngredients: ['chicken', 'rice', 'broccoli'],
+                optionalIngredients: ['cheese', 'onions', 'mushrooms'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '45 min',
+                category: 'casserole',
+                icon: '🥘',
+                instructions: [
+                    'Cook rice and chicken separately',
+                    'Mix with vegetables and sauce',
+                    'Top with cheese if using',
+                    'Bake until bubbly',
+                    'Cool and freeze in portions'
+                ]
+            },
+            {
+                id: 6,
+                name: "Shepherd's Pie",
+                requiredIngredients: ['beef', 'potatoes', 'vegetables'],
+                optionalIngredients: ['peas', 'carrots', 'corn', 'onions'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '30 min',
+                cookTime: '45 min',
+                category: 'casserole',
+                icon: '🥧',
+                instructions: [
+                    'Cook meat filling with vegetables',
+                    'Top with mashed potatoes',
+                    'Cool completely',
+                    'Wrap well and freeze'
+                ]
+            },
+            {
+                id: 21,
+                name: "Tuna Noodle Casserole",
+                requiredIngredients: ['tuna', 'pasta', 'cream', 'cheese'],
+                optionalIngredients: ['peas', 'mushrooms', 'onions'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '45 min',
+                category: 'casserole',
+                icon: '🐟'
+            },
+            {
+                id: 22,
+                name: "King Ranch Chicken",
+                requiredIngredients: ['chicken', 'tortillas', 'cheese', 'cream'],
+                optionalIngredients: ['peppers', 'onions', 'tomatoes'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '45 min',
+                category: 'casserole',
+                icon: '🍗'
+            },
+            {
+                id: 23,
+                name: "Broccoli Rice Casserole",
+                requiredIngredients: ['rice', 'broccoli', 'cheese', 'cream'],
+                optionalIngredients: ['onions', 'mushrooms'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '40 min',
+                category: 'casserole',
+                icon: '🥦'
+            },
+            {
+                id: 24,
+                name: "Sweet Potato Casserole",
+                requiredIngredients: ['sweetpotatoes', 'butter', 'sugar'],
+                optionalIngredients: ['marshmallows', 'pecans'],
+                servings: 10,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '45 min',
+                category: 'casserole',
+                icon: '🍠'
+            },
+            {
+                id: 25,
+                name: "Green Bean Casserole",
+                requiredIngredients: ['greenbeans', 'cream', 'mushrooms'],
+                optionalIngredients: ['onions', 'cheese'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '30 min',
+                category: 'casserole',
+                icon: '🫛'
+            },
+            {
+                id: 26,
+                name: "Chicken Divan",
+                requiredIngredients: ['chicken', 'broccoli', 'cheese', 'cream'],
+                optionalIngredients: ['rice', 'mushrooms'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '35 min',
+                category: 'casserole',
+                icon: '🍗'
+            },
+            {
+                id: 27,
+                name: "Beef & Noodle Bake",
+                requiredIngredients: ['beef', 'pasta', 'cheese', 'tomatosauce'],
+                optionalIngredients: ['onions', 'peppers'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '45 min',
+                category: 'casserole',
+                icon: '🍝'
+            },
+            {
+                id: 28,
+                name: "Chicken Pot Pie",
+                requiredIngredients: ['chicken', 'vegetables', 'cream', 'pastry'],
+                optionalIngredients: ['peas', 'carrots', 'potatoes'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '30 min',
+                cookTime: '45 min',
+                category: 'casserole',
+                icon: '🥧'
+            },
+
+            // Main Dishes (41-60)
+            {
+                id: 3,
+                name: "Veggie-Packed Lasagna",
+                requiredIngredients: ['pasta', 'cheese', 'tomatosauce'],
+                optionalIngredients: ['spinach', 'mushrooms', 'zucchini', 'beef'],
+                servings: 12,
+                freezerTime: '3 months',
+                prepTime: '30 min',
+                cookTime: '1 hour',
+                category: 'pasta',
+                icon: '🍝',
+                instructions: [
+                    'Layer pasta with sauce and fillings',
+                    'Top with cheese',
+                    'Can freeze before or after baking',
+                    'Wrap tightly in foil'
+                ]
+            },
+            {
+                id: 4,
+                name: "Turkey Meatballs",
+                requiredIngredients: ['turkey', 'bread', 'eggs'],
+                optionalIngredients: ['herbs', 'garlic', 'cheese'],
+                servings: 6,
+                freezerTime: '3 months',
+                prepTime: '20 min',
+                cookTime: '25 min',
+                category: 'protein',
+                icon: '🧆',
+                instructions: [
+                    'Mix all ingredients',
+                    'Form into balls',
+                    'Bake on sheet pan',
+                    'Cool completely',
+                    'Freeze on tray, then bag'
+                ]
+            },
+            {
+                id: 8,
+                name: "Chicken Enchiladas",
+                requiredIngredients: ['chicken', 'tortillas', 'cheese', 'sauce'],
+                optionalIngredients: ['beans', 'onions', 'peppers'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '30 min',
+                category: 'mexican',
+                icon: '🌮',
+                instructions: [
+                    'Fill tortillas with chicken mixture',
+                    'Roll and place in pan',
+                    'Top with sauce and cheese',
+                    'Can freeze before or after baking'
+                ]
+            },
+            {
+                id: 9,
+                name: "Stuffed Peppers",
+                requiredIngredients: ['peppers', 'rice', 'beef'],
+                optionalIngredients: ['cheese', 'onions', 'tomatoes'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '45 min',
+                category: 'main',
+                icon: '🫑',
+                instructions: [
+                    'Hollow out peppers',
+                    'Fill with rice and meat mixture',
+                    'Freeze individually wrapped',
+                    'Bake from frozen'
+                ]
+            },
+            {
+                id: 41,
+                name: "Beef Burgers",
+                requiredIngredients: ['beef', 'bread', 'eggs'],
+                optionalIngredients: ['onions', 'cheese', 'herbs'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '15 min',
+                cookTime: '15 min',
+                category: 'main',
+                icon: '🍔'
+            },
+            {
+                id: 42,
+                name: "Chicken Parmesan",
+                requiredIngredients: ['chicken', 'cheese', 'tomatosauce', 'bread'],
+                optionalIngredients: ['pasta', 'herbs'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '30 min',
+                category: 'main',
+                icon: '🍗'
+            },
+            {
+                id: 43,
+                name: "Meatloaf",
+                requiredIngredients: ['beef', 'bread', 'eggs', 'tomatosauce'],
+                optionalIngredients: ['onions', 'peppers', 'cheese'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '15 min',
+                cookTime: '1 hour',
+                category: 'main',
+                icon: '🍖'
+            },
+            {
+                id: 44,
+                name: "Chicken Fajitas",
+                requiredIngredients: ['chicken', 'peppers', 'onions', 'tortillas'],
+                optionalIngredients: ['cheese', 'sourcream', 'salsa'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '20 min',
+                category: 'mexican',
+                icon: '🌮'
+            },
+            {
+                id: 45,
+                name: "BBQ Pulled Pork",
+                requiredIngredients: ['pork', 'sauce', 'onions'],
+                optionalIngredients: ['bread', 'coleslaw'],
+                servings: 10,
+                freezerTime: '3 months',
+                prepTime: '15 min',
+                cookTime: '4 hours',
+                category: 'main',
+                icon: '🐷'
+            },
+            {
+                id: 46,
+                name: "Beef Tacos",
+                requiredIngredients: ['beef', 'tortillas', 'cheese'],
+                optionalIngredients: ['lettuce', 'tomatoes', 'sourcream'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '20 min',
+                category: 'mexican',
+                icon: '🌮'
+            },
+            {
+                id: 47,
+                name: "Chicken Curry",
+                requiredIngredients: ['chicken', 'curry', 'coconutmilk', 'rice'],
+                optionalIngredients: ['potatoes', 'peas', 'onions'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '45 min',
+                category: 'main',
+                icon: '🍛'
+            },
+            {
+                id: 48,
+                name: "Spaghetti Bolognese",
+                requiredIngredients: ['beef', 'pasta', 'tomatosauce'],
+                optionalIngredients: ['onions', 'garlic', 'herbs'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '20 min',
+                cookTime: '2 hours',
+                category: 'pasta',
+                icon: '🍝'
+            },
+            {
+                id: 49,
+                name: "Fish Cakes",
+                requiredIngredients: ['fish', 'potatoes', 'eggs'],
+                optionalIngredients: ['herbs', 'onions'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '20 min',
+                category: 'main',
+                icon: '🐟'
+            },
+            {
+                id: 50,
+                name: "Chicken Teriyaki",
+                requiredIngredients: ['chicken', 'soysauce', 'rice'],
+                optionalIngredients: ['vegetables', 'sesame'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '25 min',
+                category: 'main',
+                icon: '🍗'
+            },
+
+            // Breakfast Items (61-75)
+            {
+                id: 5,
+                name: "Breakfast Burritos",
+                requiredIngredients: ['eggs', 'tortillas', 'cheese'],
+                optionalIngredients: ['sausage', 'potatoes', 'peppers', 'onions'],
+                servings: 12,
+                freezerTime: '2 months',
+                prepTime: '30 min',
+                cookTime: '20 min',
+                category: 'breakfast',
+                icon: '🌯',
+                instructions: [
+                    'Scramble eggs and cook fillings',
+                    'Assemble burritos',
+                    'Wrap individually in foil',
+                    'Store in freezer bags',
+                    'Reheat in microwave or oven'
+                ]
+            },
+            {
+                id: 61,
+                name: "Pancakes",
+                requiredIngredients: ['flour', 'eggs', 'milk'],
+                optionalIngredients: ['blueberries', 'chocolate'],
+                servings: 20,
+                freezerTime: '2 months',
+                prepTime: '10 min',
+                cookTime: '20 min',
+                category: 'breakfast',
+                icon: '🥞'
+            },
+            {
+                id: 62,
+                name: "French Toast Casserole",
+                requiredIngredients: ['bread', 'eggs', 'milk', 'sugar'],
+                optionalIngredients: ['cinnamon', 'vanilla'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '45 min',
+                category: 'breakfast',
+                icon: '🍞'
+            },
+            {
+                id: 63,
+                name: "Egg Muffins",
+                requiredIngredients: ['eggs', 'cheese', 'vegetables'],
+                optionalIngredients: ['bacon', 'sausage', 'peppers'],
+                servings: 12,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '20 min',
+                category: 'breakfast',
+                icon: '🧁'
+            },
+            {
+                id: 64,
+                name: "Breakfast Sandwiches",
+                requiredIngredients: ['eggs', 'cheese', 'englishmuffins'],
+                optionalIngredients: ['bacon', 'sausage'],
+                servings: 8,
+                freezerTime: '1 month',
+                prepTime: '20 min',
+                cookTime: '15 min',
+                category: 'breakfast',
+                icon: '🥪'
+            },
+            {
+                id: 65,
+                name: "Overnight Oats",
+                requiredIngredients: ['oats', 'milk', 'yogurt'],
+                optionalIngredients: ['fruit', 'nuts', 'honey'],
+                servings: 5,
+                freezerTime: '1 month',
+                prepTime: '10 min',
+                cookTime: '0 min',
+                category: 'breakfast',
+                icon: '🥣'
+            },
+            {
+                id: 66,
+                name: "Breakfast Pizza",
+                requiredIngredients: ['dough', 'eggs', 'cheese'],
+                optionalIngredients: ['bacon', 'vegetables'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '20 min',
+                category: 'breakfast',
+                icon: '🍕'
+            },
+            {
+                id: 67,
+                name: "Waffles",
+                requiredIngredients: ['flour', 'eggs', 'milk'],
+                optionalIngredients: ['vanilla', 'butter'],
+                servings: 12,
+                freezerTime: '2 months',
+                prepTime: '10 min',
+                cookTime: '20 min',
+                category: 'breakfast',
+                icon: '🧇'
+            },
+            {
+                id: 68,
+                name: "Breakfast Quesadillas",
+                requiredIngredients: ['eggs', 'cheese', 'tortillas'],
+                optionalIngredients: ['bacon', 'peppers'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '10 min',
+                category: 'breakfast',
+                icon: '🫔'
+            },
+
+            // Vegetarian/Vegan (76-90)
+            {
+                id: 10,
+                name: "Vegetable Stir-Fry Mix",
+                requiredIngredients: ['vegetables', 'oil'],
+                optionalIngredients: ['broccoli', 'peppers', 'carrots', 'mushrooms'],
+                servings: 4,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '10 min',
+                category: 'vegetarian',
+                icon: '🥗',
+                instructions: [
+                    'Chop vegetables uniformly',
+                    'Blanch briefly',
+                    'Cool in ice water',
+                    'Drain and freeze flat',
+                    'Stir-fry directly from frozen'
+                ]
+            },
+            {
+                id: 76,
+                name: "Black Bean Burgers",
+                requiredIngredients: ['beans', 'bread', 'eggs'],
+                optionalIngredients: ['corn', 'peppers', 'spices'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '20 min',
+                cookTime: '15 min',
+                category: 'vegetarian',
+                icon: '🍔'
+            },
+            {
+                id: 77,
+                name: "Vegetable Lasagna",
+                requiredIngredients: ['pasta', 'cheese', 'vegetables'],
+                optionalIngredients: ['spinach', 'zucchini', 'mushrooms'],
+                servings: 10,
+                freezerTime: '2 months',
+                prepTime: '30 min',
+                cookTime: '1 hour',
+                category: 'vegetarian',
+                icon: '🍝'
+            },
+            {
+                id: 78,
+                name: "Lentil Curry",
+                requiredIngredients: ['lentils', 'coconutmilk', 'curry'],
+                optionalIngredients: ['potatoes', 'spinach', 'tomatoes'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '20 min',
+                cookTime: '45 min',
+                category: 'vegetarian',
+                icon: '🍛'
+            },
+            {
+                id: 79,
+                name: "Veggie Burrito Bowls",
+                requiredIngredients: ['rice', 'beans', 'vegetables'],
+                optionalIngredients: ['corn', 'peppers', 'cheese'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '30 min',
+                category: 'vegetarian',
+                icon: '🥙'
+            },
+            {
+                id: 80,
+                name: "Mushroom Stroganoff",
+                requiredIngredients: ['mushrooms', 'pasta', 'cream'],
+                optionalIngredients: ['onions', 'garlic'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '30 min',
+                category: 'vegetarian',
+                icon: '🍄'
+            },
+            {
+                id: 81,
+                name: "Spinach & Cheese Pie",
+                requiredIngredients: ['spinach', 'cheese', 'pastry'],
+                optionalIngredients: ['onions', 'herbs'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '45 min',
+                category: 'vegetarian',
+                icon: '🥧'
+            },
+            {
+                id: 82,
+                name: "Tofu Tikka Masala",
+                requiredIngredients: ['tofu', 'tomatosauce', 'cream'],
+                optionalIngredients: ['rice', 'naan'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '30 min',
+                category: 'vegetarian',
+                icon: '🍛'
+            },
+            {
+                id: 83,
+                name: "Vegetable Pot Pies",
+                requiredIngredients: ['vegetables', 'pastry', 'cream'],
+                optionalIngredients: ['potatoes', 'carrots', 'peas'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '30 min',
+                cookTime: '40 min',
+                category: 'vegetarian',
+                icon: '🥧'
+            },
+
+            // Asian-Inspired (91-105)
+            {
+                id: 91,
+                name: "Pork Dumplings",
+                requiredIngredients: ['pork', 'wrappers', 'cabbage'],
+                optionalIngredients: ['ginger', 'soysauce', 'sesame'],
+                servings: 30,
+                freezerTime: '3 months',
+                prepTime: '45 min',
+                cookTime: '15 min',
+                category: 'asian',
+                icon: '🥟'
+            },
+            {
+                id: 92,
+                name: "Fried Rice",
+                requiredIngredients: ['rice', 'eggs', 'vegetables'],
+                optionalIngredients: ['shrimp', 'chicken', 'peas'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '15 min',
+                category: 'asian',
+                icon: '🍚'
+            },
+            {
+                id: 93,
+                name: "Spring Rolls",
+                requiredIngredients: ['wrappers', 'vegetables', 'shrimp'],
+                optionalIngredients: ['herbs', 'noodles'],
+                servings: 20,
+                freezerTime: '2 months',
+                prepTime: '30 min',
+                cookTime: '15 min',
+                category: 'asian',
+                icon: '🌯'
+            },
+            {
+                id: 94,
+                name: "Pad Thai",
+                requiredIngredients: ['noodles', 'shrimp', 'eggs'],
+                optionalIngredients: ['peanuts', 'bean sprouts'],
+                servings: 6,
+                freezerTime: '1 month',
+                prepTime: '20 min',
+                cookTime: '15 min',
+                category: 'asian',
+                icon: '🍜'
+            },
+            {
+                id: 95,
+                name: "Korean Beef Bowl",
+                requiredIngredients: ['beef', 'rice', 'soysauce'],
+                optionalIngredients: ['sesame', 'vegetables'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '15 min',
+                cookTime: '20 min',
+                category: 'asian',
+                icon: '🍱'
+            },
+            {
+                id: 96,
+                name: "Chicken Satay",
+                requiredIngredients: ['chicken', 'peanutbutter', 'coconutmilk'],
+                optionalIngredients: ['lime', 'herbs'],
+                servings: 8,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '15 min',
+                category: 'asian',
+                icon: '🍢'
+            },
+            {
+                id: 97,
+                name: "Miso Soup Base",
+                requiredIngredients: ['miso', 'tofu', 'seaweed'],
+                optionalIngredients: ['mushrooms', 'greens'],
+                servings: 8,
+                freezerTime: '3 months',
+                prepTime: '15 min',
+                cookTime: '20 min',
+                category: 'asian',
+                icon: '🍲'
+            },
+            {
+                id: 98,
+                name: "General Tso's Chicken",
+                requiredIngredients: ['chicken', 'sauce', 'rice'],
+                optionalIngredients: ['broccoli', 'peppers'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '25 min',
+                cookTime: '20 min',
+                category: 'asian',
+                icon: '🍗'
+            },
+            {
+                id: 99,
+                name: "Vegetable Lo Mein",
+                requiredIngredients: ['noodles', 'vegetables', 'soysauce'],
+                optionalIngredients: ['mushrooms', 'cabbage'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '15 min',
+                category: 'asian',
+                icon: '🍜'
+            },
+            {
+                id: 100,
+                name: "Beef & Broccoli",
+                requiredIngredients: ['beef', 'broccoli', 'soysauce'],
+                optionalIngredients: ['garlic', 'ginger'],
+                servings: 6,
+                freezerTime: '2 months',
+                prepTime: '20 min',
+                cookTime: '15 min',
+                category: 'asian',
+                icon: '🥩'
+            }
+        ];
+
+        // State management
+        let selectedIngredients = new Set();
+        let currentCategory = 'all';
+        let matchingRecipes = [];
+
+        // Initialize the app
+        function init() {
+            renderIngredients();
+            updateSelectedCount();
+        }
+
+        // Render ingredients
+        function renderIngredients() {
+            const grid = document.getElementById('ingredientGrid');
+            grid.innerHTML = '';
+            
+            const allIngredients = Object.values(ingredients).flat();
+            const filtered = currentCategory === 'all' 
+                ? allIngredients 
+                : allIngredients.filter(ing => ing.category === currentCategory);
+            
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const searchFiltered = filtered.filter(ing => 
+                ing.name.toLowerCase().includes(searchTerm)
+            );
+            
+            searchFiltered.forEach(ingredient => {
+                const item = document.createElement('div');
+                item.className = `ingredient-item ${selectedIngredients.has(ingredient.id) ? 'selected' : ''}`;
+                item.onclick = () => toggleIngredient(ingredient.id);
+                
+                item.innerHTML = `
+                    <span class="ingredient-icon">${ingredient.icon}</span>
+                    <span class="ingredient-name">${ingredient.name}</span>
+                    <div class="ingredient-check"></div>
+                `;
+                
+                grid.appendChild(item);
+            });
+        }
+
+        // Toggle ingredient selection
+        function toggleIngredient(id) {
+            if (selectedIngredients.has(id)) {
+                selectedIngredients.delete(id);
+            } else {
+                selectedIngredients.add(id);
+            }
+            
+            renderIngredients();
+            updateSelectedCount();
+            findMatchingRecipes();
+        }
+
+        // Update selected count
+        function updateSelectedCount() {
+            document.getElementById('selectedCount').textContent = `${selectedIngredients.size} selected`;
+            document.getElementById('generateButton').disabled = selectedIngredients.size < 3;
+        }
+
+        // Filter by category
+        function filterCategory(category) {
+            currentCategory = category;
+            
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            renderIngredients();
+        }
+
+        // Find matching recipes
+        function findMatchingRecipes() {
+            if (selectedIngredients.size < 3) {
+                document.getElementById('resultsContent').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🍱</div>
+                        <h3 class="empty-title">Select at least 3 ingredients</h3>
+                        <p class="empty-text">The more ingredients you select, the better meal matches you'll get!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            matchingRecipes = recipes.filter(recipe => {
+                const requiredCount = recipe.requiredIngredients.filter(ing => 
+                    selectedIngredients.has(ing)
+                ).length;
+                
+                return requiredCount >= 2; // At least 2 required ingredients match
+            });
+            
+            // Sort by match score
+            matchingRecipes.sort((a, b) => {
+                const scoreA = calculateMatchScore(a);
+                const scoreB = calculateMatchScore(b);
+                return scoreB - scoreA;
+            });
+            
+            renderRecipes();
+        }
+
+        // Calculate match score
+        function calculateMatchScore(recipe) {
+            const requiredMatches = recipe.requiredIngredients.filter(ing => 
+                selectedIngredients.has(ing)
+            ).length;
+            
+            const optionalMatches = recipe.optionalIngredients.filter(ing => 
+                selectedIngredients.has(ing)
+            ).length;
+            
+            return (requiredMatches * 2) + optionalMatches;
+        }
+
+        // Render recipes
+        function renderRecipes() {
+            const content = document.getElementById('resultsContent');
+            
+            if (matchingRecipes.length === 0) {
+                content.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🤔</div>
+                        <h3 class="empty-title">No perfect matches found</h3>
+                        <p class="empty-text">Try selecting different ingredients or browse all recipes</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            content.innerHTML = `
+                <div class="filter-bar">
+                    <select class="filter-select" onchange="sortRecipes(this.value)">
+                        <option value="match">Best Match</option>
+                        <option value="servings">Most Servings</option>
+                        <option value="preptime">Quickest Prep</option>
+                        <option value="freezertime">Longest Storage</option>
+                    </select>
+                    <select class="filter-select" onchange="filterRecipeCategory(this.value)">
+                        <option value="all">All Categories</option>
+                        <option value="soup">Soups & Stews</option>
+                        <option value="casserole">Casseroles</option>
+                        <option value="main">Main Dishes</option>
+                        <option value="breakfast">Breakfast</option>
+                    </select>
+                </div>
+                <div class="recipe-grid" id="recipeGrid"></div>
+            `;
+            
+            const grid = document.getElementById('recipeGrid');
+            
+            matchingRecipes.forEach(recipe => {
+                const card = createRecipeCard(recipe);
+                grid.appendChild(card);
+            });
+        }
+
+        // Create recipe card
+        function createRecipeCard(recipe) {
+            const card = document.createElement('div');
+            card.className = 'recipe-card';
+            card.onclick = () => showRecipeDetails(recipe);
+            
+            const matchScore = calculateMatchScore(recipe);
+            const matchPercent = Math.round((matchScore / (recipe.requiredIngredients.length + recipe.optionalIngredients.length)) * 100);
+            
+            card.innerHTML = `
+                <div class="recipe-image">${recipe.icon}</div>
+                <div class="recipe-content">
+                    <h3 class="recipe-name">${recipe.name}</h3>
+                    <div class="recipe-tags">
+                        <span class="recipe-tag match">${matchPercent}% match</span>
+                        <span class="recipe-tag">${recipe.category}</span>
+                    </div>
+                    <div class="recipe-info">
+                        <div class="recipe-stat">
+                            <div class="recipe-stat-value">${recipe.servings}</div>
+                            <div class="recipe-stat-label">Servings</div>
+                        </div>
+                        <div class="recipe-stat">
+                            <div class="recipe-stat-value">${recipe.prepTime}</div>
+                            <div class="recipe-stat-label">Prep Time</div>
+                        </div>
+                        <div class="recipe-stat">
+                            <div class="recipe-stat-value">${recipe.freezerTime}</div>
+                            <div class="recipe-stat-label">Freezer Life</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+
+        // Show recipe details
+        function showRecipeDetails(recipe) {
+            const modal = document.getElementById('recipeModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            modalTitle.textContent = recipe.name;
+            
+            modalBody.innerHTML = `
+                <div style="text-align: center; font-size: 4rem; margin-bottom: 24px;">${recipe.icon}</div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">${recipe.servings}</div>
+                        <div style="font-size: 0.875rem; color: var(--gray-600);">Servings</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">${recipe.prepTime}</div>
+                        <div style="font-size: 0.875rem; color: var(--gray-600);">Prep Time</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);">${recipe.freezerTime}</div>
+                        <div style="font-size: 0.875rem; color: var(--gray-600);">Freezer Storage</div>
+                    </div>
+                </div>
+                
+                <h4 style="margin-bottom: 12px;">Required Ingredients:</h4>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                    ${recipe.requiredIngredients.map(ing => {
+                        const ingredient = findIngredientById(ing);
+                        const hasIt = selectedIngredients.has(ing);
+                        return `<span style="padding: 6px 12px; background: ${hasIt ? 'var(--success)' : 'var(--gray-200)'}; color: ${hasIt ? 'white' : 'var(--gray-700)'}; border-radius: 20px; font-size: 0.875rem;">${ingredient.icon} ${ingredient.name}</span>`;
+                    }).join('')}
+                </div>
+                
+                <h4 style="margin-bottom: 12px;">Optional Ingredients:</h4>
+                <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px;">
+                    ${recipe.optionalIngredients.map(ing => {
+                        const ingredient = findIngredientById(ing);
+                        const hasIt = selectedIngredients.has(ing);
+                        return `<span style="padding: 6px 12px; background: ${hasIt ? 'var(--accent)' : 'var(--gray-200)'}; color: ${hasIt ? 'white' : 'var(--gray-700)'}; border-radius: 20px; font-size: 0.875rem;">${ingredient.icon} ${ingredient.name}</span>`;
+                    }).join('')}
+                </div>
+                
+                <h4 style="margin-bottom: 12px;">Instructions:</h4>
+                <ol style="padding-left: 20px; line-height: 1.8;">
+                    ${recipe.instructions.map(step => `<li>${step}</li>`).join('')}
+                </ol>
+                
+                ${recipe.tips ? `
+                    <div style="margin-top: 20px; padding: 16px; background: var(--gray-100); border-radius: 8px;">
+                        <strong>💡 Pro Tip:</strong> ${recipe.tips}
+                    </div>
+                ` : ''}
+            `;
+            
+            modal.classList.add('active');
+        }
+
+        // Find ingredient by ID
+        function findIngredientById(id) {
+            const allIngredients = Object.values(ingredients).flat();
+            return allIngredients.find(ing => ing.id === id) || { name: id, icon: '🍽️' };
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('recipeModal').classList.remove('active');
+        }
+
+        // Generate meal plan
+        function generateMealPlan() {
+            if (matchingRecipes.length === 0) {
+                alert('Please select ingredients that match available recipes first!');
+                return;
+            }
+            
+            // Update progress
+            document.getElementById('step1').classList.add('completed');
+            document.getElementById('step2').classList.add('active');
+            
+            // Show loading
+            const button = document.getElementById('generateButton');
+            button.innerHTML = '<span class="loading"></span> Generating...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                // Create shopping list
+                generateShoppingList();
+                
+                // Update progress
+                document.getElementById('step2').classList.add('completed');
+                document.getElementById('step3').classList.add('active');
+                
+                // Reset button
+                button.innerHTML = `
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v6m0 4v6m0 4v2M8 6h8m-8 4h8m-6 4h4m-5 4h6"></path>
+                    </svg>
+                    Regenerate Plan
+                `;
+                button.disabled = false;
+                
+                // Scroll to shopping list
+                document.getElementById('shoppingSection').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        }
+
+        // Generate shopping list
+        function generateShoppingList() {
+            const shoppingSection = document.getElementById('shoppingSection');
+            const shoppingList = document.getElementById('shoppingList');
+            
+            shoppingSection.style.display = 'block';
+            
+            // Compile all ingredients needed
+            const ingredientQuantities = new Map();
+            
+            matchingRecipes.slice(0, 5).forEach(recipe => { // Top 5 recipes
+                [...recipe.requiredIngredients, ...recipe.optionalIngredients].forEach(ing => {
+                    if (!ingredientQuantities.has(ing)) {
+                        ingredientQuantities.set(ing, 0);
+                    }
+                    ingredientQuantities.set(ing, ingredientQuantities.get(ing) + 1);
+                });
+            });
+            
+            // Group by category
+            const categorizedList = {};
+            
+            ingredientQuantities.forEach((quantity, ingId) => {
+                const ingredient = findIngredientById(ingId);
+                if (!categorizedList[ingredient.category]) {
+                    categorizedList[ingredient.category] = [];
+                }
+                
+                categorizedList[ingredient.category].push({
+                    ...ingredient,
+                    quantity,
+                    hasIt: selectedIngredients.has(ingId)
+                });
+            });
+            
+            // Render shopping list
+            shoppingList.innerHTML = Object.entries(categorizedList).map(([category, items]) => `
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 1.125rem; font-weight: 700; margin-bottom: 12px; text-transform: capitalize;">${category}</h3>
+                    <div style="display: grid; gap: 8px;">
+                        ${items.map(item => `
+                            <div style="display: flex; align-items: center; padding: 12px; background: ${item.hasIt ? 'var(--gray-100)' : 'white'}; border: 1px solid var(--gray-300); border-radius: 8px;">
+                                <span style="font-size: 1.5rem; margin-right: 12px;">${item.icon}</span>
+                                <span style="flex: 1; ${item.hasIt ? 'text-decoration: line-through; color: var(--gray-500);' : ''}">${item.name}</span>
+                                ${item.hasIt ? '<span style="color: var(--success); font-weight: 600;">✓ Have it</span>' : '<span style="color: var(--danger); font-weight: 600;">Need to buy</span>'}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Clear all selected ingredients
+        function clearAllIngredients() {
+            selectedIngredients.clear();
+            renderIngredients();
+            updateSelectedCount();
+            findMatchingRecipes();
+        }
+
+        // Show all recipes
+        function showAllRecipes() {
+            matchingRecipes = [...recipes]; // Show all recipes
+            
+            const content = document.getElementById('resultsContent');
+            content.innerHTML = `
+                <div style="margin-bottom: 24px;">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 8px;">All Freezer-Friendly Recipes</h3>
+                    <p style="text-align: center; color: var(--gray-600);">${recipes.length} recipes available</p>
+                </div>
+                <div class="filter-bar">
+                    <select class="filter-select" onchange="sortRecipes(this.value)">
+                        <option value="name">Alphabetical</option>
+                        <option value="servings">Most Servings</option>
+                        <option value="preptime">Quickest Prep</option>
+                        <option value="freezertime">Longest Storage</option>
+                        <option value="category">By Category</option>
+                    </select>
+                    <select class="filter-select" onchange="filterRecipeCategory(this.value)">
+                        <option value="all">All Categories</option>
+                        <option value="soup">Soups & Stews</option>
+                        <option value="casserole">Casseroles</option>
+                        <option value="main">Main Dishes</option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="vegetarian">Vegetarian</option>
+                        <option value="asian">Asian-Inspired</option>
+                        <option value="mexican">Mexican</option>
+                        <option value="pasta">Pasta Dishes</option>
+                    </select>
+                </div>
+                <div class="recipe-grid" id="recipeGrid"></div>
+            `;
+            
+            renderAllRecipes();
+        }
+
+        // Render all recipes
+        function renderAllRecipes() {
+            const grid = document.getElementById('recipeGrid');
+            grid.innerHTML = '';
+            
+            matchingRecipes.forEach(recipe => {
+                const card = createRecipeCard(recipe);
+                grid.appendChild(card);
+            });
+        }
+
+        // Sort recipes
+        function sortRecipes(sortBy) {
+            switch(sortBy) {
+                case 'name':
+                    matchingRecipes.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'servings':
+                    matchingRecipes.sort((a, b) => b.servings - a.servings);
+                    break;
+                case 'preptime':
+                    matchingRecipes.sort((a, b) => parseInt(a.prepTime) - parseInt(b.prepTime));
+                    break;
+                case 'freezertime':
+                    matchingRecipes.sort((a, b) => {
+                        const monthsA = a.freezerTime.includes('month') ? parseInt(a.freezerTime) : 0;
+                        const monthsB = b.freezerTime.includes('month') ? parseInt(b.freezerTime) : 0;
+                        return monthsB - monthsA;
+                    });
+                    break;
+                case 'category':
+                    matchingRecipes.sort((a, b) => a.category.localeCompare(b.category));
+                    break;
+            }
+            
+            if (document.getElementById('recipeGrid')) {
+                renderAllRecipes();
+            }
+        }
+
+        // Filter recipes by category
+        function filterRecipeCategory(category) {
+            if (category === 'all') {
+                matchingRecipes = [...recipes];
+            } else {
+                matchingRecipes = recipes.filter(recipe => recipe.category === category);
+            }
+            
+            if (document.getElementById('recipeGrid')) {
+                renderAllRecipes();
+            }
+        }
+
+        // Modal close on click outside
+        document.getElementById('recipeModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize
+        init();
+    </script>
+</body>
+</html>
