@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southwest Credit Card Comparison 2024: Find Your Best Rapid Rewards Card</title>
+    <meta name="description" content="Compare all Southwest credit cards side-by-side. Interactive tool shows annual fees, earning rates, companion pass progress & exclusive perks. Find your perfect card in 60 seconds.">
+    <meta name="keywords" content="southwest credit card comparison, rapid rewards cards, southwest companion pass, chase southwest cards, airline credit card comparison">
+    <link rel="canonical" href="https://yoursite.com/tools/southwest-card-comparison">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Southwest Credit Card Comparison Tool - Which Card is Right for You?">
+    <meta property="og:description" content="Compare Southwest Priority, Premier, Plus & Business cards. See earning rates, fees, and companion pass benefits. Find your best match instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.com/tools/southwest-card-comparison">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Southwest Credit Card Comparison Tool",
+        "description": "Interactive comparison tool for Southwest Rapid Rewards credit cards",
+        "url": "https://yoursite.com/tools/southwest-card-comparison",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --southwest-blue: #304CB2;
+            --southwest-dark-blue: #111B40;
+            --southwest-yellow: #FFBF27;
+            --southwest-red: #E31837;
+            --southwest-light-blue: #4A6CF7;
+            --success-green: #22C55E;
+            --warning-orange: #F97316;
+            --gray-900: #111827;
+            --gray-800: #1F2937;
+            --gray-700: #374151;
+            --gray-600: #4B5563;
+            --gray-500: #6B7280;
+            --gray-400: #9CA3AF;
+            --gray-300: #D1D5DB;
+            --gray-200: #E5E7EB;
+            --gray-100: #F3F4F6;
+            --gray-50: #F9FAFB;
+            --white: #FFFFFF;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --radius-lg: 16px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--gray-900);
+            background-color: var(--gray-50);
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--southwest-blue) 0%, var(--southwest-dark-blue) 100%);
+            color: white;
+            padding: 48px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,191,39,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        
+        .subtitle {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Filter Section */
+        .filter-section {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+        }
+        
+        .filter-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .filter-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--southwest-yellow);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+        
+        .question-group {
+            margin-bottom: 24px;
+        }
+        
+        .question-label {
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 12px;
+            display: block;
+        }
+        
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        
+        .option-card {
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+        
+        .option-card:hover {
+            border-color: var(--southwest-blue);
+            background: var(--gray-100);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .option-card.selected {
+            background: var(--southwest-blue);
+            color: white;
+            border-color: var(--southwest-dark-blue);
+        }
+        
+        .option-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+        
+        .option-text {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        /* Range Slider */
+        .range-container {
+            margin-top: 16px;
+        }
+        
+        .range-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        .range-slider {
+            width: 100%;
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+            position: relative;
+        }
+        
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            background: var(--southwest-blue);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+        
+        .range-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            background: var(--southwest-blue);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            border: none;
+        }
+        
+        .range-value {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--southwest-blue);
+        }
+        
+        /* Card Comparison Grid */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .card-item {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .card-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .card-item.recommended {
+            border: 3px solid var(--southwest-yellow);
+        }
+        
+        .recommended-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--southwest-yellow);
+            color: var(--gray-900);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--southwest-blue) 0%, var(--southwest-light-blue) 100%);
+            color: white;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .card-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .card-type {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+        
+        .annual-fee {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 12px;
+            font-weight: 600;
+        }
+        
+        .card-body {
+            padding: 24px;
+        }
+        
+        .earning-rates {
+            background: var(--gray-50);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .earning-title {
+            font-weight: 600;
+            color: var(--gray-700);
+            margin-bottom: 12px;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .earning-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .earning-item:last-child {
+            border-bottom: none;
+        }
+        
+        .earning-category {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+        
+        .earning-rate {
+            font-weight: 700;
+            color: var(--southwest-blue);
+        }
+        
+        .benefits-list {
+            margin-top: 20px;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .benefit-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--success-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 0.75rem;
+        }
+        
+        .benefit-text {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            line-height: 1.5;
+        }
+        
+        .card-footer {
+            background: var(--gray-50);
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .apply-button {
+            background: var(--southwest-yellow);
+            color: var(--gray-900);
+            padding: 12px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        
+        .apply-button:hover {
+            background: #E6AC25;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow);
+        }
+        
+        /* Companion Pass Tracker */
+        .companion-tracker {
+            background: linear-gradient(135deg, var(--southwest-yellow) 0%, #E6AC25 100%);
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            margin-bottom: 32px;
+            color: var(--gray-900);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .companion-tracker::before {
+            content: '✈️';
+            position: absolute;
+            font-size: 120px;
+            opacity: 0.1;
+            right: -20px;
+            top: -20px;
+            transform: rotate(-15deg);
+        }
+        
+        .tracker-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        
+        .progress-bar {
+            background: rgba(255,255,255,0.5);
+            height: 32px;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 16px;
+        }
+        
+        .progress-fill {
+            background: var(--southwest-blue);
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 16px;
+            position: relative;
+        }
+        
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            color: var(--gray-900);
+            z-index: 1;
+        }
+        
+        .tracker-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .option-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        /* Loading State */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(48, 76, 178, 0.2);
+            border-radius: 50%;
+            border-top-color: var(--southwest-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--gray-900);
+            color: white;
+            text-align: center;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        .info-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 16px;
+            height: 16px;
+            background: var(--gray-400);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.625rem;
+            font-weight: 700;
+            margin-left: 4px;
+            cursor: help;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Southwest Credit Card Comparison Tool</h1>
+            <p class="subtitle">Find the perfect Rapid Rewards card based on your travel habits and spending patterns</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <h2 class="filter-title">
+                <div class="filter-icon">✈️</div>
+                Tell us about your travel preferences
+            </h2>
+            
+            <!-- Travel Frequency -->
+            <div class="question-group">
+                <label class="question-label">How often do you fly with Southwest?</label>
+                <div class="option-grid">
+                    <div class="option-card" data-travel="rarely">
+                        <div class="option-icon">🎒</div>
+                        <div class="option-text">1-2 times/year</div>
+                    </div>
+                    <div class="option-card" data-travel="occasional">
+                        <div class="option-icon">✈️</div>
+                        <div class="option-text">3-5 times/year</div>
+                    </div>
+                    <div class="option-card" data-travel="frequent">
+                        <div class="option-icon">🌟</div>
+                        <div class="option-text">6-10 times/year</div>
+                    </div>
+                    <div class="option-card" data-travel="very-frequent">
+                        <div class="option-icon">🚀</div>
+                        <div class="option-text">10+ times/year</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Annual Spending -->
+            <div class="question-group">
+                <label class="question-label">Estimated annual spending on Southwest flights</label>
+                <div class="range-container">
+                    <div class="range-label">
+                        <span>$0</span>
+                        <span>$10,000+</span>
+                    </div>
+                    <input type="range" class="range-slider" id="spendingSlider" min="0" max="10000" value="2000" step="500">
+                    <div class="range-value">$<span id="spendingValue">2,000</span></div>
+                </div>
+            </div>
+
+            <!-- Travel Goals -->
+            <div class="question-group">
+                <label class="question-label">What's most important to you?</label>
+                <div class="option-grid">
+                    <div class="option-card" data-goal="companion">
+                        <div class="option-icon">👥</div>
+                        <div class="option-text">Companion Pass</div>
+                    </div>
+                    <div class="option-card" data-goal="points">
+                        <div class="option-icon">💰</div>
+                        <div class="option-text">Earning Points</div>
+                    </div>
+                    <div class="option-card" data-goal="benefits">
+                        <div class="option-icon">🎁</div>
+                        <div class="option-text">Travel Benefits</div>
+                    </div>
+                    <div class="option-card" data-goal="value">
+                        <div class="option-icon">💵</div>
+                        <div class="option-text">Low/No Annual Fee</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Business or Personal -->
+            <div class="question-group">
+                <label class="question-label">Are you a business owner?</label>
+                <div class="option-grid" style="grid-template-columns: repeat(2, 1fr); max-width: 400px;">
+                    <div class="option-card" data-business="yes">
+                        <div class="option-icon">💼</div>
+                        <div class="option-text">Yes</div>
+                    </div>
+                    <div class="option-card" data-business="no">
+                        <div class="option-icon">👤</div>
+                        <div class="option-text">No</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Companion Pass Tracker -->
+        <div class="companion-tracker">
+            <h3 class="tracker-title">Companion Pass Progress Simulator</h3>
+            <p style="margin-bottom: 16px; font-size: 0.875rem;">See how quickly you could earn Companion Pass with each card</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="companionProgress"></div>
+                <div class="progress-text"><span id="progressPoints">0</span> / 135,000 points</div>
+            </div>
+            <div class="tracker-info">
+                <span>Estimated time: <strong id="timeEstimate">Select your preferences</strong></span>
+                <span>Points needed: <strong id="pointsNeeded">135,000</strong></span>
+            </div>
+        </div>
+
+        <!-- Cards Comparison Grid -->
+        <div class="cards-container" id="cardsGrid">
+            <!-- Cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Recommendation Analysis -->
+        <div id="analysisSection" style="display: none; background: linear-gradient(135deg, var(--gray-50) 0%, white 100%); border-radius: var(--radius-lg); padding: 32px; margin-top: 32px; border: 2px solid var(--southwest-blue);">
+            <h3 style="font-size: 1.75rem; font-weight: 700; color: var(--gray-900); margin-bottom: 24px; text-align: center;">
+                <span style="color: var(--southwest-blue);">Why This Card Is Perfect For You</span>
+            </h3>
+            <div id="analysisContent">
+                <!-- Analysis will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Card Data - Updated with latest information
+        const cards = [
+            {
+                id: 'priority',
+                name: 'Southwest Rapid Rewards® Priority',
+                type: 'Premium Personal Card',
+                annualFee: 229,
+                earningRates: {
+                    'Southwest purchases': '4x',
+                    'Gas stations & restaurants': '2x',
+                    'All other purchases': '1x'
+                },
+                benefits: [
+                    '7,500 anniversary points each year',
+                    '$75 Southwest annual travel credit',
+                    '4 upgraded boardings per year when available',
+                    '2,500 tier qualifying points (TQPs) toward A-List for every $5,000 spent',
+                    'Select Preferred seats at booking (starting 2026)',
+                    'First checked bag free for cardholder and up to 8 companions',
+                    'Group 5 boarding for cardholder and up to 8 companions (starting 2026)',
+                    '10,000 Companion Pass qualifying points boost each year',
+                    '25% back on inflight purchases',
+                    'No foreign transaction fees'
+                ],
+                signupBonus: 100000,
+                signupBonusSpend: 4000,
+                signupBonusTime: 5,
+                businessCard: false
+            },
+            {
+                id: 'premier',
+                name: 'Southwest Rapid Rewards® Premier',
+                type: 'Mid-tier Personal Card',
+                annualFee: 149,
+                earningRates: {
+                    'Southwest purchases': '2x',
+                    'Gas stations & grocery stores': '2x (first $8,000/year)',
+                    'All other purchases': '1x'
+                },
+                benefits: [
+                    '6,000 anniversary points each year',
+                    'Select Standard or Preferred seats within 48 hours (starting 2026)',
+                    'First checked bag free for cardholder and up to 8 companions',
+                    'Group 5 boarding for cardholder and up to 8 companions (starting 2026)',
+                    '10,000 Companion Pass qualifying points boost each year',
+                    '15% annual flight discount each anniversary year',
+                    '25% back on inflight purchases',
+                    'No foreign transaction fees'
+                ],
+                signupBonus: 100000,
+                signupBonusSpend: 4000,
+                signupBonusTime: 5,
+                businessCard: false
+            },
+            {
+                id: 'plus',
+                name: 'Southwest Rapid Rewards® Plus',
+                type: 'Entry-level Personal Card',
+                annualFee: 99,
+                earningRates: {
+                    'Southwest purchases': '2x',
+                    'Gas stations & grocery stores': '2x (first $5,000/year)',
+                    'All other purchases': '1x'
+                },
+                benefits: [
+                    '3,000 anniversary points each year',
+                    'Select Standard seats within 48 hours (starting 2026)',
+                    'First checked bag free for cardholder and up to 8 companions',
+                    'Group 5 boarding for cardholder and up to 8 companions (starting 2026)',
+                    '10,000 Companion Pass qualifying points boost each year',
+                    '25% back on inflight purchases',
+                    'No foreign transaction fees'
+                ],
+                signupBonus: 100000,
+                signupBonusSpend: 4000,
+                signupBonusTime: 5,
+                businessCard: false
+            },
+            {
+                id: 'performance-business',
+                name: 'Southwest Rapid Rewards® Performance Business',
+                type: 'Premium Business Card',
+                annualFee: 299,
+                earningRates: {
+                    'Southwest purchases': '4x',
+                    'All other purchases': '2x'
+                },
+                benefits: [
+                    '9,000 anniversary points each year',
+                    '$100 Global Entry or TSA PreCheck® credit',
+                    '4 upgraded boardings per year when available',
+                    '2,500 tier qualifying points (TQPs) toward A-List for every $5,000 spent',
+                    'Select Preferred seats at booking (starting 2026)',
+                    'First checked bag free for cardholder and up to 8 companions',
+                    'Group 5 boarding for cardholder and up to 8 companions (starting 2026)',
+                    '10,000 Companion Pass qualifying points boost each year',
+                    'Employee cards at no additional cost',
+                    'No foreign transaction fees'
+                ],
+                signupBonus: 100000,
+                signupBonusSpend: 5000,
+                signupBonusTime: 5,
+                businessCard: true
+            },
+            {
+                id: 'premier-business',
+                name: 'Southwest Rapid Rewards® Premier Business',
+                type: 'Business Card',
+                annualFee: 149,
+                earningRates: {
+                    'Southwest purchases': '3x',
+                    'All other purchases': '2x'
+                },
+                benefits: [
+                    '6,000 anniversary points each year',
+                    'Select Standard or Preferred seats within 48 hours (starting 2026)',
+                    'First checked bag free for cardholder and up to 8 companions',
+                    'Group 5 boarding for cardholder and up to 8 companions (starting 2026)',
+                    '10,000 Companion Pass qualifying points boost each year',
+                    'Employee cards at no additional cost',
+                    '25% back on inflight purchases',
+                    'No foreign transaction fees'
+                ],
+                signupBonus: 100000,
+                signupBonusSpend: 3000,
+                signupBonusTime: 5,
+                businessCard: true
+            }
+        ];
+
+        // State management
+        let userPreferences = {
+            travelFrequency: null,
+            annualSpending: 2000,
+            goal: null,
+            isBusiness: null
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Travel frequency selection
+            document.querySelectorAll('[data-travel]').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('[data-travel]').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    userPreferences.travelFrequency = this.dataset.travel;
+                    updateRecommendations();
+                });
+            });
+
+            // Goal selection
+            document.querySelectorAll('[data-goal]').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('[data-goal]').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    userPreferences.goal = this.dataset.goal;
+                    updateRecommendations();
+                });
+            });
+
+            // Business selection
+            document.querySelectorAll('[data-business]').forEach(card => {
+                card.addEventListener('click', function() {
+                    document.querySelectorAll('[data-business]').forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    userPreferences.isBusiness = this.dataset.business === 'yes';
+                    updateRecommendations();
+                });
+            });
+
+            // Spending slider
+            const slider = document.getElementById('spendingSlider');
+            const spendingValue = document.getElementById('spendingValue');
+            
+            slider.addEventListener('input', function() {
+                userPreferences.annualSpending = parseInt(this.value);
+                spendingValue.textContent = this.value.toLocaleString();
+                updateRecommendations();
+            });
+
+            // Initial render
+            renderCards();
+        });
+
+        // Calculate score for each card
+        function calculateCardScore(card) {
+            let score = 0;
+            
+            // Travel frequency scoring
+            if (userPreferences.travelFrequency) {
+                switch(userPreferences.travelFrequency) {
+                    case 'rarely':
+                        if (card.annualFee < 100) score += 30;
+                        break;
+                    case 'occasional':
+                        if (card.annualFee < 150) score += 20;
+                        break;
+                    case 'frequent':
+                        if (card.benefits.length > 4) score += 30;
+                        break;
+                    case 'very-frequent':
+                        if (card.id === 'priority' || card.id === 'performance-business') score += 40;
+                        break;
+                }
+            }
+            
+            // Goal-based scoring
+            if (userPreferences.goal) {
+                switch(userPreferences.goal) {
+                    case 'companion':
+                        score += card.signupBonus / 1000; // Higher bonus = faster companion pass
+                        break;
+                    case 'points':
+                        if (card.earningRates['All other purchases'] === '2x') score += 30;
+                        break;
+                    case 'benefits':
+                        score += card.benefits.length * 5;
+                        break;
+                    case 'value':
+                        score += (200 - card.annualFee) / 10;
+                        break;
+                }
+            }
+            
+            // Business consideration
+            if (userPreferences.isBusiness !== null) {
+                if (userPreferences.isBusiness && card.businessCard) {
+                    score += 25;
+                } else if (!userPreferences.isBusiness && !card.businessCard) {
+                    score += 15;
+                }
+            }
+            
+            // Spending-based scoring
+            const breakEvenPoint = card.annualFee / 0.014; // Assuming 1.4 cents per point value
+            if (userPreferences.annualSpending > breakEvenPoint) {
+                score += 20;
+            }
+            
+            return score;
+        }
+
+        // Update recommendations
+        function updateRecommendations() {
+            const scoredCards = cards.map(card => ({
+                ...card,
+                score: calculateCardScore(card)
+            })).sort((a, b) => b.score - a.score);
+            
+            renderCards(scoredCards);
+            updateCompanionProgress();
+            
+            // Show analysis if all preferences are selected
+            if (userPreferences.travelFrequency && userPreferences.goal && userPreferences.isBusiness !== null) {
+                showAnalysis(scoredCards[0]);
+            }
+        }
+
+        // Show analysis for recommended card
+        function showAnalysis(topCard) {
+            const analysisSection = document.getElementById('analysisSection');
+            const analysisContent = document.getElementById('analysisContent');
+            
+            analysisSection.style.display = 'block';
+            
+            // Calculate annual value
+            const annualValue = calculateAnnualValue(topCard);
+            
+            let analysisHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+                    <div style="background: white; padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow);">
+                        <h4 style="color: var(--southwest-blue); margin-bottom: 16px; font-size: 1.25rem;">Your Travel Profile</h4>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-200);">
+                                <strong>Flight Frequency:</strong> ${getTravelFrequencyText(userPreferences.travelFrequency)}
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-200);">
+                                <strong>Annual SW Spending:</strong> ${userPreferences.annualSpending.toLocaleString()}
+                            </li>
+                            <li style="padding: 8px 0; border-bottom: 1px solid var(--gray-200);">
+                                <strong>Primary Goal:</strong> ${getGoalText(userPreferences.goal)}
+                            </li>
+                            <li style="padding: 8px 0;">
+                                <strong>Card Type:</strong> ${userPreferences.isBusiness ? 'Business' : 'Personal'}
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div style="background: white; padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow);">
+                        <h4 style="color: var(--southwest-blue); margin-bottom: 16px; font-size: 1.25rem;">Estimated Annual Value</h4>
+                        <div style="text-align: center;">
+                            <div style="font-size: 3rem; font-weight: 700; color: var(--success-green); margin-bottom: 8px;">
+                                ${annualValue.total.toLocaleString()}
+                            </div>
+                            <div style="font-size: 1rem; color: var(--gray-600); margin-bottom: 16px;">
+                                After ${topCard.annualFee} annual fee
+                            </div>
+                            <div style="font-size: 1.5rem; font-weight: 600; color: var(--southwest-blue);">
+                                Net Benefit: ${(annualValue.total - topCard.annualFee).toLocaleString()}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: white; padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow); margin-bottom: 24px;">
+                    <h4 style="color: var(--southwest-blue); margin-bottom: 16px; font-size: 1.25rem;">Why ${topCard.name} Is Your Best Match</h4>
+                    ${generateRecommendationReasons(topCard, annualValue)}
+                </div>
+                
+                <div style="background: white; padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow);">
+                    <h4 style="color: var(--southwest-blue); margin-bottom: 16px; font-size: 1.25rem;">Value Breakdown</h4>
+                    <div style="display: grid; gap: 12px;">
+                        ${generateValueBreakdown(annualValue)}
+                    </div>
+                </div>
+            `;
+            
+            analysisContent.innerHTML = analysisHTML;
+            
+            // Scroll to analysis
+            setTimeout(() => {
+                analysisSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        }
+
+        // Calculate annual value
+        function calculateAnnualValue(card) {
+            const values = {
+                signupBonus: 0,
+                flightEarnings: 0,
+                categoryEarnings: 0,
+                anniversaryPoints: 0,
+                checkedBags: 0,
+                travelCredit: 0,
+                otherBenefits: 0,
+                total: 0
+            };
+            
+            // Signup bonus (first year only, valued at 1.2 cents per point)
+            values.signupBonus = card.signupBonus * 0.012;
+            
+            // Flight earnings
+            const flightRate = card.id === 'priority' || card.id === 'performance-business' ? 4 : 
+                              card.businessCard ? 3 : 2;
+            values.flightEarnings = userPreferences.annualSpending * flightRate * 0.012;
+            
+            // Category spending (estimate 30% of flight spending)
+            const categorySpending = userPreferences.annualSpending * 0.3;
+            const categoryRate = card.earningRates['Gas stations & restaurants'] ? 2 : 1;
+            values.categoryEarnings = categorySpending * categoryRate * 0.012;
+            
+            // Anniversary points
+            const anniversaryMatch = card.benefits.find(b => b.includes('anniversary points'));
+            if (anniversaryMatch) {
+                const points = parseInt(anniversaryMatch.match(/(\d+,?\d*)/)[0].replace(',', ''));
+                values.anniversaryPoints = points * 0.012;
+            }
+            
+            // Checked bags (based on travel frequency)
+            const flightsPerYear = getFlightsPerYear(userPreferences.travelFrequency);
+            values.checkedBags = flightsPerYear * 35 * 2; // $35 per bag, round trip
+            
+            // Travel credit
+            if (card.id === 'priority') {
+                values.travelCredit = 75;
+            }
+            
+            // Other benefits estimate
+            if (card.id === 'priority' || card.id === 'performance-business') {
+                values.otherBenefits = 100; // Upgraded boardings, TSA credit, etc.
+            }
+            
+            values.total = Object.values(values).reduce((a, b) => a + b, 0);
+            
+            return values;
+        }
+
+        // Generate recommendation reasons
+        function generateRecommendationReasons(card, annualValue) {
+            const reasons = [];
+            
+            // Travel frequency reason
+            if (userPreferences.travelFrequency === 'very-frequent' && (card.id === 'priority' || card.id === 'performance-business')) {
+                reasons.push(`<li><strong>Premium Perks for Frequent Flyers:</strong> With 10+ flights per year, you'll maximize the value of 4 upgraded boardings, Preferred seat selection, and ${card.id === 'priority' ? '$75 travel credit' : '$100 TSA PreCheck credit'}.</li>`);
+            } else if (userPreferences.travelFrequency === 'rarely' && card.id === 'plus') {
+                reasons.push(`<li><strong>Low Annual Fee:</strong> At just $99/year, this card provides essential Southwest benefits without breaking the bank for occasional flyers.</li>`);
+            }
+            
+            // Goal-based reason
+            if (userPreferences.goal === 'companion') {
+                reasons.push(`<li><strong>Fast Track to Companion Pass:</strong> The ${card.signupBonus.toLocaleString()} point bonus gets you ${Math.round(card.signupBonus/1350)}% of the way to Companion Pass immediately.</li>`);
+            } else if (userPreferences.goal === 'points' && card.businessCard) {
+                reasons.push(`<li><strong>Maximum Point Earning:</strong> Earn ${card.earningRates['Southwest purchases']} on Southwest and ${card.earningRates['All other purchases']} on all other purchases - the best earning rates available.</li>`);
+            } else if (userPreferences.goal === 'benefits') {
+                reasons.push(`<li><strong>Premium Travel Experience:</strong> Enjoy ${card.benefits.length} valuable benefits including ${card.benefits[0]}, making every trip more comfortable.</li>`);
+            }
+            
+            // Value reason
+            if (annualValue.total - card.annualFee > 500) {
+                reasons.push(`<li><strong>Exceptional Value:</strong> Based on your travel patterns, this card delivers ${annualValue.total.toLocaleString()} in value annually - that's ${Math.round((annualValue.total - card.annualFee) / card.annualFee * 100)}% return on the annual fee!</li>`);
+            }
+            
+            // Business reason
+            if (card.businessCard) {
+                reasons.push(`<li><strong>Business Benefits:</strong> Keep personal and business expenses separate while earning at accelerated rates. Plus, add employee cards at no extra cost.</li>`);
+            }
+            
+            return `<ul style="list-style: none; padding: 0;">${reasons.join('')}</ul>`;
+        }
+
+        // Generate value breakdown
+        function generateValueBreakdown(values) {
+            const items = [
+                { label: 'Welcome Bonus (First Year)', value: values.signupBonus, icon: '🎁' },
+                { label: 'Points from Southwest Flights', value: values.flightEarnings, icon: '✈️' },
+                { label: 'Points from Other Spending', value: values.categoryEarnings, icon: '💳' },
+                { label: 'Anniversary Bonus Points', value: values.anniversaryPoints, icon: '🎂' },
+                { label: 'Free Checked Bags Savings', value: values.checkedBags, icon: '🧳' },
+                { label: 'Travel Credit', value: values.travelCredit, icon: '💰' },
+                { label: 'Other Benefits', value: values.otherBenefits, icon: '⭐' }
+            ].filter(item => item.value > 0);
+            
+            return items.map(item => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: var(--gray-50); border-radius: var(--radius-sm);">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.25rem;">${item.icon}</span>
+                        <span style="color: var(--gray-700);">${item.label}</span>
+                    </span>
+                    <span style="font-weight: 700; color: var(--southwest-blue);">${item.value.toLocaleString()}</span>
+                </div>
+            `).join('');
+        }
+
+        // Helper functions
+        function getTravelFrequencyText(frequency) {
+            const map = {
+                'rarely': '1-2 times per year',
+                'occasional': '3-5 times per year',
+                'frequent': '6-10 times per year',
+                'very-frequent': '10+ times per year'
+            };
+            return map[frequency] || frequency;
+        }
+
+        function getGoalText(goal) {
+            const map = {
+                'companion': 'Earning Companion Pass',
+                'points': 'Maximizing Points',
+                'benefits': 'Premium Travel Benefits',
+                'value': 'Low Annual Fee'
+            };
+            return map[goal] || goal;
+        }
+
+        function getFlightsPerYear(frequency) {
+            const map = {
+                'rarely': 2,
+                'occasional': 4,
+                'frequent': 8,
+                'very-frequent': 12
+            };
+            return map[frequency] || 4;
+        }
+
+        // Render cards
+        function renderCards(cardList = cards) {
+            const container = document.getElementById('cardsGrid');
+            container.innerHTML = '';
+            
+            const cardsToShow = cardList.filter(card => {
+                if (userPreferences.isBusiness === false && card.businessCard) return false;
+                if (userPreferences.isBusiness === true && !card.businessCard) return false;
+                return true;
+            });
+            
+            cardsToShow.forEach((card, index) => {
+                const isRecommended = index === 0 && card.score > 0;
+                
+                const cardHtml = `
+                    <div class="card-item ${isRecommended ? 'recommended' : ''} fade-in">
+                        ${isRecommended ? '<div class="recommended-badge">Best Match</div>' : ''}
+                        
+                        <div class="card-header">
+                            <h3 class="card-name">${card.name}</h3>
+                            <p class="card-type">${card.type}</p>
+                            <div class="annual-fee">
+                                $${card.annualFee} Annual Fee
+                            </div>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="earning-rates">
+                                <h4 class="earning-title">Earning Rates</h4>
+                                ${Object.entries(card.earningRates).map(([category, rate]) => `
+                                    <div class="earning-item">
+                                        <span class="earning-category">${category}</span>
+                                        <span class="earning-rate">${rate} points</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div class="benefits-list">
+                                <h4 class="earning-title">Key Benefits</h4>
+                                ${card.benefits.map(benefit => `
+                                    <div class="benefit-item">
+                                        <div class="benefit-icon">✓</div>
+                                        <div class="benefit-text">${benefit}</div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            
+                            <div style="margin-top: 20px; padding: 16px; background: var(--gray-50); border-radius: var(--radius); text-align: center;">
+                                <div style="font-size: 0.875rem; color: var(--gray-600); margin-bottom: 4px;">Welcome Bonus</div>
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--southwest-blue);">${card.signupBonus.toLocaleString()} points</div>
+                                <div style="font-size: 0.75rem; color: var(--gray-500); margin-top: 4px;">After ${card.signupBonusSpend.toLocaleString()} in ${card.signupBonusTime} months</div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button class="apply-button">View Card Details</button>
+                        </div>
+                    </div>
+                `;
+                
+                container.innerHTML += cardHtml;
+            });
+        }
+
+        // Update companion pass progress
+        function updateCompanionProgress() {
+            if (!userPreferences.travelFrequency || !userPreferences.annualSpending) {
+                return;
+            }
+            
+            // Calculate estimated points per year
+            let estimatedPoints = 0;
+            const flightSpending = userPreferences.annualSpending;
+            const otherSpending = userPreferences.annualSpending * 2; // Assume 2x other spending
+            
+            // Get the top recommended card
+            const topCard = cards.filter(card => {
+                if (userPreferences.isBusiness === false && card.businessCard) return false;
+                if (userPreferences.isBusiness === true && !card.businessCard) return false;
+                return true;
+            })[0];
+            
+            if (topCard) {
+                // Points from flights (2x, 3x, or 4x depending on card)
+                const flightEarningRate = topCard.id === 'priority' || topCard.id === 'performance-business' ? 4 : 
+                                        topCard.businessCard ? 3 : 2;
+                estimatedPoints += flightSpending * flightEarningRate;
+                
+                // Points from other spending
+                const otherRate = topCard.earningRates['All other purchases'] === '2x' ? 2 : 1;
+                estimatedPoints += otherSpending * otherRate;
+                
+                // Add signup bonus
+                estimatedPoints += topCard.signupBonus;
+                
+                // Add anniversary points
+                const anniversaryPoints = parseInt(topCard.benefits.find(b => b.includes('anniversary points'))?.match(/\d+,?\d*/)[0].replace(',', '') || 0);
+                estimatedPoints += anniversaryPoints;
+            }
+            
+            // Update progress bar
+            const progress = Math.min((estimatedPoints / 135000) * 100, 100);
+            const progressFill = document.getElementById('companionProgress');
+            const progressPoints = document.getElementById('progressPoints');
+            const timeEstimate = document.getElementById('timeEstimate');
+            
+            progressFill.style.width = `${progress}%`;
+            progressPoints.textContent = Math.min(estimatedPoints, 135000).toLocaleString();
+            
+            // Calculate time estimate
+            if (estimatedPoints >= 135000) {
+                timeEstimate.textContent = 'Within first year!';
+            } else {
+                const monthsNeeded = Math.ceil((135000 / estimatedPoints) * 12);
+                timeEstimate.textContent = `~${monthsNeeded} months`;
+            }
+        }
+    </script>
+</body>
+</html>
