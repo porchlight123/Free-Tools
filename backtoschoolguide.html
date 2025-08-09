@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Back to School Planner 2024: Custom Supply Lists & First Day Checklist Generator</title>
+    <meta name="description" content="Create personalized back-to-school lists in seconds. Free planner generates grade-specific supplies, first-day essentials & prep timelines. Save money with smart shopping tips. Print-ready.">
+    <meta name="keywords" content="back to school planner, school supply list generator, first day of school checklist, school preparation tool, grade specific supplies, back to school shopping list">
+    <link rel="canonical" href="https://yoursite.com/tools/back-to-school-planner">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Free Back to School Planner - Custom Supply Lists in Seconds">
+    <meta property="og:description" content="Generate personalized school supply lists by grade level. Includes first-day essentials, prep timelines, and money-saving tips. Print-ready checklists.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yoursite.com/tools/back-to-school-planner">
+    
+    <!-- Schema Markup -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Back to School Planner",
+        "description": "Interactive tool for creating customized back-to-school supply lists and preparation checklists",
+        "url": "https://yoursite.com/tools/back-to-school-planner",
+        "applicationCategory": "EducationApplication",
+        "operatingSystem": "All",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #FF6B6B;
+            --primary-dark: #FF5252;
+            --secondary: #4ECDC4;
+            --secondary-dark: #45B7B8;
+            --accent: #FFE66D;
+            --purple: #9B59B6;
+            --blue: #3498DB;
+            --green: #2ECC71;
+            --orange: #FF8C42;
+            --pink: #FF6B9D;
+            --dark: #2C3E50;
+            --gray-900: #34495E;
+            --gray-700: #5D6D7E;
+            --gray-500: #95A5A6;
+            --gray-300: #BDC3C7;
+            --gray-100: #ECF0F1;
+            --white: #FFFFFF;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --radius-lg: 24px;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: linear-gradient(135deg, #FFE5E5 0%, #FFF5E5 50%, #E5F5FF 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Animated Background */
+        .bg-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+        }
+        
+        .shape-1 {
+            top: 10%;
+            left: 5%;
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        .shape-2 {
+            top: 60%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            background: var(--secondary);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: float 25s ease-in-out infinite reverse;
+        }
+        
+        .shape-3 {
+            bottom: 20%;
+            left: 15%;
+            width: 80px;
+            height: 80px;
+            background: var(--accent);
+            transform: rotate(45deg);
+            animation: float 18s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.3);
+        }
+        
+        .header::before {
+            content: '📚';
+            position: absolute;
+            font-size: 200px;
+            opacity: 0.1;
+            top: -50px;
+            left: -50px;
+            transform: rotate(-15deg);
+        }
+        
+        .header::after {
+            content: '🎒';
+            position: absolute;
+            font-size: 150px;
+            opacity: 0.1;
+            bottom: -40px;
+            right: -30px;
+            transform: rotate(20deg);
+        }
+        
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.95);
+            font-weight: 500;
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Progress Indicator */
+        .progress-container {
+            max-width: 800px;
+            margin: -30px auto 40px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .progress-bar {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .progress-line {
+            position: absolute;
+            top: 24px;
+            left: 60px;
+            right: 60px;
+            height: 3px;
+            background: var(--gray-300);
+            z-index: 0;
+        }
+        
+        .progress-line-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+        
+        .step {
+            position: relative;
+            flex: 1;
+            text-align: center;
+            z-index: 1;
+        }
+        
+        .step-circle {
+            width: 48px;
+            height: 48px;
+            background: var(--gray-300);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .step.active .step-circle {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+        }
+        
+        .step.completed .step-circle {
+            background: var(--green);
+        }
+        
+        .step-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--gray-700);
+            transition: color 0.3s ease;
+        }
+        
+        .step.active .step-label {
+            color: var(--primary);
+        }
+        
+        .step.completed .step-label {
+            color: var(--green);
+        }
+        
+        /* Card Sections */
+        .card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 32px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            margin-right: 16px;
+        }
+        
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+            margin-top: 4px;
+        }
+        
+        /* Grade Selection */
+        .grade-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .grade-option {
+            background: var(--gray-100);
+            border: 3px solid transparent;
+            border-radius: var(--radius);
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .grade-option::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .grade-option:hover::before {
+            transform: scale(1);
+        }
+        
+        .grade-option:hover {
+            background: var(--gray-100);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .grade-option.selected {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-color: var(--primary-dark);
+            transform: scale(1.05);
+        }
+        
+        .grade-icon {
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+        }
+        
+        .grade-label {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        /* School Type Selection */
+        .school-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .school-type-option {
+            background: linear-gradient(145deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .school-type-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        
+        .school-type-option.selected {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dark) 100%);
+            color: white;
+            border-color: var(--secondary-dark);
+        }
+        
+        /* Special Needs Section */
+        .needs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .need-option {
+            background: white;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .need-option:hover {
+            border-color: var(--primary);
+            background: var(--gray-100);
+        }
+        
+        .need-option.selected {
+            background: var(--accent);
+            border-color: var(--orange);
+        }
+        
+        .need-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gray-400);
+            border-radius: 6px;
+            margin-right: 12px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .need-option.selected .need-checkbox {
+            background: var(--orange);
+            border-color: var(--orange);
+        }
+        
+        .need-option.selected .need-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        /* Activities Section */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        
+        .activity-pill {
+            background: var(--gray-100);
+            border: 2px solid transparent;
+            border-radius: 24px;
+            padding: 12px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .activity-pill:hover {
+            background: var(--gray-200);
+            transform: translateY(-1px);
+        }
+        
+        .activity-pill.selected {
+            background: var(--purple);
+            color: white;
+            border-color: var(--purple);
+        }
+        
+        /* Button Styles */
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--gray-100);
+            color: var(--dark);
+            border: 2px solid var(--gray-300);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-200);
+            border-color: var(--gray-400);
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+        
+        /* Results Section */
+        .results-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .results-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .results-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+        
+        .results-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-700);
+        }
+        
+        /* Supply List */
+        .supply-category {
+            background: white;
+            border-radius: var(--radius);
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--gray-100);
+        }
+        
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--gray-100);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 12px;
+        }
+        
+        .category-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--dark);
+            flex: 1;
+        }
+        
+        .supply-items {
+            display: grid;
+            gap: 12px;
+        }
+        
+        .supply-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            background: var(--gray-100);
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+        
+        .supply-item:hover {
+            background: var(--gray-200);
+            transform: translateX(4px);
+        }
+        
+        .item-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--gray-400);
+            border-radius: 6px;
+            margin-right: 12px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .item-checkbox.checked {
+            background: var(--green);
+            border-color: var(--green);
+        }
+        
+        .item-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-weight: bold;
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 2px;
+        }
+        
+        .item-quantity {
+            font-size: 0.875rem;
+            color: var(--gray-700);
+        }
+        
+        .item-note {
+            font-size: 0.75rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        /* First Day Tips */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 32px;
+        }
+        
+        .tip-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: var(--radius);
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tip-card::before {
+            content: '💡';
+            position: absolute;
+            font-size: 60px;
+            opacity: 0.1;
+            bottom: -10px;
+            right: -10px;
+        }
+        
+        .tip-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .tip-content {
+            font-size: 0.875rem;
+            line-height: 1.6;
+            opacity: 0.95;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+            }
+            
+            .header, .progress-container, .btn-group, .card:not(.results-section .card) {
+                display: none;
+            }
+            
+            .results-section {
+                display: block !important;
+            }
+            
+            .supply-item {
+                break-inside: avoid;
+            }
+            
+            .supply-category {
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .grade-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+            
+            .progress-steps {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .progress-line {
+                display: none;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Hidden by default */
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1>Back to School Planner</h1>
+            <p class="subtitle">Create a personalized school prep checklist in minutes</p>
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="container">
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-steps">
+                    <div class="progress-line">
+                        <div class="progress-line-fill" id="progressFill"></div>
+                    </div>
+                    <div class="step active" id="step1">
+                        <div class="step-circle">👦</div>
+                        <div class="step-label">Grade Level</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-circle">🏫</div>
+                        <div class="step-label">School Info</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-circle">🎯</div>
+                        <div class="step-label">Customize</div>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="step-circle">📋</div>
+                        <div class="step-label">Your List</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Grade Level -->
+        <div class="section active" id="section1">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">👦</div>
+                    <div>
+                        <h2 class="card-title">Select Grade Level</h2>
+                        <p class="card-subtitle">Choose your child's grade for the upcoming school year</p>
+                    </div>
+                </div>
+                
+                <div class="grade-grid">
+                    <div class="grade-option" data-grade="prek">
+                        <div class="grade-icon">🧸</div>
+                        <div class="grade-label">Pre-K</div>
+                    </div>
+                    <div class="grade-option" data-grade="k">
+                        <div class="grade-icon">🎨</div>
+                        <div class="grade-label">Kindergarten</div>
+                    </div>
+                    <div class="grade-option" data-grade="1">
+                        <div class="grade-icon">✏️</div>
+                        <div class="grade-label">1st Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="2">
+                        <div class="grade-icon">📚</div>
+                        <div class="grade-label">2nd Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="3">
+                        <div class="grade-icon">📖</div>
+                        <div class="grade-label">3rd Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="4">
+                        <div class="grade-icon">🔢</div>
+                        <div class="grade-label">4th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="5">
+                        <div class="grade-icon">🔬</div>
+                        <div class="grade-label">5th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="6">
+                        <div class="grade-icon">🌎</div>
+                        <div class="grade-label">6th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="7">
+                        <div class="grade-icon">💻</div>
+                        <div class="grade-label">7th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="8">
+                        <div class="grade-icon">🎓</div>
+                        <div class="grade-label">8th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="9">
+                        <div class="grade-icon">🏛️</div>
+                        <div class="grade-label">9th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="10">
+                        <div class="grade-icon">📊</div>
+                        <div class="grade-label">10th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="11">
+                        <div class="grade-icon">🔭</div>
+                        <div class="grade-label">11th Grade</div>
+                    </div>
+                    <div class="grade-option" data-grade="12">
+                        <div class="grade-icon">🎯</div>
+                        <div class="grade-label">12th Grade</div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="nextStep()" disabled id="step1NextBtn">
+                        Next Step
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14m-7-7l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: School Information -->
+        <div class="section" id="section2">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🏫</div>
+                    <div>
+                        <h2 class="card-title">School Information</h2>
+                        <p class="card-subtitle">Tell us about your school type and any special requirements</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: 16px; color: var(--dark);">School Type</h3>
+                <div class="school-type-grid">
+                    <div class="school-type-option" data-type="public">
+                        <div class="grade-icon">🏫</div>
+                        <div class="grade-label">Public School</div>
+                    </div>
+                    <div class="school-type-option" data-type="private">
+                        <div class="grade-icon">🎓</div>
+                        <div class="grade-label">Private School</div>
+                    </div>
+                    <div class="school-type-option" data-type="charter">
+                        <div class="grade-icon">📜</div>
+                        <div class="grade-label">Charter School</div>
+                    </div>
+                    <div class="school-type-option" data-type="homeschool">
+                        <div class="grade-icon">🏠</div>
+                        <div class="grade-label">Homeschool</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 32px 0 16px; color: var(--dark);">Special Considerations</h3>
+                <div class="needs-grid">
+                    <div class="need-option" data-need="uniform">
+                        <div class="need-checkbox"></div>
+                        <div>
+                            <div class="item-name">School Uniform Required</div>
+                            <div class="item-quantity">Includes dress code items</div>
+                        </div>
+                    </div>
+                    <div class="need-option" data-need="technology">
+                        <div class="need-checkbox"></div>
+                        <div>
+                            <div class="item-name">Technology Program</div>
+                            <div class="item-quantity">1:1 device or BYOD</div>
+                        </div>
+                    </div>
+                    <div class="need-option" data-need="allergies">
+                        <div class="need-checkbox"></div>
+                        <div>
+                            <div class="item-name">Food Allergies</div>
+                            <div class="item-quantity">Special lunch considerations</div>
+                        </div>
+                    </div>
+                    <div class="need-option" data-need="special-ed">
+                        <div class="need-checkbox"></div>
+                        <div>
+                            <div class="item-name">Special Education</div>
+                            <div class="item-quantity">IEP/504 accommodations</div>
+                        </div>
+                    </div>
+                    <div class="need-option" data-need="esl">
+                        <div class="need-checkbox"></div>
+                        <div>
+                            <div class="item-name">ESL/ELL Program</div>
+                            <div class="item-quantity">Language learning support</div>
+                        </div>
+                    </div>
+                    <div class="need-option" data-need="bus">
+                        <div class="need-checkbox"></div>
+                        <div>
+                            <div class="item-name">Bus Transportation</div>
+                            <div class="item-quantity">Morning & afternoon</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="previousStep()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5m7 7l-7-7 7-7"/>
+                        </svg>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" onclick="nextStep()">
+                        Next Step
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14m-7-7l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Activities & Extras -->
+        <div class="section" id="section3">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <div>
+                        <h2 class="card-title">Activities & Extras</h2>
+                        <p class="card-subtitle">Select any extracurricular activities or special programs</p>
+                    </div>
+                </div>
+                
+                <h3 style="margin-bottom: 16px; color: var(--dark);">After-School Activities</h3>
+                <div class="activities-grid">
+                    <div class="activity-pill" data-activity="sports">⚽ Sports</div>
+                    <div class="activity-pill" data-activity="music">🎵 Music/Band</div>
+                    <div class="activity-pill" data-activity="art">🎨 Art Club</div>
+                    <div class="activity-pill" data-activity="stem">🔬 STEM Club</div>
+                    <div class="activity-pill" data-activity="drama">🎭 Drama/Theater</div>
+                    <div class="activity-pill" data-activity="chess">♟️ Chess Club</div>
+                    <div class="activity-pill" data-activity="robotics">🤖 Robotics</div>
+                    <div class="activity-pill" data-activity="language">🌐 Language Club</div>
+                    <div class="activity-pill" data-activity="yearbook">📸 Yearbook</div>
+                    <div class="activity-pill" data-activity="debate">🗣️ Debate Team</div>
+                    <div class="activity-pill" data-activity="volunteer">🤝 Volunteering</div>
+                    <div class="activity-pill" data-activity="tutoring">📚 Tutoring</div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="previousStep()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5m7 7l-7-7 7-7"/>
+                        </svg>
+                        Back
+                    </button>
+                    <button class="btn btn-primary" onclick="generateList()">
+                        Generate My List
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 11l3 3L22 4"/>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Generated List -->
+        <div class="section results-section" id="section4">
+            <div class="results-header">
+                <h2 class="results-title">Your Personalized School List</h2>
+                <p class="results-subtitle">Check off items as you shop and prepare</p>
+            </div>
+            
+            <div id="generatedContent">
+                <!-- Content will be dynamically generated -->
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-secondary" onclick="previousStep()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 12H5m7 7l-7-7 7-7"/>
+                    </svg>
+                    Edit Selections
+                </button>
+                <button class="btn btn-primary" onclick="window.print()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9V2h12v7"/>
+                        <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8" rx="2"/>
+                    </svg>
+                    Print List
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // State management
+        let currentStep = 1;
+        let selections = {
+            grade: null,
+            schoolType: null,
+            specialNeeds: [],
+            activities: []
+        };
+
+        // Supply lists by grade
+        const supplyLists = {
+            prek: {
+                basic: [
+                    { name: "Backpack (small size)", quantity: "1", note: "Label with name" },
+                    { name: "Lunchbox", quantity: "1", note: "Easy to open" },
+                    { name: "Water bottle", quantity: "1", note: "Spill-proof" },
+                    { name: "Crayons", quantity: "1 box (24 count)" },
+                    { name: "Washable markers", quantity: "1 pack (8 count)" },
+                    { name: "Glue sticks", quantity: "4" },
+                    { name: "Safety scissors", quantity: "1 pair", note: "Blunt tip" },
+                    { name: "Tissues", quantity: "2 boxes" },
+                    { name: "Hand sanitizer", quantity: "2 bottles" },
+                    { name: "Change of clothes", quantity: "1 set", note: "In labeled bag" },
+                    { name: "Nap mat/blanket", quantity: "1", note: "If required" }
+                ],
+                personal: [
+                    { name: "Diapers/Pull-ups", quantity: "If needed" },
+                    { name: "Wipes", quantity: "1 pack" },
+                    { name: "Comfort item", quantity: "1", note: "Small toy/blanket" }
+                ]
+            },
+            k: {
+                basic: [
+                    { name: "Backpack", quantity: "1" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil box", quantity: "1" },
+                    { name: "Crayons", quantity: "2 boxes (24 count)" },
+                    { name: "Colored pencils", quantity: "1 box (12 count)" },
+                    { name: "Washable markers", quantity: "1 pack (10 count)" },
+                    { name: "#2 Pencils", quantity: "2 packs (12 count)" },
+                    { name: "Glue sticks", quantity: "8" },
+                    { name: "Scissors", quantity: "1 pair", note: "Kid-safe" },
+                    { name: "Erasers", quantity: "4 large" },
+                    { name: "Folders", quantity: "4", note: "2 pocket" },
+                    { name: "Tissues", quantity: "3 boxes" },
+                    { name: "Hand sanitizer", quantity: "2 bottles" },
+                    { name: "Disinfecting wipes", quantity: "2 containers" }
+                ],
+                personal: [
+                    { name: "Rest mat", quantity: "1", note: "If required" },
+                    { name: "Headphones", quantity: "1 pair", note: "Basic, wired" },
+                    { name: "Art smock", quantity: "1" }
+                ]
+            },
+            1: {
+                basic: [
+                    { name: "Backpack", quantity: "1" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil box", quantity: "1" },
+                    { name: "#2 Pencils", quantity: "3 packs (12 count)" },
+                    { name: "Colored pencils", quantity: "1 box (12 count)" },
+                    { name: "Crayons", quantity: "2 boxes (24 count)" },
+                    { name: "Washable markers", quantity: "1 pack (10 count)" },
+                    { name: "Glue sticks", quantity: "10" },
+                    { name: "Scissors", quantity: "1 pair" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "Pencil sharpener", quantity: "1", note: "With cover" },
+                    { name: "Folders", quantity: "5", note: "Different colors" },
+                    { name: "Notebooks", quantity: "3", note: "Wide ruled" },
+                    { name: "Tissues", quantity: "3 boxes" },
+                    { name: "Hand sanitizer", quantity: "2 bottles" }
+                ],
+                personal: [
+                    { name: "Headphones", quantity: "1 pair" },
+                    { name: "Pencil grips", quantity: "If needed" }
+                ]
+            },
+            2: {
+                basic: [
+                    { name: "Backpack", quantity: "1" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil box", quantity: "1" },
+                    { name: "#2 Pencils", quantity: "4 packs (12 count)" },
+                    { name: "Colored pencils", quantity: "1 box (12 count)" },
+                    { name: "Crayons", quantity: "1 box (24 count)" },
+                    { name: "Washable markers", quantity: "1 pack (10 count)" },
+                    { name: "Highlighters", quantity: "2" },
+                    { name: "Glue sticks", quantity: "12" },
+                    { name: "Scissors", quantity: "1 pair" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "Folders", quantity: "6", note: "2 pocket" },
+                    { name: "Notebooks", quantity: "4", note: "Wide ruled" },
+                    { name: "Composition books", quantity: "2" },
+                    { name: "Tissues", quantity: "3 boxes" },
+                    { name: "Hand sanitizer", quantity: "2 bottles" }
+                ],
+                personal: [
+                    { name: "Headphones", quantity: "1 pair" },
+                    { name: "Pencil sharpener", quantity: "1" }
+                ]
+            },
+            3: {
+                basic: [
+                    { name: "Backpack", quantity: "1" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil pouch", quantity: "1" },
+                    { name: "#2 Pencils", quantity: "4 packs (12 count)" },
+                    { name: "Colored pencils", quantity: "1 box (24 count)" },
+                    { name: "Crayons", quantity: "1 box (24 count)" },
+                    { name: "Markers", quantity: "1 pack (12 count)" },
+                    { name: "Highlighters", quantity: "4", note: "Different colors" },
+                    { name: "Glue sticks", quantity: "10" },
+                    { name: "Scissors", quantity: "1 pair" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Folders", quantity: "8", note: "2 pocket" },
+                    { name: "Notebooks", quantity: "5", note: "Wide ruled" },
+                    { name: "Composition books", quantity: "3" },
+                    { name: "Index cards", quantity: "1 pack (100)" },
+                    { name: "Tissues", quantity: "3 boxes" }
+                ],
+                personal: [
+                    { name: "Headphones", quantity: "1 pair" },
+                    { name: "Pencil sharpener", quantity: "1" },
+                    { name: "Dictionary", quantity: "1", note: "Grade appropriate" }
+                ]
+            },
+            4: {
+                basic: [
+                    { name: "Backpack", quantity: "1" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil case", quantity: "1" },
+                    { name: "#2 Pencils", quantity: "4 packs (12 count)" },
+                    { name: "Mechanical pencils", quantity: "1 pack" },
+                    { name: "Colored pencils", quantity: "1 box (24 count)" },
+                    { name: "Markers", quantity: "1 pack (12 count)" },
+                    { name: "Highlighters", quantity: "6", note: "Different colors" },
+                    { name: "Pens", quantity: "1 pack", note: "Blue or black" },
+                    { name: "Glue sticks", quantity: "8" },
+                    { name: "Scissors", quantity: "1 pair" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Protractor", quantity: "1" },
+                    { name: "Folders", quantity: "8", note: "2 pocket" },
+                    { name: "Notebooks", quantity: "6", note: "Wide ruled" },
+                    { name: "Composition books", quantity: "3" },
+                    { name: "Binder", quantity: "1", note: "1.5 inch" },
+                    { name: "Dividers", quantity: "1 set" },
+                    { name: "Index cards", quantity: "2 packs (100)" }
+                ],
+                personal: [
+                    { name: "Headphones", quantity: "1 pair" },
+                    { name: "Calculator", quantity: "1", note: "Basic" },
+                    { name: "Agenda/Planner", quantity: "1" }
+                ]
+            },
+            5: {
+                basic: [
+                    { name: "Backpack", quantity: "1" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil case", quantity: "1" },
+                    { name: "#2 Pencils", quantity: "3 packs (12 count)" },
+                    { name: "Mechanical pencils", quantity: "2 packs" },
+                    { name: "Colored pencils", quantity: "1 box (24 count)" },
+                    { name: "Markers", quantity: "1 pack (12 count)" },
+                    { name: "Highlighters", quantity: "6", note: "Different colors" },
+                    { name: "Pens", quantity: "2 packs", note: "Blue, black, red" },
+                    { name: "Glue sticks", quantity: "6" },
+                    { name: "Scissors", quantity: "1 pair" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Protractor", quantity: "1" },
+                    { name: "Compass", quantity: "1" },
+                    { name: "Folders", quantity: "10", note: "2 pocket" },
+                    { name: "Notebooks", quantity: "8", note: "Wide ruled" },
+                    { name: "Composition books", quantity: "4" },
+                    { name: "Binders", quantity: "2", note: "1.5 inch" },
+                    { name: "Dividers", quantity: "2 sets" },
+                    { name: "Loose leaf paper", quantity: "2 packs" },
+                    { name: "Index cards", quantity: "2 packs (100)" }
+                ],
+                personal: [
+                    { name: "Headphones", quantity: "1 pair" },
+                    { name: "Calculator", quantity: "1", note: "Scientific" },
+                    { name: "Agenda/Planner", quantity: "1" },
+                    { name: "USB flash drive", quantity: "1" }
+                ]
+            },
+            6: {
+                basic: [
+                    { name: "Backpack", quantity: "1", note: "Larger size" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil case", quantity: "1" },
+                    { name: "Mechanical pencils", quantity: "3 packs" },
+                    { name: "Lead refills", quantity: "2 packs" },
+                    { name: "Colored pencils", quantity: "1 box (24 count)" },
+                    { name: "Highlighters", quantity: "8", note: "Different colors" },
+                    { name: "Pens", quantity: "3 packs", note: "Blue, black, red" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "White-out", quantity: "2" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Protractor", quantity: "1" },
+                    { name: "Compass", quantity: "1" },
+                    { name: "Folders", quantity: "12", note: "Different colors" },
+                    { name: "Notebooks", quantity: "10", note: "College ruled" },
+                    { name: "Binders", quantity: "3", note: "1.5-2 inch" },
+                    { name: "Dividers", quantity: "3 sets" },
+                    { name: "Loose leaf paper", quantity: "3 packs" },
+                    { name: "Graph paper", quantity: "1 pack" },
+                    { name: "Index cards", quantity: "3 packs" },
+                    { name: "Post-it notes", quantity: "3 packs" }
+                ],
+                personal: [
+                    { name: "Calculator", quantity: "1", note: "Scientific" },
+                    { name: "Agenda/Planner", quantity: "1" },
+                    { name: "Locker organizer", quantity: "1 set" },
+                    { name: "Combination lock", quantity: "1" }
+                ]
+            },
+            7: {
+                basic: [
+                    { name: "Backpack", quantity: "1", note: "Durable" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil case", quantity: "1" },
+                    { name: "Mechanical pencils", quantity: "4 packs" },
+                    { name: "Lead refills", quantity: "3 packs" },
+                    { name: "Colored pencils", quantity: "1 box (24 count)" },
+                    { name: "Highlighters", quantity: "10", note: "Different colors" },
+                    { name: "Pens", quantity: "4 packs", note: "Various colors" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "White-out", quantity: "3" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Protractor", quantity: "1" },
+                    { name: "Compass", quantity: "1" },
+                    { name: "Folders", quantity: "14", note: "Different colors" },
+                    { name: "Notebooks", quantity: "12", note: "College ruled" },
+                    { name: "Binders", quantity: "4", note: "Various sizes" },
+                    { name: "Dividers", quantity: "4 sets" },
+                    { name: "Loose leaf paper", quantity: "4 packs" },
+                    { name: "Graph paper", quantity: "2 packs" },
+                    { name: "Index cards", quantity: "4 packs" },
+                    { name: "Post-it notes", quantity: "4 packs" },
+                    { name: "Reinforcements", quantity: "1 pack" }
+                ],
+                personal: [
+                    { name: "Calculator", quantity: "1", note: "Graphing" },
+                    { name: "Agenda/Planner", quantity: "1" },
+                    { name: "USB flash drive", quantity: "2" },
+                    { name: "Earbuds", quantity: "1 pair" }
+                ]
+            },
+            8: {
+                basic: [
+                    { name: "Backpack", quantity: "1", note: "Heavy duty" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil case", quantity: "1" },
+                    { name: "Mechanical pencils", quantity: "4 packs" },
+                    { name: "Lead refills", quantity: "3 packs" },
+                    { name: "Colored pencils", quantity: "1 box (24 count)" },
+                    { name: "Highlighters", quantity: "12", note: "Different colors" },
+                    { name: "Pens", quantity: "5 packs", note: "Various colors" },
+                    { name: "Erasers", quantity: "1 pack" },
+                    { name: "White-out", quantity: "3" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Protractor", quantity: "1" },
+                    { name: "Compass", quantity: "1" },
+                    { name: "Folders", quantity: "14", note: "Different colors" },
+                    { name: "Notebooks", quantity: "12", note: "College ruled" },
+                    { name: "Binders", quantity: "5", note: "Various sizes" },
+                    { name: "Dividers", quantity: "5 sets" },
+                    { name: "Loose leaf paper", quantity: "5 packs" },
+                    { name: "Graph paper", quantity: "2 packs" },
+                    { name: "Index cards", quantity: "5 packs" },
+                    { name: "Post-it notes", quantity: "5 packs" },
+                    { name: "Sheet protectors", quantity: "1 pack" }
+                ],
+                personal: [
+                    { name: "Calculator", quantity: "1", note: "Graphing" },
+                    { name: "Agenda/Planner", quantity: "1" },
+                    { name: "USB flash drive", quantity: "2" },
+                    { name: "Laptop/Chromebook", quantity: "If required" }
+                ]
+            },
+            9: {
+                basic: [
+                    { name: "Backpack", quantity: "1", note: "With laptop compartment" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil case", quantity: "1" },
+                    { name: "Mechanical pencils", quantity: "5 packs" },
+                    { name: "Lead refills", quantity: "4 packs" },
+                    { name: "Highlighters", quantity: "15", note: "Different colors" },
+                    { name: "Pens", quantity: "6 packs", note: "Various colors" },
+                    { name: "Fine tip markers", quantity: "1 set" },
+                    { name: "Erasers", quantity: "2 packs" },
+                    { name: "White-out", quantity: "4" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Protractor", quantity: "1" },
+                    { name: "Compass", quantity: "1" },
+                    { name: "Folders", quantity: "16", note: "Heavy duty" },
+                    { name: "Notebooks", quantity: "15", note: "College ruled" },
+                    { name: "Binders", quantity: "6", note: "2-3 inch" },
+                    { name: "Dividers", quantity: "6 sets" },
+                    { name: "Loose leaf paper", quantity: "6 packs" },
+                    { name: "Graph paper", quantity: "3 packs" },
+                    { name: "Index cards", quantity: "6 packs" },
+                    { name: "Post-it notes", quantity: "6 packs", note: "Various sizes" },
+                    { name: "Sheet protectors", quantity: "2 packs" },
+                    { name: "Three-hole punch", quantity: "1" }
+                ],
+                personal: [
+                    { name: "Calculator", quantity: "1", note: "TI-84 or similar" },
+                    { name: "Agenda/Planner", quantity: "1", note: "Academic year" },
+                    { name: "USB flash drives", quantity: "3" },
+                    { name: "Laptop", quantity: "1", note: "Check school specs" },
+                    { name: "Laptop charger", quantity: "1" },
+                    { name: "Portable charger", quantity: "1" }
+                ]
+            },
+            10: {
+                basic: [
+                    { name: "Backpack", quantity: "1", note: "With laptop compartment" },
+                    { name: "Lunchbox", quantity: "1" },
+                    { name: "Pencil case", quantity: "1" },
+                    { name: "Mechanical pencils", quantity: "5 packs" },
+                    { name: "Lead refills", quantity: "4 packs" },
+                    { name: "Highlighters", quantity: "15", note: "Different colors" },
+                    { name: "Pens", quantity: "6 packs", note: "Various colors" },
+                    { name: "Fine tip markers", quantity: "1 set" },
+                    { name: "Erasers", quantity: "2 packs" },
+                    { name: "White-out", quantity: "4" },
+                    { name: "Ruler", quantity: "1", note: "12 inch" },
+                    { name: "Protractor", quantity: "1" },
+                    { name: "Compass", quantity: "1" },
+                    { name: "Folders", quantity: "16", note: "Heavy duty" },
+                    { name: "Notebooks", quantity: "15", note: "College ruled" },
+                    { name: "Binders", quantity: "6", note: "2-3 inch" },
+                    { name: "Dividers", quantity: "6 sets" },
+                    { name: "Loose leaf paper", quantity: "6 packs" },
+                    { name: "Graph paper", quantity: "3 packs" },
+                    { name: "Index cards", quantity: "6 packs" },
+                    { name: "Post-it notes", quantity: "6 packs", note: "Various sizes" },
+                    { name: "Sheet protectors", quantity: "2 packs" }
+                ],
+                personal: [
+                    { name: "Calculator", quantity: "1", note: "TI-84 Plus CE" },
+                    { name: "Agenda/Planner", quantity: "1", note: "Academic year" },
+                    { name: "USB flash drives", quantity: "3" },
+                    { name: "Laptop", quantity: "1", note: "Check school specs" },
+                    { name: "Laptop charger", quantity: "1" },
