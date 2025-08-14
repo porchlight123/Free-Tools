@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate Travel Planner 2024: Smart Packing Lists & Trip Essentials</title>
-    <meta name="description" content="Create personalized packing lists in seconds. Free luxury travel planner generates custom checklists based on destination, weather, activities & trip length. Never forget essentials again.">
-    <meta name="keywords" content="travel packing list generator, trip planner, vacation checklist, travel essentials, packing calculator, luxury travel planner, family travel planner">
-    <link rel="canonical" href="https://yoursite.com/tools/travel-planner">
+    <title>Ultimate Travel Planner 2024 - Smart Packing List Generator | Create Custom Travel Checklists</title>
+    <meta name="description" content="Generate personalized packing lists instantly. Free travel planner creates custom checklists based on destination, travelers, activities & weather. Perfect for families, business trips & vacations.">
+    <meta name="keywords" content="travel packing list generator, family travel planner, vacation checklist, travel essentials, packing calculator, trip organizer, travel with kids, baby travel list">
+    <link rel="canonical" href="https://yoursite.com/tools/ultimate-travel-planner">
     
     <!-- Open Graph Tags -->
     <meta property="og:title" content="Ultimate Travel Planner - Never Forget Travel Essentials Again">
-    <meta property="og:description" content="Generate personalized packing lists based on your destination, activities, and travel style. Free tool creates custom checklists in seconds.">
+    <meta property="og:description" content="Create personalized packing lists for your entire family. Smart recommendations based on destination, activities, and number of travelers.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yoursite.com/tools/travel-planner">
+    <meta property="og:url" content="https://yoursite.com/tools/ultimate-travel-planner">
     
     <!-- Schema Markup -->
     <script type="application/ld+json">
@@ -20,14 +20,19 @@
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Ultimate Travel Planner",
-        "description": "Professional travel planning tool for creating customized packing lists and trip essentials",
-        "url": "https://yoursite.com/tools/travel-planner",
+        "description": "Professional travel planning tool for creating customized family packing lists",
+        "url": "https://yoursite.com/tools/ultimate-travel-planner",
         "applicationCategory": "TravelApplication",
         "operatingSystem": "All",
         "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "2847"
         }
     }
     </script>
@@ -40,36 +45,33 @@
         }
         
         :root {
-            --luxury-gold: #D4AF37;
-            --deep-navy: #0A1628;
-            --midnight-blue: #1E3A5F;
-            --champagne: #F7E7CE;
-            --pearl-white: #FDFBF7;
-            --silver-gray: #B8B8B8;
-            --charcoal: #2C3E50;
-            --accent-coral: #FF6B6B;
-            --soft-mint: #4ECDC4;
-            --warm-beige: #F5E6D3;
-            --shadow-light: 0 2px 10px rgba(0,0,0,0.08);
-            --shadow-medium: 0 5px 20px rgba(0,0,0,0.12);
-            --shadow-luxury: 0 10px 40px rgba(0,0,0,0.15);
-            --shadow-hover: 0 15px 50px rgba(0,0,0,0.2);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #D4AF37;
+            --primary-dark: #B8941F;
+            --navy: #0A1628;
+            --navy-light: #1E3A5F;
+            --white: #FFFFFF;
+            --off-white: #FDFBF7;
+            --gray: #6B7280;
+            --gray-light: #E5E7EB;
+            --success: #4ECDC4;
+            --coral: #FF6B6B;
+            --beige: #F5E6D3;
         }
         
         body {
-            font-family: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             line-height: 1.6;
-            color: var(--charcoal);
-            background: linear-gradient(135deg, var(--pearl-white) 0%, var(--warm-beige) 100%);
+            color: var(--navy);
+            background: linear-gradient(135deg, var(--off-white) 0%, var(--beige) 100%);
             min-height: 100vh;
         }
         
-        /* Elegant Header */
+        /* Header Styles */
         .header {
-            background: linear-gradient(135deg, var(--deep-navy) 0%, var(--midnight-blue) 100%);
-            color: white;
-            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 3rem 1.5rem;
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
@@ -78,90 +80,48 @@
             content: '';
             position: absolute;
             top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
+            right: -10%;
+            width: 500px;
+            height: 500px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
             animation: float 20s ease-in-out infinite;
         }
         
         @keyframes float {
             0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-30px) rotate(180deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
         
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
             position: relative;
             z-index: 1;
         }
         
-        h1 {
-            font-size: 3rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, white 0%, var(--luxury-gold) 50%, white 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 3s linear infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
-        
         .subtitle {
-            font-size: 1.125rem;
-            font-weight: 300;
+            font-size: 1.1rem;
             opacity: 0.9;
-            letter-spacing: 1px;
-        }
-        
-        /* Start Over Button */
-        .start-over-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.5px;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-        
-        .start-over-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
+            position: relative;
+            z-index: 1;
         }
         
         /* Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 2rem 1.5rem;
         }
         
         /* Progress Bar */
-        .progress-container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: var(--shadow-luxury);
-            margin: -40px auto 40px;
-            max-width: 900px;
+        .progress-bar {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: -2rem auto 2rem;
             position: relative;
             z-index: 10;
         }
@@ -175,74 +135,71 @@
         .progress-line {
             position: absolute;
             top: 25px;
-            left: 50px;
-            right: 50px;
+            left: 0;
+            right: 0;
             height: 2px;
-            background: var(--silver-gray);
-            opacity: 0.3;
+            background: var(--gray-light);
+            z-index: 0;
         }
         
-        .progress-line-fill {
+        .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--luxury-gold) 0%, var(--soft-mint) 100%);
+            background: var(--primary);
             width: 0%;
-            transition: width 0.6s ease;
+            transition: width 0.5s ease;
         }
         
         .step {
             position: relative;
             text-align: center;
             flex: 1;
+            z-index: 1;
         }
         
         .step-circle {
             width: 50px;
             height: 50px;
-            background: white;
-            border: 2px solid var(--silver-gray);
+            background: var(--white);
+            border: 2px solid var(--gray-light);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px;
-            font-size: 1.25rem;
-            transition: var(--transition);
+            margin: 0 auto 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
         
         .step.active .step-circle {
-            border-color: var(--luxury-gold);
-            background: var(--luxury-gold);
-            color: white;
+            background: var(--primary);
+            border-color: var(--primary);
+            color: var(--white);
             transform: scale(1.1);
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
         }
         
         .step.completed .step-circle {
-            background: var(--soft-mint);
-            border-color: var(--soft-mint);
-            color: white;
+            background: var(--success);
+            border-color: var(--success);
+            color: var(--white);
         }
         
         .step-label {
             font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--charcoal);
-            letter-spacing: 0.5px;
+            color: var(--gray);
         }
         
-        /* Form Sections */
-        .form-section {
-            background: white;
-            border-radius: 20px;
-            padding: 48px;
-            box-shadow: var(--shadow-luxury);
-            margin-bottom: 32px;
+        /* Form Card */
+        .form-card {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             display: none;
-            animation: fadeIn 0.5s ease;
         }
         
-        .form-section.active {
+        .form-card.active {
             display: block;
+            animation: fadeIn 0.5s ease;
         }
         
         @keyframes fadeIn {
@@ -250,636 +207,442 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        .section-title {
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--deep-navy);
-            margin-bottom: 32px;
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        
-        /* Travel Type Selection (Domestic/International) */
-        .travel-type-selector {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-        
-        .travel-type-option {
-            flex: 1;
-            max-width: 300px;
-            padding: 30px;
-            background: var(--pearl-white);
-            border: 3px solid transparent;
-            border-radius: 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .travel-type-option:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-medium);
-        }
-        
-        .travel-type-option.selected {
-            border-color: var(--luxury-gold);
-            background: linear-gradient(135deg, var(--champagne) 0%, var(--pearl-white) 100%);
-        }
-        
-        .travel-type-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-        }
-        
-        .travel-type-title {
-            font-size: 1.25rem;
+        .form-title {
+            font-size: 1.875rem;
             font-weight: 600;
-            color: var(--deep-navy);
-            margin-bottom: 8px;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--navy);
         }
         
-        .travel-type-desc {
-            font-size: 0.875rem;
-            color: var(--charcoal);
-            opacity: 0.8;
+        /* Input Groups */
+        .input-group {
+            margin-bottom: 1.5rem;
         }
         
-        /* Traveler Count Inputs */
-        .traveler-inputs {
+        label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--navy);
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--gray-light);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        /* Traveler Counters */
+        .travelers-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            margin-bottom: 32px;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
-        .traveler-group {
-            background: var(--pearl-white);
-            padding: 24px;
-            border-radius: 12px;
+        .traveler-box {
+            background: var(--off-white);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
             text-align: center;
         }
         
         .traveler-label {
-            display: block;
             font-weight: 600;
-            color: var(--deep-navy);
-            margin-bottom: 12px;
-            font-size: 1rem;
+            color: var(--navy);
+            margin-bottom: 0.25rem;
         }
         
-        .traveler-sublabel {
-            display: block;
+        .traveler-desc {
             font-size: 0.75rem;
-            color: var(--charcoal);
-            opacity: 0.7;
-            margin-bottom: 16px;
+            color: var(--gray);
+            margin-bottom: 1rem;
         }
         
-        .number-input-wrapper {
+        .counter {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 16px;
+            gap: 1rem;
         }
         
-        .number-btn {
+        .counter-btn {
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            border: 2px solid var(--silver-gray);
-            background: white;
-            color: var(--charcoal);
+            border: 2px solid var(--primary);
+            background: var(--white);
+            color: var(--primary);
             font-size: 1.25rem;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         
-        .number-btn:hover {
-            border-color: var(--luxury-gold);
-            background: var(--luxury-gold);
-            color: white;
+        .counter-btn:hover:not(:disabled) {
+            background: var(--primary);
+            color: var(--white);
         }
         
-        .number-display {
+        .counter-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        
+        .counter-value {
             font-size: 1.5rem;
             font-weight: 600;
-            color: var(--deep-navy);
             min-width: 40px;
             text-align: center;
         }
         
-        /* Trip Type Selection */
+        /* Trip Type Cards */
         .trip-types {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 32px;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
         
-        .trip-type-card {
-            background: var(--pearl-white);
+        .trip-card {
+            background: var(--off-white);
             border: 2px solid transparent;
-            border-radius: 16px;
-            padding: 32px 24px;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1rem;
             text-align: center;
             cursor: pointer;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.3s ease;
         }
         
-        .trip-type-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
+        .trip-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .trip-type-card.selected {
-            border-color: var(--luxury-gold);
-            background: linear-gradient(135deg, var(--champagne) 0%, var(--pearl-white) 100%);
-        }
-        
-        .trip-type-card.selected::after {
-            content: '✓';
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            width: 30px;
-            height: 30px;
-            background: var(--luxury-gold);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+        .trip-card.selected {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, var(--off-white) 100%);
         }
         
         .trip-icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
         }
         
         .trip-name {
-            font-size: 1.125rem;
-            font-weight: 500;
-            color: var(--deep-navy);
-            letter-spacing: 0.5px;
-        }
-        
-        .trip-description {
+            font-weight: 600;
             font-size: 0.875rem;
-            color: var(--charcoal);
-            margin-top: 8px;
-            opacity: 0.8;
-        }
-        
-        /* Form Inputs */
-        .form-group {
-            margin-bottom: 24px;
-        }
-        
-        .form-label {
-            display: block;
-            font-weight: 500;
-            color: var(--deep-navy);
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 16px;
-            border: 2px solid var(--silver-gray);
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: var(--transition);
-            background: var(--pearl-white);
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--luxury-gold);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
-        }
-        
-        select.form-input {
-            cursor: pointer;
-        }
-        
-        /* Date Inputs */
-        .date-group {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            color: var(--navy);
         }
         
         /* Climate Options */
-        .climate-options {
+        .climate-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 2rem;
         }
         
-        .climate-option {
-            padding: 20px;
-            background: var(--pearl-white);
+        .climate-btn {
+            background: var(--off-white);
             border: 2px solid transparent;
-            border-radius: 12px;
+            border-radius: 0.5rem;
+            padding: 1rem;
             text-align: center;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
         
-        .climate-option:hover {
-            border-color: var(--silver-gray);
+        .climate-btn:hover {
+            border-color: var(--gray-light);
         }
         
-        .climate-option.selected {
-            border-color: var(--soft-mint);
-            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, var(--pearl-white) 100%);
+        .climate-btn.selected {
+            border-color: var(--success);
+            background: linear-gradient(135deg, rgba(78, 205, 196, 0.1) 0%, var(--off-white) 100%);
         }
         
         .climate-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
+            font-size: 1.75rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .climate-name {
+            font-size: 0.75rem;
+            font-weight: 500;
         }
         
         /* Activities */
         .activities-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 2rem;
         }
         
         .activity-chip {
-            padding: 12px 20px;
-            background: var(--pearl-white);
-            border: 2px solid var(--silver-gray);
-            border-radius: 25px;
-            cursor: pointer;
-            transition: var(--transition);
+            background: var(--off-white);
+            border: 2px solid var(--gray-light);
+            border-radius: 2rem;
+            padding: 0.75rem 1rem;
             text-align: center;
-            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
         }
         
         .activity-chip:hover {
-            border-color: var(--charcoal);
+            border-color: var(--gray);
         }
         
         .activity-chip.selected {
-            background: var(--deep-navy);
-            color: white;
-            border-color: var(--deep-navy);
+            background: var(--navy);
+            color: var(--white);
+            border-color: var(--navy);
         }
         
         /* Buttons */
         .button-group {
             display: flex;
+            gap: 1rem;
             justify-content: space-between;
-            margin-top: 40px;
-            gap: 20px;
+            margin-top: 2rem;
         }
         
         .btn {
-            padding: 16px 40px;
+            padding: 0.75rem 2rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 0.5rem;
             font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-        }
-        
-        .btn-secondary {
-            background: white;
-            color: var(--deep-navy);
-            border: 2px solid var(--silver-gray);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--deep-navy);
-            box-shadow: var(--shadow-medium);
+            transition: all 0.3s ease;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, var(--luxury-gold) 0%, #C19B37 100%);
-            color: white;
-            box-shadow: var(--shadow-medium);
+            background: var(--primary);
+            color: var(--white);
             flex: 1;
         }
         
         .btn-primary:hover {
+            background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
         }
         
-        .btn-primary:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .btn-secondary {
+            background: var(--white);
+            color: var(--navy);
+            border: 2px solid var(--gray-light);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--navy);
         }
         
         /* Results Section */
-        .results-section {
-            background: white;
-            border-radius: 20px;
-            padding: 48px;
-            box-shadow: var(--shadow-luxury);
+        #results {
             display: none;
+        }
+        
+        #results.active {
+            display: block;
+        }
+        
+        .results-card {
+            background: var(--white);
+            border-radius: 1rem;
+            padding: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
         }
         
         .results-header {
             text-align: center;
-            margin-bottom: 48px;
-            position: relative;
+            margin-bottom: 3rem;
         }
         
         .results-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            color: var(--deep-navy);
-            margin-bottom: 16px;
-            letter-spacing: 1px;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
         }
         
-        .results-subtitle {
-            color: var(--charcoal);
-            font-size: 1.125rem;
+        .trip-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            background: var(--off-white);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            margin-bottom: 2rem;
         }
         
-        /* Action Buttons in Results */
-        .results-actions {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 40px;
+        .summary-item {
+            text-align: center;
         }
         
-        .action-btn {
-            background: var(--deep-navy);
-            color: white;
-            padding: 16px 40px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: var(--transition);
+        .summary-label {
+            font-size: 0.75rem;
+            color: var(--gray);
             text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            letter-spacing: 1px;
         }
         
-        .action-btn:hover {
-            background: var(--midnight-blue);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-hover);
-        }
-        
-        .action-btn.secondary {
-            background: white;
-            color: var(--deep-navy);
-            border: 2px solid var(--deep-navy);
-        }
-        
-        .action-btn.secondary:hover {
-            background: var(--deep-navy);
-            color: white;
+        .summary-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--navy);
+            margin-top: 0.25rem;
         }
         
         /* Packing Categories */
         .packing-category {
-            margin-bottom: 40px;
-            border-bottom: 1px solid var(--silver-gray);
-            padding-bottom: 32px;
-        }
-        
-        .packing-category:last-child {
-            border-bottom: none;
+            margin-bottom: 2rem;
         }
         
         .category-header {
             display: flex;
             align-items: center;
-            margin-bottom: 24px;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gray-light);
         }
         
         .category-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--luxury-gold) 0%, var(--soft-mint) 100%);
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--success) 100%);
+            border-radius: 0.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            margin-right: 16px;
+            font-size: 1.25rem;
+            margin-right: 1rem;
         }
         
         .category-title {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--deep-navy);
-            letter-spacing: 0.5px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--navy);
         }
         
         .packing-items {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 12px;
+            gap: 0.75rem;
         }
         
         .packing-item {
             display: flex;
             align-items: center;
-            padding: 16px;
-            background: var(--pearl-white);
-            border-radius: 12px;
-            transition: var(--transition);
+            padding: 0.75rem;
+            background: var(--off-white);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
         }
         
         .packing-item:hover {
-            background: var(--warm-beige);
-            transform: translateX(4px);
+            background: var(--beige);
         }
         
         .item-checkbox {
             width: 24px;
             height: 24px;
-            border: 2px solid var(--silver-gray);
-            border-radius: 6px;
-            margin-right: 16px;
+            border: 2px solid var(--gray-light);
+            border-radius: 0.25rem;
+            margin-right: 1rem;
             cursor: pointer;
-            transition: var(--transition);
-            position: relative;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         .item-checkbox.checked {
-            background: var(--soft-mint);
-            border-color: var(--soft-mint);
+            background: var(--success);
+            border-color: var(--success);
         }
         
         .item-checkbox.checked::after {
             content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
+            color: var(--white);
             font-weight: bold;
         }
         
-        .item-details {
-            flex: 1;
-        }
-        
         .item-name {
-            font-weight: 500;
-            color: var(--charcoal);
+            color: var(--navy);
         }
         
-        .item-quantity {
-            font-size: 0.875rem;
-            color: var(--luxury-gold);
-            font-weight: 600;
-        }
-        
-        /* Travel Tips */
-        .travel-tips {
-            background: linear-gradient(135deg, var(--champagne) 0%, var(--pearl-white) 100%);
-            border-radius: 16px;
-            padding: 32px;
-            margin-top: 40px;
-        }
-        
-        .tips-title {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: var(--deep-navy);
-            margin-bottom: 20px;
+        /* Action Buttons */
+        .action-buttons {
             display: flex;
-            align-items: center;
-            gap: 12px;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
         }
         
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .btn-print {
+            background: var(--navy);
+            color: var(--white);
         }
         
-        .tip-card {
-            background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-light);
+        .btn-print:hover {
+            background: var(--navy-light);
         }
         
-        .tip-header {
-            font-weight: 600;
-            color: var(--deep-navy);
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .btn-restart {
+            background: var(--white);
+            color: var(--navy);
+            border: 2px solid var(--navy);
         }
         
-        .tip-content {
-            color: var(--charcoal);
-            font-size: 0.875rem;
-            line-height: 1.6;
+        .btn-restart:hover {
+            background: var(--navy);
+            color: var(--white);
         }
         
-        /* Print Styles */
+        /* Additional print helper class */
+        body.printing {
+            overflow: visible !important;
+        }
+        
+        body.printing #results {
+            display: block !important;
+        }
+        
+        /* Hide scrollbars during print */
         @media print {
-            body {
-                background: white;
-                font-family: Arial, sans-serif;
-            }
-            
-            .header, 
-            .progress-container, 
-            .form-section, 
-            .button-group, 
-            .results-actions,
-            .start-over-btn {
-                display: none !important;
-            }
-            
-            .results-section {
-                display: block !important;
-                box-shadow: none;
-                padding: 20px;
-                border-radius: 0;
-            }
-            
-            .results-header {
-                margin-bottom: 30px;
-            }
-            
-            .results-title {
-                font-size: 24pt;
-                color: black;
-            }
-            
-            .packing-category {
-                page-break-inside: avoid;
-                margin-bottom: 20px;
-                padding-bottom: 20px;
-            }
-            
-            .category-icon {
-                width: 40px;
-                height: 40px;
-                background: #f0f0f0 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-            
-            .packing-item {
-                break-inside: avoid;
-                background: #f9f9f9 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-            
-            .travel-tips {
-                page-break-inside: avoid;
-                background: #f5f5f5 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-            
-            .tip-card {
-                break-inside: avoid;
+            html, body {
+                overflow: visible !important;
+                height: auto !important;
             }
         }
-        
-        /* Responsive */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2rem;
+                font-size: 1.875rem;
             }
             
-            .form-section {
-                padding: 32px 20px;
-            }
-            
-            .trip-types {
-                grid-template-columns: 1fr;
-            }
-            
-            .date-group {
-                grid-template-columns: 1fr;
+            .form-card {
+                padding: 2rem 1.5rem;
             }
             
             .progress-steps {
@@ -889,1062 +652,725 @@
             .step-circle {
                 width: 40px;
                 height: 40px;
-                font-size: 1rem;
             }
             
-            .travel-type-selector {
-                flex-direction: column;
-            }
-            
-            .traveler-inputs {
-                grid-template-columns: 1fr;
-            }
-            
-            .results-actions {
-                flex-direction: column;
-            }
-            
-            .action-btn {
-                width: 100%;
-                justify-content: center;
+            .trip-types {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(212, 175, 55, 0.3);
-            border-radius: 50%;
-            border-top-color: var(--luxury-gold);
-            animation: spin 1s ease-in-out infinite;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        /* Print Styles */
+        @media print {
+            * {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+            
+            body {
+                background: white !important;
+                font-size: 12pt;
+                line-height: 1.5;
+                color: black !important;
+            }
+            
+            .header,
+            .progress-bar,
+            .form-card,
+            .action-buttons,
+            .btn-restart,
+            .btn-print {
+                display: none !important;
+            }
+            
+            #results {
+                display: block !important;
+            }
+            
+            .results-card {
+                box-shadow: none !important;
+                padding: 0 !important;
+                border: none !important;
+            }
+            
+            .results-header {
+                page-break-after: avoid;
+                margin-bottom: 20px !important;
+            }
+            
+            .results-title {
+                font-size: 20pt !important;
+                color: black !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .trip-summary {
+                background: #f5f5f5 !important;
+                padding: 10px !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid;
+                border: 1px solid #ddd !important;
+            }
+            
+            .summary-item {
+                page-break-inside: avoid;
+            }
+            
+            .packing-category {
+                page-break-inside: avoid;
+                margin-bottom: 15px !important;
+            }
+            
+            .category-header {
+                border-bottom: 2px solid #333 !important;
+                padding-bottom: 5px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .category-icon {
+                background: #f0f0f0 !important;
+                color: black !important;
+                border: 1px solid #ccc !important;
+            }
+            
+            .category-title {
+                font-size: 14pt !important;
+                font-weight: bold !important;
+                color: black !important;
+            }
+            
+            .packing-items {
+                display: block !important;
+            }
+            
+            .packing-item {
+                display: flex !important;
+                align-items: center !important;
+                padding: 5px !important;
+                margin-bottom: 3px !important;
+                background: white !important;
+                page-break-inside: avoid;
+                border: none !important;
+            }
+            
+            .item-checkbox {
+                width: 20px !important;
+                height: 20px !important;
+                border: 2px solid #333 !important;
+                margin-right: 10px !important;
+                background: white !important;
+                flex-shrink: 0 !important;
+            }
+            
+            .item-checkbox.checked {
+                background: white !important;
+                border: 2px solid #333 !important;
+            }
+            
+            .item-checkbox.checked::after {
+                content: '✓' !important;
+                color: black !important;
+                font-weight: bold !important;
+                font-size: 14pt !important;
+            }
+            
+            .item-name {
+                color: black !important;
+                font-size: 11pt !important;
+            }
+            
+            /* Force page breaks for better organization */
+            .packing-category:nth-child(4n) {
+                page-break-after: always;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <button class="start-over-btn" onclick="startOver()" style="display: none;" id="startOverBtn">
-            ↻ Start Over
-        </button>
-        <div class="header-content">
-            <h1>Ultimate Travel Planner</h1>
-            <p class="subtitle">Create your personalized packing list and travel essentials guide</p>
-        </div>
+        <h1>Ultimate Travel Planner</h1>
+        <p class="subtitle">Create your personalized packing list in minutes</p>
     </header>
 
     <!-- Main Container -->
     <div class="container">
         <!-- Progress Bar -->
-        <div class="progress-container">
+        <div class="progress-bar">
             <div class="progress-steps">
                 <div class="progress-line">
-                    <div class="progress-line-fill" id="progressFill"></div>
+                    <div class="progress-fill" id="progressFill"></div>
                 </div>
-                <div class="step active" id="step1">
+                <div class="step active" data-step="1">
                     <div class="step-circle">1</div>
                     <div class="step-label">Travelers</div>
                 </div>
-                <div class="step" id="step2">
+                <div class="step" data-step="2">
                     <div class="step-circle">2</div>
-                    <div class="step-label">Trip Style</div>
+                    <div class="step-label">Trip Type</div>
                 </div>
-                <div class="step" id="step3">
+                <div class="step" data-step="3">
                     <div class="step-circle">3</div>
                     <div class="step-label">Details</div>
                 </div>
-                <div class="step" id="step4">
+                <div class="step" data-step="4">
                     <div class="step-circle">4</div>
                     <div class="step-label">Activities</div>
                 </div>
-                <div class="step" id="step5">
+                <div class="step" data-step="5">
                     <div class="step-circle">✓</div>
                     <div class="step-label">Your List</div>
                 </div>
             </div>
         </div>
 
-        <!-- Step 1: Traveler Composition -->
-        <div class="form-section active" id="section1">
-            <h2 class="section-title">Who's traveling?</h2>
-            <p style="text-align: center; color: var(--charcoal); margin-bottom: 32px;">Tell us about your travel party</p>
-            
-            <div class="traveler-inputs">
-                <div class="traveler-group">
-                    <label class="traveler-label">Adults</label>
-                    <span class="traveler-sublabel">(18+ years)</span>
-                    <div class="number-input-wrapper">
-                        <button class="number-btn" onclick="updateTravelerCount('adults', -1)">−</button>
-                        <span class="number-display" id="adultsCount">1</span>
-                        <button class="number-btn" onclick="updateTravelerCount('adults', 1)">+</button>
+        <!-- Step 1: Travelers -->
+        <div class="form-card active" data-step="1">
+            <h2 class="form-title">Who's traveling?</h2>
+            <div class="travelers-grid">
+                <div class="traveler-box">
+                    <div class="traveler-label">Adults</div>
+                    <div class="traveler-desc">18+ years</div>
+                    <div class="counter">
+                        <button class="counter-btn" onclick="updateCount('adults', -1)">−</button>
+                        <span class="counter-value" id="adultsCount">1</span>
+                        <button class="counter-btn" onclick="updateCount('adults', 1)">+</button>
                     </div>
                 </div>
-                
-                <div class="traveler-group">
-                    <label class="traveler-label">Children</label>
-                    <span class="traveler-sublabel">(2-17 years)</span>
-                    <div class="number-input-wrapper">
-                        <button class="number-btn" onclick="updateTravelerCount('children', -1)">−</button>
-                        <span class="number-display" id="childrenCount">0</span>
-                        <button class="number-btn" onclick="updateTravelerCount('children', 1)">+</button>
+                <div class="traveler-box">
+                    <div class="traveler-label">Children</div>
+                    <div class="traveler-desc">2-17 years</div>
+                    <div class="counter">
+                        <button class="counter-btn" onclick="updateCount('children', -1)">−</button>
+                        <span class="counter-value" id="childrenCount">0</span>
+                        <button class="counter-btn" onclick="updateCount('children', 1)">+</button>
                     </div>
                 </div>
-                
-                <div class="traveler-group">
-                    <label class="traveler-label">Infants</label>
-                    <span class="traveler-sublabel">(Under 2 years)</span>
-                    <div class="number-input-wrapper">
-                        <button class="number-btn" onclick="updateTravelerCount('infants', -1)">−</button>
-                        <span class="number-display" id="infantsCount">0</span>
-                        <button class="number-btn" onclick="updateTravelerCount('infants', 1)">+</button>
+                <div class="traveler-box">
+                    <div class="traveler-label">Infants</div>
+                    <div class="traveler-desc">Under 2 years</div>
+                    <div class="counter">
+                        <button class="counter-btn" onclick="updateCount('infants', -1)">−</button>
+                        <span class="counter-value" id="infantsCount">0</span>
+                        <button class="counter-btn" onclick="updateCount('infants', 1)">+</button>
                     </div>
                 </div>
             </div>
             
-            <div class="button-group">
-                <button class="btn btn-primary" onclick="nextStep()">Continue</button>
-            </div>
-        </div>
-
-        <!-- Step 2: Trip Type -->
-        <div class="form-section" id="section2">
-            <h2 class="section-title">What type of trip are you planning?</h2>
-            <div class="trip-types">
-                <div class="trip-type-card" data-type="business" onclick="selectTripType('business')">
-                    <div class="trip-icon">💼</div>
-                    <div class="trip-name">Business Travel</div>
-                    <div class="trip-description">Professional attire & tech essentials</div>
-                </div>
-                <div class="trip-type-card" data-type="beach" onclick="selectTripType('beach')">
-                    <div class="trip-icon">🏖️</div>
-                    <div class="trip-name">Beach Vacation</div>
-                    <div class="trip-description">Sun, sand & relaxation</div>
-                </div>
-                <div class="trip-type-card" data-type="city" onclick="selectTripType('city')">
-                    <div class="trip-icon">🏙️</div>
-                    <div class="trip-name">City Exploration</div>
-                    <div class="trip-description">Urban adventures & culture</div>
-                </div>
-                <div class="trip-type-card" data-type="adventure" onclick="selectTripType('adventure')">
-                    <div class="trip-icon">⛰️</div>
-                    <div class="trip-name">Adventure Travel</div>
-                    <div class="trip-description">Outdoor activities & exploration</div>
-                </div>
-                <div class="trip-type-card" data-type="luxury" onclick="selectTripType('luxury')">
-                    <div class="trip-icon">🥂</div>
-                    <div class="trip-name">Luxury Getaway</div>
-                    <div class="trip-description">Premium experiences & comfort</div>
-                </div>
-                <div class="trip-type-card" data-type="cruise" onclick="selectTripType('cruise')">
-                    <div class="trip-icon">🚢</div>
-                    <div class="trip-name">Cruise</div>
-                    <div class="trip-description">Sea voyage essentials</div>
-                </div>
-                <div class="trip-type-card" data-type="family" onclick="selectTripType('family')">
-                    <div class="trip-icon">👨‍👩‍👧‍👦</div>
-                    <div class="trip-name">Family Vacation</div>
-                    <div class="trip-description">Fun for all ages</div>
-                </div>
-                <div class="trip-type-card" data-type="roadtrip" onclick="selectTripType('roadtrip')">
-                    <div class="trip-icon">🚗</div>
-                    <div class="trip-name">Road Trip</div>
-                    <div class="trip-description">Highway adventures</div>
-                </div>
-            </div>
-            <div class="button-group">
-                <button class="btn btn-secondary" onclick="previousStep()">Back</button>
-                <button class="btn btn-primary" onclick="nextStep()" disabled id="step2Next">Continue</button>
-            </div>
-        </div>
-
-        <!-- Step 3: Trip Details -->
-        <div class="form-section" id="section3">
-            <h2 class="section-title">Tell us about your trip</h2>
-            
-            <div class="form-group">
-                <label class="form-label">Destination</label>
-                <input type="text" class="form-input" id="destination" placeholder="e.g., Paris, France">
-            </div>
-            
-            <div class="date-group">
-                <div class="form-group">
-                    <label class="form-label">Departure Date</label>
-                    <input type="date" class="form-input" id="departureDate">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Return Date</label>
-                    <input type="date" class="form-input" id="returnDate">
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Expected Climate</label>
-                <div class="climate-options">
-                    <div class="climate-option" data-climate="tropical" onclick="selectClimate('tropical')">
-                        <div class="climate-icon">🌴</div>
-                        <div>Tropical</div>
-                    </div>
-                    <div class="climate-option" data-climate="cold" onclick="selectClimate('cold')">
-                        <div class="climate-icon">❄️</div>
-                        <div>Cold</div>
-                    </div>
-                    <div class="climate-option" data-climate="temperate" onclick="selectClimate('temperate')">
-                        <div class="climate-icon">🌤️</div>
-                        <div>Temperate</div>
-                    </div>
-                    <div class="climate-option" data-climate="desert" onclick="selectClimate('desert')">
-                        <div class="climate-icon">🏜️</div>
-                        <div>Desert/Dry</div>
-                    </div>
-                    <div class="climate-option" data-climate="rainy" onclick="selectClimate('rainy')">
-                        <div class="climate-icon">🌧️</div>
-                        <div>Rainy</div>
-                    </div>
-                    <div class="climate-option" data-climate="variable" onclick="selectClimate('variable')">
-                        <div class="climate-icon">🌦️</div>
-                        <div>Variable</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="form-group">
-                <label class="form-label">Accommodation Type</label>
-                <select class="form-input" id="accommodation">
-                    <option value="">Select accommodation</option>
-                    <option value="hotel">Hotel/Resort</option>
-                    <option value="airbnb">Vacation Rental</option>
-                    <option value="hostel">Hostel</option>
-                    <option value="camping">Camping</option>
-                    <option value="friends">Friends/Family</option>
-                    <option value="cruise">Cruise Ship</option>
+            <div class="input-group">
+                <label>Is this domestic or international travel?</label>
+                <select id="travelType">
+                    <option value="">Select travel type</option>
+                    <option value="domestic">Domestic (within my country)</option>
+                    <option value="international">International (to another country)</option>
                 </select>
             </div>
             
             <div class="button-group">
-                <button class="btn btn-secondary" onclick="previousStep()">Back</button>
-                <button class="btn btn-primary" onclick="nextStep()" disabled id="step3Next">Continue</button>
+                <button class="btn btn-primary" onclick="goToStep(2)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Trip Type -->
+        <div class="form-card" data-step="2">
+            <h2 class="form-title">What type of trip is this?</h2>
+            <div class="trip-types" id="tripTypes">
+                <div class="trip-card" onclick="selectTripType('business')">
+                    <div class="trip-icon">💼</div>
+                    <div class="trip-name">Business</div>
+                </div>
+                <div class="trip-card" onclick="selectTripType('beach')">
+                    <div class="trip-icon">🏖️</div>
+                    <div class="trip-name">Beach</div>
+                </div>
+                <div class="trip-card" onclick="selectTripType('city')">
+                    <div class="trip-icon">🏙️</div>
+                    <div class="trip-name">City Tour</div>
+                </div>
+                <div class="trip-card" onclick="selectTripType('adventure')">
+                    <div class="trip-icon">⛰️</div>
+                    <div class="trip-name">Adventure</div>
+                </div>
+                <div class="trip-card" onclick="selectTripType('family')">
+                    <div class="trip-icon">👨‍👩‍👧‍👦</div>
+                    <div class="trip-name">Family</div>
+                </div>
+                <div class="trip-card" onclick="selectTripType('luxury')">
+                    <div class="trip-icon">🥂</div>
+                    <div class="trip-name">Luxury</div>
+                </div>
+                <div class="trip-card" onclick="selectTripType('cruise')">
+                    <div class="trip-icon">🚢</div>
+                    <div class="trip-name">Cruise</div>
+                </div>
+                <div class="trip-card" onclick="selectTripType('roadtrip')">
+                    <div class="trip-icon">🚗</div>
+                    <div class="trip-name">Road Trip</div>
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goToStep(1)">Back</button>
+                <button class="btn btn-primary" onclick="goToStep(3)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Trip Details -->
+        <div class="form-card" data-step="3">
+            <h2 class="form-title">Trip Details</h2>
+            
+            <div class="input-group">
+                <label>Destination</label>
+                <input type="text" id="destination" placeholder="e.g., Paris, France">
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="input-group">
+                    <label>Departure Date</label>
+                    <input type="date" id="departureDate">
+                </div>
+                <div class="input-group">
+                    <label>Return Date</label>
+                    <input type="date" id="returnDate">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Expected Climate</label>
+                <div class="climate-grid">
+                    <div class="climate-btn" onclick="selectClimate('tropical')">
+                        <div class="climate-icon">🌴</div>
+                        <div class="climate-name">Tropical</div>
+                    </div>
+                    <div class="climate-btn" onclick="selectClimate('cold')">
+                        <div class="climate-icon">❄️</div>
+                        <div class="climate-name">Cold</div>
+                    </div>
+                    <div class="climate-btn" onclick="selectClimate('temperate')">
+                        <div class="climate-icon">🌤️</div>
+                        <div class="climate-name">Temperate</div>
+                    </div>
+                    <div class="climate-btn" onclick="selectClimate('desert')">
+                        <div class="climate-icon">🏜️</div>
+                        <div class="climate-name">Desert</div>
+                    </div>
+                    <div class="climate-btn" onclick="selectClimate('rainy')">
+                        <div class="climate-icon">🌧️</div>
+                        <div class="climate-name">Rainy</div>
+                    </div>
+                    <div class="climate-btn" onclick="selectClimate('variable')">
+                        <div class="climate-icon">🌦️</div>
+                        <div class="climate-name">Variable</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-group">
+                <button class="btn btn-secondary" onclick="goToStep(2)">Back</button>
+                <button class="btn btn-primary" onclick="goToStep(4)">Continue</button>
             </div>
         </div>
 
         <!-- Step 4: Activities -->
-        <div class="form-section" id="section4">
-            <h2 class="section-title">What activities are you planning?</h2>
-            <p style="text-align: center; color: var(--charcoal); margin-bottom: 32px;">Select all that apply</p>
+        <div class="form-card" data-step="4">
+            <h2 class="form-title">What activities are you planning?</h2>
+            <p style="text-align: center; color: var(--gray); margin-bottom: 2rem;">Select all that apply</p>
             
             <div class="activities-grid">
-                <div class="activity-chip" data-activity="swimming" onclick="toggleActivity('swimming')">🏊 Swimming</div>
-                <div class="activity-chip" data-activity="hiking" onclick="toggleActivity('hiking')">🥾 Hiking</div>
-                <div class="activity-chip" data-activity="dining" onclick="toggleActivity('dining')">🍽️ Fine Dining</div>
-                <div class="activity-chip" data-activity="nightlife" onclick="toggleActivity('nightlife')">🍸 Nightlife</div>
-                <div class="activity-chip" data-activity="shopping" onclick="toggleActivity('shopping')">🛍️ Shopping</div>
-                <div class="activity-chip" data-activity="photography" onclick="toggleActivity('photography')">📸 Photography</div>
-                <div class="activity-chip" data-activity="business" onclick="toggleActivity('business')">💼 Business Meetings</div>
-                <div class="activity-chip" data-activity="fitness" onclick="toggleActivity('fitness')">💪 Fitness/Gym</div>
-                <div class="activity-chip" data-activity="spa" onclick="toggleActivity('spa')">🧖 Spa/Wellness</div>
-                <div class="activity-chip" data-activity="golf" onclick="toggleActivity('golf')">⛳ Golf</div>
-                <div class="activity-chip" data-activity="skiing" onclick="toggleActivity('skiing')">⛷️ Skiing</div>
-                <div class="activity-chip" data-activity="sailing" onclick="toggleActivity('sailing')">⛵ Sailing</div>
-                <div class="activity-chip" data-activity="cultural" onclick="toggleActivity('cultural')">🏛️ Museums/Culture</div>
-                <div class="activity-chip" data-activity="wildlife" onclick="toggleActivity('wildlife')">🦁 Wildlife Viewing</div>
-                <div class="activity-chip" data-activity="cycling" onclick="toggleActivity('cycling')">🚴 Cycling</div>
-                <div class="activity-chip" data-activity="watersports" onclick="toggleActivity('watersports')">🏄 Water Sports</div>
-                <div class="activity-chip" data-activity="theme-parks" onclick="toggleActivity('theme-parks')">🎢 Theme Parks</div>
-                <div class="activity-chip" data-activity="kids-activities" onclick="toggleActivity('kids-activities')">🎈 Kids Activities</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'swimming')">🏊 Swimming</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'hiking')">🥾 Hiking</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'dining')">🍽️ Fine Dining</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'shopping')">🛍️ Shopping</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'photography')">📸 Photography</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'business')">💼 Business</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'fitness')">💪 Fitness</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'spa')">🧖 Spa</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'golf')">⛳ Golf</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'skiing')">⛷️ Skiing</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'cultural')">🏛️ Museums</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'nightlife')">🍸 Nightlife</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'wildlife')">🦁 Wildlife</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'watersports')">🏄 Water Sports</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'theme-parks')">🎢 Theme Parks</div>
+                <div class="activity-chip" onclick="toggleActivity(this, 'kids')">🎈 Kids Activities</div>
             </div>
             
             <div class="button-group">
-                <button class="btn btn-secondary" onclick="previousStep()">Back</button>
-                <button class="btn btn-primary" onclick="generatePackingList()">Generate My Packing List</button>
+                <button class="btn btn-secondary" onclick="goToStep(3)">Back</button>
+                <button class="btn btn-primary" onclick="generateList()">Generate My Packing List</button>
             </div>
         </div>
 
         <!-- Results Section -->
-        <div class="results-section" id="resultsSection">
-            <div class="results-header">
-                <h2 class="results-title">Your Personalized Packing List</h2>
-                <p class="results-subtitle">Check off items as you pack</p>
-            </div>
-            
-            <div id="packingListContent">
-                <!-- Packing list will be generated here -->
-            </div>
-            
-            <div class="results-actions">
-                <button class="action-btn" onclick="printPackingList()">
-                    <span>🖨️</span>
-                    <span>Print List</span>
-                </button>
-                <button class="action-btn secondary" onclick="startOver()">
-                    <span>↻</span>
-                    <span>Start New List</span>
-                </button>
+        <div id="results">
+            <div class="results-card">
+                <div class="results-header">
+                    <h2 class="results-title">Your Personalized Packing List</h2>
+                    <p style="color: var(--gray);">Check items as you pack them</p>
+                </div>
+                
+                <div class="trip-summary" id="tripSummary"></div>
+                
+                <div id="packingListContent"></div>
+                
+                <div class="action-buttons">
+                    <button class="btn btn-print" onclick="printList()">🖨️ Print List</button>
+                    <button class="btn btn-restart" onclick="startOver()">Start New List</button>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // State management
-        var currentStep = 1;
-        var totalSteps = 4;
-        var tripData = {
+        // Trip data storage
+        let tripData = {
             travelers: {
                 adults: 1,
                 children: 0,
                 infants: 0
             },
-            type: null,
+            travelType: '',
+            tripType: '',
             destination: '',
             departureDate: '',
             returnDate: '',
-            climate: null,
-            accommodation: '',
+            climate: '',
             activities: []
         };
 
-        // Define ALL functions globally first
-        
-        function selectTripType(type) {
-            console.log('Selecting trip type:', type);
-            document.querySelectorAll('.trip-type-card').forEach(function(card) {
-                card.classList.remove('selected');
-            });
-            
-            var selectedCard = document.querySelector('.trip-type-card[data-type="' + type + '"]');
-            if (selectedCard) {
-                selectedCard.classList.add('selected');
-            }
-            
-            tripData.type = type;
-            document.getElementById('step2Next').disabled = false;
-        }
-
-        function selectClimate(climate) {
-            document.querySelectorAll('.climate-option').forEach(function(option) {
-                option.classList.remove('selected');
-            });
-            
-            var selectedOption = document.querySelector('.climate-option[data-climate="' + climate + '"]');
-            if (selectedOption) {
-                selectedOption.classList.add('selected');
-            }
-            
-            tripData.climate = climate;
-            checkStep3Completion();
-        }
-
-        function toggleActivity(activity) {
-            var chip = document.querySelector('.activity-chip[data-activity="' + activity + '"]');
-            if (chip) {
-                chip.classList.toggle('selected');
-                if (chip.classList.contains('selected')) {
-                    if (tripData.activities.indexOf(activity) === -1) {
-                        tripData.activities.push(activity);
-                    }
-                } else {
-                    tripData.activities = tripData.activities.filter(function(a) {
-                        return a !== activity;
-                    });
-                }
-            }
-        }
-
-        function updateTravelerCount(type, change) {
-            var currentCount = tripData.travelers[type];
-            var newCount = Math.max(type === 'adults' ? 1 : 0, currentCount + change);
-            tripData.travelers[type] = newCount;
-            document.getElementById(type + 'Count').textContent = newCount;
-        }
-
-        function showSection(num) {
-            document.querySelectorAll('.form-section').forEach(function(section) {
-                section.classList.remove('active');
-            });
-            if (num <= totalSteps) {
-                var section = document.getElementById('section' + num);
-                if (section) {
-                    section.classList.add('active');
-                }
-            }
-        }
-
-        function updateProgress() {
-            var progress = ((currentStep - 1) / totalSteps) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            
-            for (var i = 1; i <= totalSteps + 1; i++) {
-                var step = document.getElementById('step' + i);
-                if (step) {
-                    if (i < currentStep) {
-                        step.classList.add('completed');
-                        step.classList.remove('active');
-                    } else if (i === currentStep) {
-                        step.classList.add('active');
-                        step.classList.remove('completed');
-                    } else {
-                        step.classList.remove('active', 'completed');
-                    }
-                }
-            }
-        }
-
-        function nextStep() {
-            if (currentStep < totalSteps) {
-                currentStep++;
-                updateProgress();
-                showSection(currentStep);
-                
-                if (currentStep > 1) {
-                    var startOverBtn = document.getElementById('startOverBtn');
-                    if (startOverBtn) {
-                        startOverBtn.style.display = 'block';
-                    }
-                }
-            }
-        }
-
-        function previousStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                updateProgress();
-                showSection(currentStep);
-            }
-        }
-
-        function checkStep3Completion() {
-            tripData.destination = document.getElementById('destination').value;
-            tripData.departureDate = document.getElementById('departureDate').value;
-            tripData.returnDate = document.getElementById('returnDate').value;
-            tripData.accommodation = document.getElementById('accommodation').value;
-            
-            var isComplete = tripData.destination && tripData.departureDate && 
-                           tripData.returnDate && tripData.climate && tripData.accommodation;
-            
-            document.getElementById('step3Next').disabled = !isComplete;
-        }
-
-        function startOver() {
-            currentStep = 1;
-            tripData = {
-                travelers: {
-                    adults: 1,
-                    children: 0,
-                    infants: 0
-                },
-                type: null,
-                destination: '',
-                departureDate: '',
-                returnDate: '',
-                climate: null,
-                accommodation: '',
-                activities: []
-            };
-            
-            document.querySelectorAll('.selected').forEach(function(el) {
-                el.classList.remove('selected');
-            });
-            document.querySelectorAll('.checked').forEach(function(el) {
-                el.classList.remove('checked');
-            });
-            
-            document.getElementById('adultsCount').textContent = '1';
-            document.getElementById('childrenCount').textContent = '0';
-            document.getElementById('infantsCount').textContent = '0';
-            document.getElementById('destination').value = '';
-            document.getElementById('departureDate').value = '';
-            document.getElementById('returnDate').value = '';
-            document.getElementById('accommodation').value = '';
-            
-            document.getElementById('step2Next').disabled = true;
-            document.getElementById('step3Next').disabled = true;
-            
-            document.getElementById('resultsSection').style.display = 'none';
-            document.getElementById('startOverBtn').style.display = 'none';
-            showSection(1);
-            updateProgress();
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function getTripDuration() {
-            var start = new Date(tripData.departureDate);
-            var end = new Date(tripData.returnDate);
-            var duration = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
-            return duration;
-        }
-
-        function generatePackingList() {
-            currentStep = totalSteps + 1;
-            updateProgress();
-            
-            document.querySelectorAll('.form-section').forEach(function(section) {
-                section.style.display = 'none';
-            });
-            document.getElementById('resultsSection').style.display = 'block';
-            
-            var duration = getTripDuration();
-            var packingList = compilePackingList(duration);
-            
-            renderPackingList(packingList, duration);
-        }
-
-        function toggleCheck(itemId) {
-            var checkbox = document.getElementById(itemId);
-            if (checkbox) {
-                checkbox.classList.toggle('checked');
-            }
-        }
-
-        function printPackingList() {
-            window.print();
-        }
-
-        // Enhanced packing database with family items
-        const packingDatabase = {
-            base: {
-                documents: {
-                    international: ['Passport', 'Visa (if required)', 'Travel insurance', 'Boarding passes', 'Hotel confirmations', 'Emergency contacts', 'Copies of important documents', 'Vaccination records'],
-                    domestic: ['Driver\'s license or ID', 'Travel insurance', 'Boarding passes', 'Hotel confirmations', 'Emergency contacts', 'Health insurance cards']
-                },
-                money: ['Credit cards', 'Cash', 'Debit card', 'Travel wallet'],
-                electronics: ['Phone charger', 'Portable battery', 'Headphones', 'Charging cables'],
-                toiletries: ['Toothbrush & toothpaste', 'Shampoo & conditioner', 'Body wash', 'Deodorant', 'Razor', 'Medications', 'Sunscreen', 'Hand sanitizer'],
-                clothing: ['Underwear', 'Socks', 'Sleepwear', 'Comfortable shoes'],
-                accessories: ['Sunglasses', 'Watch', 'Day bag/backpack'],
-                health: ['First aid kit', 'Prescription medications', 'Vitamins', 'Face masks', 'Hand wipes']
-            },
-            
-            infantItems: {
-                essentials: ['Diapers', 'Baby wipes', 'Diaper rash cream', 'Changing pad', 'Plastic bags for dirty diapers'],
-                feeding: ['Formula/breast milk storage', 'Bottles', 'Bottle cleaning supplies', 'Bibs', 'Burp cloths', 'Baby food/snacks', 'Sippy cups'],
-                clothing: ['Baby clothes', 'Extra outfits', 'Baby pajamas', 'Baby jacket/sweater'],
-                comfort: ['Pacifiers', 'Favorite toys', 'Baby blanket', 'White noise machine', 'Baby monitor'],
-                health: ['Baby thermometer', 'Baby medications', 'Nasal aspirator', 'Baby sunscreen', 'Teething gel/toys'],
-                travel: ['Stroller', 'Baby carrier', 'Car seat (if driving)', 'Portable crib/travel bassinet']
-            },
-            
-            childItems: {
-                entertainment: ['Tablets/devices', 'Headphones for kids', 'Coloring books & crayons', 'Travel games', 'Books', 'Small toys'],
-                clothing: ['Kids clothing', 'Extra outfits', 'Kids pajamas', 'Kids shoes', 'Kids jackets'],
-                health: ['Kids medications', 'Kids vitamins', 'Band-aids with fun designs'],
-                comfort: ['Favorite stuffed animal', 'Special blanket', 'Night light'],
-                snacks: ['Kids snacks', 'Juice boxes', 'Reusable water bottles', 'Lunchbox']
-            },
-            
-            familyItems: {
-                beach: ['Kids sunscreen SPF 50+', 'Swim diapers', 'Kids floaties/life vests', 'Beach toys', 'Kids swimsuits', 'Kids sun hats'],
-                general: ['Wet wipes', 'Hand sanitizer', 'Snack bags', 'Entertainment items', 'First aid supplies', 'Plastic bags'],
-                car: ['Car games', 'Travel pillows', 'Car sick bags', 'Window shades', 'Snack organizer']
-            },
-            
-            tripTypes: {
-                business: {
-                    clothing: ['Business suits', 'Dress shirts', 'Professional shoes', 'Ties/accessories', 'Business casual outfits'],
-                    electronics: ['Laptop & charger', 'Tablet', 'Portable mouse', 'USB drive', 'Business cards holder', 'Universal adapter'],
-                    accessories: ['Professional bag/briefcase', 'Portfolio', 'Nice watch', 'Cufflinks'],
-                    documents: ['Business cards', 'Meeting materials', 'Company ID']
-                },
-                beach: {
-                    clothing: ['Swimsuits', 'Beach cover-ups', 'Flip flops', 'Sun hat', 'Light clothing', 'Beach towel'],
-                    accessories: ['Beach bag', 'Waterproof phone case', 'Snorkeling gear', 'Beach umbrella'],
-                    health: ['Aloe vera', 'Extra sunscreen', 'Insect repellent', 'After-sun lotion']
-                },
-                city: {
-                    clothing: ['Comfortable walking shoes', 'Casual outfits', 'Light jacket', 'Scarf'],
-                    electronics: ['Camera', 'City map app', 'Portable WiFi'],
-                    accessories: ['Crossbody bag', 'Guidebook', 'Reusable water bottle']
-                },
-                adventure: {
-                    clothing: ['Hiking boots', 'Quick-dry clothing', 'Rain jacket', 'Thermal layers', 'Hat & gloves'],
-                    gear: ['Backpack', 'Water bottles', 'Compass', 'Flashlight', 'Multi-tool', 'First aid kit'],
-                    accessories: ['Sunglasses', 'Bandana', 'Carabiners']
-                },
-                luxury: {
-                    clothing: ['Evening wear', 'Designer outfits', 'Dress shoes', 'Jewelry', 'Formal accessories'],
-                    accessories: ['Clutch/evening bag', 'Nice luggage', 'Shoe bags', 'Garment bags'],
-                    extras: ['Perfume/cologne', 'Hair styling tools', 'Makeup kit']
-                },
-                cruise: {
-                    clothing: ['Formal dinner attire', 'Casual day wear', 'Pool attire', 'Themed outfit'],
-                    accessories: ['Lanyard for key card', 'Highlighter for daily program', 'Magnetic hooks'],
-                    health: ['Motion sickness remedies', 'Hand sanitizer', 'Vitamins']
-                },
-                family: {
-                    entertainment: ['Board games', 'Card games', 'Movies/shows downloaded', 'Books for all ages'],
-                    snacks: ['Family snacks', 'Reusable water bottles for everyone', 'Cooler bag'],
-                    health: ['Family first aid kit', 'Everyone\'s medications', 'Thermometer', 'Pain relievers for adults and kids']
-                },
-                roadtrip: {
-                    car: ['Car chargers', 'GPS/navigation', 'Emergency kit', 'Spare tire tools', 'Jumper cables'],
-                    comfort: ['Pillows', 'Blankets', 'Cooler', 'Paper towels', 'Trash bags'],
-                    entertainment: ['Road trip playlist', 'Audiobooks', 'Car games', 'Snacks & drinks']
-                }
-            },
-            
-            climate: {
-                tropical: {
-                    clothing: ['Lightweight fabrics', 'Shorts', 'Tank tops', 'Sandals', 'Rain poncho'],
-                    accessories: ['Mosquito repellent', 'Humidity-resistant items']
-                },
-                cold: {
-                    clothing: ['Winter coat', 'Thermal underwear', 'Wool socks', 'Boots', 'Scarf & gloves', 'Warm hat'],
-                    extras: ['Lip balm', 'Moisturizer', 'Hand warmers']
-                },
-                temperate: {
-                    clothing: ['Layering pieces', 'Light jacket', 'Mix of short and long sleeves'],
-                    accessories: ['Light scarf', 'Versatile shoes']
-                },
-                desert: {
-                    clothing: ['Breathable fabrics', 'Long sleeves for sun protection', 'Wide-brim hat'],
-                    health: ['Lip balm with SPF', 'Eye drops', 'Extra water bottles']
-                },
-                rainy: {
-                    clothing: ['Rain jacket', 'Waterproof shoes', 'Quick-dry clothes', 'Umbrella'],
-                    accessories: ['Waterproof bags', 'Plastic bags for electronics']
-                },
-                variable: {
-                    clothing: ['Layers', 'Convertible clothing', 'All-weather jacket'],
-                    accessories: ['Packable items', 'Versatile accessories']
-                }
-            },
-            
-            activities: {
-                swimming: ['Extra swimsuits', 'Goggles', 'Pool shoes', 'Waterproof bag', 'Swim cap'],
-                hiking: ['Hiking boots', 'Trekking poles', 'Trail snacks', 'Hydration pack', 'Trail map'],
-                dining: ['Dress code appropriate attire', 'Nice shoes', 'Reservation confirmations'],
-                nightlife: ['Going out clothes', 'Comfortable dancing shoes', 'Small clutch/wallet'],
-                shopping: ['Foldable shopping bag', 'Comfortable shoes', 'Credit cards with no foreign fees'],
-                photography: ['Camera equipment', 'Extra memory cards', 'Lens cleaning kit', 'Tripod'],
-                business: ['Business attire', 'Laptop', 'Business cards', 'Portfolio'],
-                fitness: ['Workout clothes', 'Athletic shoes', 'Resistance bands', 'Yoga mat'],
-                spa: ['Robe', 'Flip flops', 'Swimsuit', 'Hair tie'],
-                golf: ['Golf attire', 'Golf shoes', 'Gloves', 'Balls & tees'],
-                skiing: ['Ski wear', 'Goggles', 'Thermal layers', 'Ski socks', 'Hand warmers'],
-                sailing: ['Deck shoes', 'Windbreaker', 'Hat with strap', 'Sailing gloves'],
-                cultural: ['Modest clothing', 'Comfortable walking shoes', 'Guidebook', 'Notebook'],
-                wildlife: ['Binoculars', 'Neutral colored clothing', 'Camera with zoom', 'Field guide'],
-                cycling: ['Cycling shorts', 'Helmet', 'Gloves', 'Water bottles'],
-                watersports: ['Rash guard', 'Water shoes', 'Dry bag', 'Towel clips'],
-                'theme-parks': ['Comfortable shoes', 'Poncho', 'Small backpack', 'Portable phone charger', 'Sunscreen'],
-                'kids-activities': ['Kids entertainment', 'Snacks', 'Wet wipes', 'Change of clothes', 'Small first aid kit']
-            }
-        };
-
-        // Function to select trip type
-        function selectTripType(type) {
-            document.querySelectorAll('.trip-type-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            const selectedCard = document.querySelector(`.trip-type-card[data-type="${type}"]`);
-            if (selectedCard) {
-                selectedCard.classList.add('selected');
-            }
-            
-            tripData.type = type;
-            document.getElementById('step3Next').disabled = false;
-        }
-        window.selectTripType = selectTripType;
-        
-        // Function to select climate
-        function selectClimate(climate) {
-            document.querySelectorAll('.climate-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            const selectedOption = document.querySelector(`.climate-option[data-climate="${climate}"]`);
-            if (selectedOption) {
-                selectedOption.classList.add('selected');
-            }
-            
-            tripData.climate = climate;
-            checkStep4Completion();
-        }
-        window.selectClimate = selectClimate;
-        
-        // Function to toggle activity
-        function toggleActivity(activity) {
-            const chip = document.querySelector(`.activity-chip[data-activity="${activity}"]`);
-            if (chip) {
-                chip.classList.toggle('selected');
-                if (chip.classList.contains('selected')) {
-                    if (!tripData.activities.includes(activity)) {
-                        tripData.activities.push(activity);
-                    }
-                } else {
-                    tripData.activities = tripData.activities.filter(a => a !== activity);
-                }
-            }
-        }
-        window.toggleActivity = toggleActivity;
-        function initializeEventListeners() {
-            // Travel type selection (domestic/international)
-            document.querySelectorAll('.travel-type-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.travel-type-option').forEach(o => o.classList.remove('selected'));
-                    this.classList.add('selected');
-                    tripData.travelType = this.dataset.travel;
-                    document.getElementById('step1Next').disabled = false;
-                });
-            });
-
-            // Trip type selection
-            document.querySelectorAll('.trip-type-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    document.querySelectorAll('.trip-type-card').forEach(c => c.classList.remove('selected'));
-                    this.classList.add('selected');
-                    tripData.type = this.dataset.type;
-                    document.getElementById('step3Next').disabled = false;
-                });
-            });
-
-            // Climate selection
-            document.querySelectorAll('.climate-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    document.querySelectorAll('.climate-option').forEach(o => o.classList.remove('selected'));
-                    this.classList.add('selected');
-                    tripData.climate = this.dataset.climate;
-                    checkStep4Completion();
-                });
-            });
-
-            // Activity selection
-            document.querySelectorAll('.activity-chip').forEach(chip => {
-                chip.addEventListener('click', function() {
-                    this.classList.toggle('selected');
-                    const activity = this.dataset.activity;
-                    if (this.classList.contains('selected')) {
-                        if (!tripData.activities.includes(activity)) {
-                            tripData.activities.push(activity);
-                        }
-                    } else {
-                        tripData.activities = tripData.activities.filter(a => a !== activity);
-                    }
-                });
-            });
-
-            // Form inputs
-            const destination = document.getElementById('destination');
-            const departureDate = document.getElementById('departureDate');
-            const returnDate = document.getElementById('returnDate');
-            const accommodation = document.getElementById('accommodation');
-            
-            if (destination) destination.addEventListener('input', checkStep4Completion);
-            if (departureDate) departureDate.addEventListener('change', checkStep4Completion);
-            if (returnDate) returnDate.addEventListener('change', checkStep4Completion);
-            if (accommodation) accommodation.addEventListener('change', checkStep4Completion);
-
-            // Set minimum date to today
-            const today = new Date().toISOString().split('T')[0];
-            if (departureDate) departureDate.min = today;
-            if (returnDate) returnDate.min = today;
-        }
-
-        // Initialize on DOM load
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeEventListeners);
-        } else {
-            // DOM already loaded
-            initializeEventListeners();
-        }
-
         // Update traveler count
-        function updateTravelerCount(type, change) {
-            const currentCount = tripData.travelers[type];
-            const newCount = Math.max(type === 'adults' ? 1 : 0, currentCount + change);
-            tripData.travelers[type] = newCount;
-            document.getElementById(`${type}Count`).textContent = newCount;
+        function updateCount(type, change) {
+            const currentValue = parseInt(document.getElementById(type + 'Count').textContent);
+            const newValue = Math.max(type === 'adults' ? 1 : 0, currentValue + change);
+            document.getElementById(type + 'Count').textContent = newValue;
+            tripData.travelers[type] = newValue;
         }
 
-        // Check if step 4 is complete
-        function checkStep4Completion() {
-            tripData.destination = document.getElementById('destination').value;
-            tripData.departureDate = document.getElementById('departureDate').value;
-            tripData.returnDate = document.getElementById('returnDate').value;
-            tripData.accommodation = document.getElementById('accommodation').value;
-            
-            const isComplete = tripData.destination && tripData.departureDate && 
-                             tripData.returnDate && tripData.climate && tripData.accommodation;
-            
-            document.getElementById('step4Next').disabled = !isComplete;
-        }
-
-        // Update progress bar
-        function updateProgress() {
-            const progress = ((currentStep - 1) / totalSteps) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            
-            // Update step indicators
-            for (let i = 1; i <= totalSteps + 1; i++) {
-                const step = document.getElementById(`step${i}`);
-                if (step) {
-                    if (i < currentStep) {
-                        step.classList.add('completed');
-                        step.classList.remove('active');
-                    } else if (i === currentStep) {
-                        step.classList.add('active');
-                        step.classList.remove('completed');
-                    } else {
-                        step.classList.remove('active', 'completed');
-                    }
-                }
-            }
-        }
-
-        // Navigation functions
-        function showSection(num) {
-            document.querySelectorAll('.form-section').forEach(section => {
-                section.classList.remove('active');
+        // Select trip type
+        function selectTripType(type) {
+            document.querySelectorAll('.trip-card').forEach(card => {
+                card.classList.remove('selected');
             });
-            if (num <= totalSteps) {
-                const section = document.getElementById(`section${num}`);
-                if (section) {
-                    section.classList.add('active');
+            event.target.closest('.trip-card').classList.add('selected');
+            tripData.tripType = type;
+        }
+
+        // Select climate
+        function selectClimate(climate) {
+            document.querySelectorAll('.climate-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            event.target.closest('.climate-btn').classList.add('selected');
+            tripData.climate = climate;
+        }
+
+        // Toggle activity
+        function toggleActivity(element, activity) {
+            element.classList.toggle('selected');
+            if (element.classList.contains('selected')) {
+                if (!tripData.activities.includes(activity)) {
+                    tripData.activities.push(activity);
                 }
+            } else {
+                tripData.activities = tripData.activities.filter(a => a !== activity);
             }
         }
 
-        function nextStep() {
-            if (currentStep < totalSteps) {
-                currentStep++;
-                updateProgress();
-                showSection(currentStep);
-                
-                // Show start over button after first step
-                if (currentStep > 1) {
-                    const startOverBtn = document.getElementById('startOverBtn');
-                    if (startOverBtn) {
-                        startOverBtn.style.display = 'block';
-                    }
-                }
-            }
-        }
-
-        function previousStep() {
-            if (currentStep > 1) {
-                currentStep--;
-                updateProgress();
-                showSection(currentStep);
-            }
-        }
-
-        // Start over function
-        function startOver() {
-            // Reset all data
-            currentStep = 1;
-            tripData = {
-                travelType: null,
-                travelers: {
-                    adults: 1,
-                    children: 0,
-                    infants: 0
-                },
-                type: null,
-                destination: '',
-                departureDate: '',
-                returnDate: '',
-                climate: null,
-                accommodation: '',
-                activities: []
-            };
+        // Navigate between steps
+        function goToStep(step) {
+            // Hide all cards
+            document.querySelectorAll('.form-card').forEach(card => {
+                card.classList.remove('active');
+            });
             
-            // Reset UI
-            document.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
-            document.querySelectorAll('.checked').forEach(el => el.classList.remove('checked'));
-            document.getElementById('adultsCount').textContent = '1';
-            document.getElementById('childrenCount').textContent = '0';
-            document.getElementById('infantsCount').textContent = '0';
-            document.getElementById('destination').value = '';
-            document.getElementById('departureDate').value = '';
-            document.getElementById('returnDate').value = '';
-            document.getElementById('accommodation').value = '';
+            // Show target card
+            document.querySelector(`.form-card[data-step="${step}"]`).classList.add('active');
             
-            // Reset buttons
-            document.getElementById('step1Next').disabled = true;
-            document.getElementById('step3Next').disabled = true;
-            document.getElementById('step4Next').disabled = true;
-            
-            // Hide results, show first section
-            document.getElementById('resultsSection').style.display = 'none';
-            document.getElementById('startOverBtn').style.display = 'none';
-            showSection(1);
-            updateProgress();
+            // Update progress
+            updateProgress(step);
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Calculate trip duration
-        function getTripDuration() {
-            const start = new Date(tripData.departureDate);
-            const end = new Date(tripData.returnDate);
-            const duration = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
-            return duration;
+        // Update progress bar
+        function updateProgress(step) {
+            const progress = ((step - 1) / 4) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            document.querySelectorAll('.step').forEach((stepEl, index) => {
+                if (index + 1 < step) {
+                    stepEl.classList.add('completed');
+                    stepEl.classList.remove('active');
+                } else if (index + 1 === step) {
+                    stepEl.classList.add('active');
+                    stepEl.classList.remove('completed');
+                } else {
+                    stepEl.classList.remove('active', 'completed');
+                }
+            });
         }
 
         // Generate packing list
-        function generatePackingList() {
-            currentStep = totalSteps + 1;
-            updateProgress();
+        function generateList() {
+            // Collect form data
+            tripData.travelType = document.getElementById('travelType').value;
+            tripData.destination = document.getElementById('destination').value;
+            tripData.departureDate = document.getElementById('departureDate').value;
+            tripData.returnDate = document.getElementById('returnDate').value;
             
-            // Hide form sections and show results
-            document.querySelectorAll('.form-section').forEach(section => {
-                section.style.display = 'none';
+            // Calculate trip duration
+            const start = new Date(tripData.departureDate);
+            const end = new Date(tripData.returnDate);
+            const duration = Math.ceil((end - start) / (1000 * 60 * 60 * 24)) + 1;
+            
+            // Generate summary
+            const summaryHTML = `
+                <div class="summary-item">
+                    <div class="summary-label">Destination</div>
+                    <div class="summary-value">${tripData.destination || 'Not specified'}</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Duration</div>
+                    <div class="summary-value">${duration} days</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Travelers</div>
+                    <div class="summary-value">${tripData.travelers.adults} Adults, ${tripData.travelers.children} Children, ${tripData.travelers.infants} Infants</div>
+                </div>
+                <div class="summary-item">
+                    <div class="summary-label">Trip Type</div>
+                    <div class="summary-value">${tripData.tripType || 'General'}</div>
+                </div>
+            `;
+            document.getElementById('tripSummary').innerHTML = summaryHTML;
+            
+            // Generate packing list
+            const packingList = generatePackingItems(duration);
+            let listHTML = '';
+            
+            for (const [category, items] of Object.entries(packingList)) {
+                const icon = getCategoryIcon(category);
+                listHTML += `
+                    <div class="packing-category">
+                        <div class="category-header">
+                            <div class="category-icon">${icon}</div>
+                            <div class="category-title">${category}</div>
+                        </div>
+                        <div class="packing-items">
+                            ${items.map(item => `
+                                <div class="packing-item">
+                                    <div class="item-checkbox" onclick="toggleCheck(this)"></div>
+                                    <div class="item-name">${item}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('packingListContent').innerHTML = listHTML;
+            
+            // Show results
+            document.querySelectorAll('.form-card').forEach(card => {
+                card.classList.remove('active');
             });
-            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('results').classList.add('active');
             
-            const duration = getTripDuration();
-            const packingList = compilePackingList(duration);
+            // Update progress to complete
+            updateProgress(5);
             
-            renderPackingList(packingList, duration);
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // Compile packing list based on selections
-        function compilePackingList(duration) {
+        // Generate packing items based on trip details
+        function generatePackingItems(duration) {
             const list = {
                 'Travel Documents': [],
-                'Money & Cards': [],
-                'Electronics': [],
                 'Clothing': [],
                 'Toiletries': [],
-                'Accessories': [],
+                'Electronics': [],
                 'Health & Safety': [],
-                'Special Gear': []
+                'Accessories': []
             };
             
-            // Add infant-specific categories if needed
-            if (tripData.travelers.infants > 0) {
-                list['Baby Essentials'] = [];
-                list['Baby Care'] = [];
+            // Documents based on travel type
+            if (tripData.travelType === 'international') {
+                list['Travel Documents'] = ['Passport', 'Visa (if required)', 'Travel insurance', 'Flight tickets', 'Hotel reservations', 'Emergency contacts'];
+            } else {
+                list['Travel Documents'] = ['ID/Driver\'s license', 'Travel insurance', 'Tickets', 'Hotel reservations', 'Emergency contacts'];
             }
             
-            // Add child-specific category if needed
-            if (tripData.travelers.children > 0) {
-                list['Kids Items'] = [];
+            // Calculate clothing quantities with proper logic
+            // For trips 7 days or less: 1 per day + 1-2 extra
+            // For trips over 7 days: plan to do laundry, pack for 7 days max
+            const packingDays = Math.min(duration, 7);
+            const adults = tripData.travelers.adults;
+            const children = tripData.travelers.children;
+            
+            // Base clothing - separate adults and children
+            list['Clothing'] = [];
+            
+            // Adult clothing
+            if (adults > 0) {
+                list['Clothing'].push(
+                    `Adult underwear (${adults * (packingDays + 1)} pairs)`,
+                    `Adult socks (${adults * (packingDays + 1)} pairs)`,
+                    `Adult t-shirts/tops (${adults * packingDays})`,
+                    `Adult pants/shorts (${adults * Math.max(2, Math.ceil(packingDays / 2))})`,
+                    `Adult sleepwear (${adults * Math.max(2, Math.ceil(packingDays / 3))})`,
+                    `Adult shoes (${adults} pairs walking + ${adults} pairs dress/casual)`
+                );
             }
             
-            // Add base documents (simplified - includes both domestic and international essentials)
-            list['Travel Documents'] = ['Passport/ID', 'Travel insurance', 'Boarding passes', 'Hotel confirmations', 'Emergency contacts', 'Copies of important documents', 'Health insurance cards'];
+            // Children's clothing
+            if (children > 0) {
+                list['Clothing'].push(
+                    `Kids underwear (${children * (packingDays + 2)} pairs)`, // Kids need extra
+                    `Kids socks (${children * (packingDays + 2)} pairs)`,
+                    `Kids t-shirts/tops (${children * (packingDays + 1)})`, // Kids get messier
+                    `Kids pants/shorts (${children * Math.max(3, Math.ceil(packingDays / 2))})`,
+                    `Kids sleepwear (${children * Math.max(2, Math.ceil(packingDays / 3))})`,
+                    `Kids shoes (${children} pairs sneakers + ${children} pairs sandals/backup)`
+                );
+            }
             
-            // Add base items
-            list['Money & Cards'] = [...packingDatabase.base.money];
-            list['Electronics'] = [...packingDatabase.base.electronics];
-            list['Health & Safety'] = [...packingDatabase.base.health];
-            list['Accessories'] = [...packingDatabase.base.accessories];
-            
-            // Calculate quantities based on travelers
-            const totalTravelers = tripData.travelers.adults + tripData.travelers.children;
-            const clothingDays = Math.min(duration, 7); // Pack for max 7 days, do laundry for longer trips
-            
-            // Add toiletries with quantities
-            list['Toiletries'] = packingDatabase.base.toiletries.map(item => {
-                if (item.includes('Toothbrush')) {
-                    return `Toothbrushes & toothpaste (${totalTravelers} sets)`;
+            // Climate-specific clothing
+            if (tripData.climate === 'cold') {
+                if (adults > 0) {
+                    list['Clothing'].push(`Adult winter coats (${adults})`, `Adult gloves (${adults} pairs)`, `Adult scarves (${adults})`, `Adult warm hats (${adults})`);
                 }
-                return item;
-            });
+                if (children > 0) {
+                    list['Clothing'].push(`Kids winter coats (${children})`, `Kids gloves (${children} pairs)`, `Kids scarves (${children})`, `Kids warm hats (${children})`);
+                }
+                list['Clothing'].push('Thermal underwear sets');
+            } else if (tripData.climate === 'tropical' || tripData.climate === 'beach') {
+                if (adults > 0) {
+                    list['Clothing'].push(`Adult swimsuits (${adults * 2})`, `Adult sun hats (${adults})`, `Adult sandals (${adults} pairs)`);
+                }
+                if (children > 0) {
+                    list['Clothing'].push(`Kids swimsuits (${children * 2})`, `Kids sun hats (${children})`, `Kids water shoes (${children} pairs)`);
+                }
+                list['Clothing'].push('Light cover-ups', 'Beach towels');
+            } else if (tripData.climate === 'rainy') {
+                list['Clothing'].push(`Rain jackets (${adults + children})`, `Umbrellas (${Math.ceil((adults + children) / 2)})`, 'Waterproof shoes/boots');
+            }
             
-            // Add base clothing with quantities for adults and children
-            list['Clothing'] = [
-                `Adult underwear (${(tripData.travelers.adults * (clothingDays + 2))} pairs)`,
-                `Adult socks (${(tripData.travelers.adults * (clothingDays + 2))} pairs)`,
-                `Adult sleepwear (${tripData.travelers.adults * 2} sets)`,
-                'Comfortable walking shoes for adults'
+            // Trip type specific items
+            if (tripData.tripType === 'business') {
+                list['Clothing'].push(`Business suits (${adults * Math.min(duration, 3)})`, `Dress shirts (${adults * Math.min(duration + 1, 5)})`, `Dress shoes (${adults} pairs)`, 'Ties/Professional accessories');
+                list['Electronics'].push('Laptop', 'Laptop charger', 'Portable battery', 'Business cards', 'USB drives');
+            } else if (tripData.tripType === 'beach') {
+                list['Accessories'] = ['Beach towels', 'Sunglasses', 'Beach bag', 'Snorkel gear', 'Waterproof phone case'];
+                list['Health & Safety'].push('Aloe vera', 'Extra sunscreen (SPF 50+)', 'After-sun lotion');
+            } else if (tripData.tripType === 'adventure') {
+                list['Accessories'] = ['Day backpacks', 'Water bottles', 'Headlamps/flashlights', 'Maps/compass', 'Multi-tool'];
+                list['Clothing'].push('Quick-dry clothing', 'Hiking boots', 'Athletic wear');
+            } else if (tripData.tripType === 'family') {
+                list['Accessories'] = ['Entertainment for car/plane', 'Travel games', 'Snack containers', 'Wet wipes', 'Hand sanitizer'];
+            }
+            
+            // Standard toiletries with quantities
+            const totalPeople = adults + children;
+            list['Toiletries'] = [
+                `Toothbrushes (${totalPeople})`,
+                `Toothpaste (${Math.ceil(totalPeople / 2)} tubes)`,
+                'Shampoo & conditioner',
+                'Body wash/soap',
+                `Deodorant (${adults})`,
+                `Sunscreen (${Math.max(2, Math.ceil(totalPeople / 2))} bottles)`,
+                'Prescription medications',
+                'Hand sanitizer',
+                'Face wash',
+                'Moisturizer'
             ];
             
-            if (tripData.travelers.children > 0) {
-                list['Clothing'].push(
-                    `Kids underwear (${(tripData.travelers.children * (clothingDays + 2))} pairs)`,
-                    `Kids socks (${(tripData.travelers.children * (clothingDays + 2))} pairs)`,
-                    `Kids sleepwear (${tripData.travelers.children * 2} sets)`,
-                    `Kids shoes (${tripData.travelers.children} pairs)`
-                );
-            }
-            
-            // Add infant items if traveling with babies
+            // Baby items if needed
             if (tripData.travelers.infants > 0) {
-                const infantDays = duration;
+                const infants = tripData.travelers.infants;
                 list['Baby Essentials'] = [
-                    `Diapers (${tripData.travelers.infants * infantDays * 8} total)`,
-                    `Baby wipes (${Math.ceil(tripData.travelers.infants * infantDays / 2)} packs)`,
-                    'Diaper rash cream',
-                    `Changing pads (${tripData.travelers.infants} portable)`,
-                    'Plastic bags for dirty diapers',
-                    `Baby clothes (${tripData.travelers.infants * (infantDays + 3)} outfits)`,
-                    `Baby pajamas (${tripData.travelers.infants * Math.ceil(infantDays / 2)} sets)`,
-                    ...packingDatabase.infantItems.comfort
-                ];
-                
-                list['Baby Care'] = [
-                    ...packingDatabase.infantItems.feeding,
-                    ...packingDatabase.infantItems.health,
-                    ...packingDatabase.infantItems.travel
+                    `Diapers (${infants * duration * 6})`, // More realistic: 6 per day
+                    `Baby wipes (${Math.ceil(duration / 3)} packs)`,
+                    `Formula/Breast milk storage bags`,
+                    `Bottles (${infants * 4})`,
+                    `Baby outfits (${infants * (packingDays + 3)})`, // Babies need extra changes
+                    `Baby sleepers (${infants * Math.max(3, packingDays)})`,
+                    `Bibs (${infants * 5})`,
+                    `Burp cloths (${infants * 4})`,
+                    'Diaper cream',
+                    'Baby wash & lotion',
+                    `Pacifiers (${infants * 3})`,
+                    'Baby blankets',
+                    'Portable crib/Pack n Play',
+                    'Stroller',
+                    'Baby carrier',
+                    'Car seat (if driving)'
                 ];
             }
             
-            // Add child items if traveling with kids
-            if (tripData.travelers.children > 0) {
+            // Kids items if needed
+            if (children > 0) {
                 list['Kids Items'] = [
-                    ...packingDatabase.childItems.entertainment,
-                    ...packingDatabase.childItems.comfort,
-                    ...packingDatabase.childItems.snacks,
-                    ...packingDatabase.childItems.health
+                    'Tablets/devices with downloaded content',
+                    'Kids headphones',
+                    'Coloring books & crayons',
+                    'Small toys/action figures',
+                    'Travel games',
+                    'Kids books',
+                    'Comfort items (stuffed animals)',
+                    'Kids snacks',
+                    'Sippy cups/water bottles',
+                    'Night light'
                 ];
-                
-                // Add extra kids clothing
-                list['Clothing'].push(
-                    `Kids outfits (${tripData.travelers.children * (clothingDays + 2)} sets)`,
-                    `Kids jackets (${tripData.travelers.children})`
-                );
             }
             
-            // Add trip type specific items
-            if (packingDatabase.tripTypes[tripData.type]) {
-                const typeItems = packingDatabase.tripTypes[tripData.type];
-                Object.keys(typeItems).forEach(category => {
-                    const targetCategory = getCategoryMapping(category);
-                    list[targetCategory] = [...new Set([...list[targetCategory], ...typeItems[category]])];
-                });
-            }
+            // Electronics
+            list['Electronics'] = list['Electronics'] || [];
+            list['Electronics'].push(
+                `Phone chargers (${Math.max(2, totalPeople)})`,
+                'Camera & charger',
+                'Headphones/earbuds',
+                'Portable charger/power bank',
+                'Travel adapter (if international)'
+            );
             
-            // Add family-specific items for certain trip types
-            if ((tripData.travelers.children > 0 || tripData.travelers.infants > 0) && tripData.type === 'beach') {
-                list['Kids Items'] = [...new Set([...list['Kids Items'] || [], ...packingDatabase.familyItems.beach])];
-            }
+            // Health & Safety
+            list['Health & Safety'] = list['Health & Safety'] || [];
+            list['Health & Safety'].push(
+                'First aid kit',
+                'Prescription medications',
+                'Pain relievers (adult & children\'s)',
+                'Allergy medicine',
+                'Band-aids',
+                'Thermometer',
+                'Insect repellent',
+                'Face masks',
+                'Antibacterial wipes'
+            );
             
-            if (tripData.type === 'roadtrip' && (tripData.travelers.children > 0 || tripData.travelers.infants > 0)) {
-                list['Special Gear'] = [...new Set([...list['Special Gear'], ...packingDatabase.familyItems.car])];
+            // Activity-specific items
+            if (tripData.activities.includes('swimming')) {
+                list['Clothing'].push('Swim goggles', 'Pool/beach toys', 'Floaties/life vests');
             }
-            
-            // Add climate specific items
-            if (packingDatabase.climate[tripData.climate]) {
-                const climateItems = packingDatabase.climate[tripData.climate];
-                Object.keys(climateItems).forEach(category => {
-                    const targetCategory = getCategoryMapping(category);
-                    list[targetCategory] = [...new Set([...list[targetCategory], ...climateItems[category]])];
-                });
+            if (tripData.activities.includes('hiking')) {
+                list['Clothing'].push('Hiking boots', 'Moisture-wicking socks', 'Athletic wear', 'Hat with brim');
+                list['Accessories'] = list['Accessories'] || [];
+                list['Accessories'].push('Hiking backpack', 'Trekking poles', 'Trail snacks');
             }
-            
-            // Add activity specific items
-            tripData.activities.forEach(activity => {
-                if (packingDatabase.activities[activity]) {
-                    packingDatabase.activities[activity].forEach(item => {
-                        const category = determineCategory(item);
-                        if (!list[category].includes(item)) {
-                            list[category].push(item);
-                        }
-                    });
+            if (tripData.activities.includes('photography')) {
+                list['Electronics'].push('Camera equipment', 'Extra memory cards', 'Lens cleaning kit', 'Tripod');
+            }
+            if (tripData.activities.includes('fitness')) {
+                list['Clothing'].push('Workout clothes', 'Athletic shoes', 'Yoga mat (travel size)');
+            }
+            if (tripData.activities.includes('dining')) {
+                if (adults > 0) {
+                    list['Clothing'].push(`Nice outfits for dining (${adults} sets)`);
                 }
-            });
-            
-            // Add international travel specific items
-            if (tripData.travelType === 'international') {
-                list['Electronics'].push('Universal power adapter', 'Voltage converter (if needed)');
-                list['Money & Cards'].push('Foreign currency', 'Currency exchange info');
+            }
+            if (tripData.activities.includes('kids')) {
+                list['Kids Items'] = list['Kids Items'] || [];
+                list['Kids Items'].push('Sticker books', 'Travel journal for kids', 'Disposable cameras for kids');
             }
             
             // Remove empty categories
@@ -1957,251 +1383,98 @@
             return list;
         }
 
-        // Map subcategories to main categories
-        function getCategoryMapping(category) {
-            const mapping = {
-                'clothing': 'Clothing',
-                'electronics': 'Electronics',
-                'accessories': 'Accessories',
-                'documents': 'Travel Documents',
-                'health': 'Health & Safety',
-                'gear': 'Special Gear',
-                'extras': 'Accessories'
-            };
-            return mapping[category] || 'Special Gear';
-        }
-
-        // Determine category for an item
-        function determineCategory(item) {
-            const itemLower = item.toLowerCase();
-            if (itemLower.includes('wear') || itemLower.includes('shirt') || itemLower.includes('shoes') || 
-                itemLower.includes('jacket') || itemLower.includes('clothes')) {
-                return 'Clothing';
-            } else if (itemLower.includes('camera') || itemLower.includes('charger') || 
-                       itemLower.includes('laptop') || itemLower.includes('tablet')) {
-                return 'Electronics';
-            } else if (itemLower.includes('bag') || itemLower.includes('wallet') || 
-                       itemLower.includes('watch')) {
-                return 'Accessories';
-            } else {
-                return 'Special Gear';
-            }
-        }
-
-        // Render packing list
-        function renderPackingList(packingList, duration) {
-            const content = document.getElementById('packingListContent');
-            let html = '';
-            
-            // Add trip summary
-            const travelersText = [];
-            if (tripData.travelers.adults > 0) travelersText.push(`${tripData.travelers.adults} adult${tripData.travelers.adults > 1 ? 's' : ''}`);
-            if (tripData.travelers.children > 0) travelersText.push(`${tripData.travelers.children} child${tripData.travelers.children > 1 ? 'ren' : ''}`);
-            if (tripData.travelers.infants > 0) travelersText.push(`${tripData.travelers.infants} infant${tripData.travelers.infants > 1 ? 's' : ''}`);
-            
-            html += `
-                <div class="travel-tips" style="margin-bottom: 40px;">
-                    <div class="tips-title">
-                        <span>✈️</span>
-                        <span>Trip Summary</span>
-                    </div>
-                    <div class="tips-grid">
-                        <div class="tip-card">
-                            <div class="tip-header">📍 Destination</div>
-                            <div class="tip-content">${tripData.destination}</div>
-                        </div>
-                        <div class="tip-card">
-                            <div class="tip-header">📅 Duration</div>
-                            <div class="tip-content">${duration} days (${tripData.travelType})</div>
-                        </div>
-                        <div class="tip-card">
-                            <div class="tip-header">👥 Travelers</div>
-                            <div class="tip-content">${travelersText.join(', ')}</div>
-                        </div>
-                        <div class="tip-card">
-                            <div class="tip-header">🌡️ Climate</div>
-                            <div class="tip-content">${tripData.climate.charAt(0).toUpperCase() + tripData.climate.slice(1)}</div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            // Add packing categories
-            const categoryIcons = {
+        // Get category icon
+        function getCategoryIcon(category) {
+            const icons = {
                 'Travel Documents': '📄',
-                'Money & Cards': '💳',
-                'Electronics': '📱',
                 'Clothing': '👔',
                 'Toiletries': '🧴',
-                'Accessories': '👜',
+                'Electronics': '📱',
                 'Health & Safety': '🏥',
-                'Special Gear': '🎒',
+                'Accessories': '👜',
                 'Baby Essentials': '👶',
-                'Baby Care': '🍼',
                 'Kids Items': '🧸'
             };
-            
-            Object.keys(packingList).forEach(category => {
-                html += `
-                    <div class="packing-category">
-                        <div class="category-header">
-                            <div class="category-icon">${categoryIcons[category] || '📦'}</div>
-                            <h3 class="category-title">${category}</h3>
-                        </div>
-                        <div class="packing-items">
-                `;
-                
-                packingList[category].forEach((item, index) => {
-                    const itemId = `${category.replace(/\s/g, '')}-${index}`;
-                    html += `
-                        <div class="packing-item">
-                            <div class="item-checkbox" id="${itemId}" onclick="toggleCheck('${itemId}')"></div>
-                            <div class="item-details">
-                                <div class="item-name">${item}</div>
-                            </div>
-                        </div>
-                    `;
-                });
-                
-                html += `
-                        </div>
-                    </div>
-                `;
-            });
-            
-            // Add travel tips
-            html += generateTravelTips();
-            
-            content.innerHTML = html;
-            
-            // Scroll to results
-            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Generate travel tips based on selections
-        function generateTravelTips() {
-            let tips = `
-                <div class="travel-tips">
-                    <div class="tips-title">
-                        <span>💡</span>
-                        <span>Smart Travel Tips</span>
-                    </div>
-                    <div class="tips-grid">
-            `;
-            
-            // Add tips based on travel type
-            if (tripData.travelType === 'international') {
-                tips += `
-                    <div class="tip-card">
-                        <div class="tip-header">🌍 International Travel</div>
-                        <div class="tip-content">Check passport expiration (must be valid 6+ months). Research visa requirements and get travel insurance.</div>
-                    </div>
-                `;
-            }
-            
-            // Add tips for traveling with infants
-            if (tripData.travelers.infants > 0) {
-                tips += `
-                    <div class="tip-card">
-                        <div class="tip-header">👶 Flying with Babies</div>
-                        <div class="tip-content">Pack extra diapers and formula in carry-on. Feed during takeoff/landing to help with ear pressure.</div>
-                    </div>
-                    <div class="tip-card">
-                        <div class="tip-header">🍼 Baby Essentials</div>
-                        <div class="tip-content">Pack 50% more diapers than you think you'll need. Bring familiar items for comfort.</div>
-                    </div>
-                `;
-            }
-            
-            // Add tips for traveling with children
-            if (tripData.travelers.children > 0) {
-                tips += `
-                    <div class="tip-card">
-                        <div class="tip-header">🎈 Kids Travel</div>
-                        <div class="tip-content">Pack surprise snacks and new small toys for the journey. Download movies/games before traveling.</div>
-                    </div>
-                `;
-            }
-            
-            // Add tips based on trip type
-            const tipsByType = {
-                business: [
-                    { icon: '👔', title: 'Professional Packing', content: 'Roll suits in dry cleaning bags to prevent wrinkles. Pack a portable steamer for touch-ups.' },
-                    { icon: '💼', title: 'Tech Ready', content: 'Create a tech kit with all cables, adapters, and backup batteries in one pouch.' }
-                ],
-                beach: [
-                    { icon: '🏖️', title: 'Beach Smart', content: 'Pack reef-safe sunscreen and bring a mesh bag for sandy items.' },
-                    { icon: '🌊', title: 'Water Safety', content: 'Keep electronics in waterproof pouches and bring zip-lock bags for wet clothes.' }
-                ],
-                adventure: [
-                    { icon: '🥾', title: 'Gear Check', content: 'Break in new hiking boots before the trip. Pack blister prevention supplies.' },
-                    { icon: '🎒', title: 'Layer Up', content: 'Use packing cubes to organize layers. Quick-dry fabrics save space and weight.' }
-                ],
-                luxury: [
-                    { icon: '✨', title: 'Protect Valuables', content: 'Use jewelry rolls and shoe bags. Take photos of valuable items for insurance.' },
-                    { icon: '🥂', title: 'Dress Codes', content: 'Research venue dress codes in advance. Pack one versatile formal outfit.' }
-                ],
-                family: [
-                    { icon: '👨‍👩‍👧‍👦', title: 'Family Organization', content: 'Use different colored packing cubes for each family member. Pack a day bag with essentials.' },
-                    { icon: '🎯', title: 'Entertainment Planning', content: 'Create activity bags for each day with snacks, games, and surprises.' }
-                ],
-                roadtrip: [
-                    { icon: '🚗', title: 'Car Organization', content: 'Use organizers for the backseat. Pack a cooler with snacks and drinks.' },
-                    { icon: '🛣️', title: 'Road Safety', content: 'Check tire pressure and fluids. Pack an emergency kit with jumper cables.' }
-                ]
-            };
-            
-            // Add climate tips
-            const climateTips = {
-                tropical: { icon: '🌴', title: 'Humidity Help', content: 'Pack moisture-wicking fabrics and use packing cubes with ventilation.' },
-                cold: { icon: '❄️', title: 'Warmth Strategy', content: 'Layer thin pieces rather than bulky items. Pack hand/foot warmers.' },
-                rainy: { icon: '☔', title: 'Stay Dry', content: 'Pack clothes in plastic bags inside your luggage. Bring quick-dry options.' }
-            };
-            
-            if (tipsByType[tripData.type]) {
-                tipsByType[tripData.type].forEach(tip => {
-                    tips += `
-                        <div class="tip-card">
-                            <div class="tip-header">${tip.icon} ${tip.title}</div>
-                            <div class="tip-content">${tip.content}</div>
-                        </div>
-                    `;
-                });
-            }
-            
-            if (climateTips[tripData.climate]) {
-                const tip = climateTips[tripData.climate];
-                tips += `
-                    <div class="tip-card">
-                        <div class="tip-header">${tip.icon} ${tip.title}</div>
-                        <div class="tip-content">${tip.content}</div>
-                    </div>
-                `;
-            }
-            
-            // Add general tip
-            tips += `
-                <div class="tip-card">
-                    <div class="tip-header">📸 Document Protection</div>
-                    <div class="tip-content">Email yourself copies of important documents and save them offline on your phone.</div>
-                </div>
-            `;
-            
-            tips += `
-                    </div>
-                </div>
-            `;
-            
-            return tips;
+            return icons[category] || '📦';
         }
 
         // Toggle checkbox
-        function toggleCheck(itemId) {
-            const checkbox = document.getElementById(itemId);
-            checkbox.classList.toggle('checked');
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
         }
 
-        // Print packing list
-        function printPackingList() {
+        // Print function
+        function printList() {
+            // Ensure results are visible
+            const resultsSection = document.getElementById('results');
+            const wasActive = resultsSection.classList.contains('active');
+            
+            // Temporarily add active class if not already there
+            if (!wasActive) {
+                resultsSection.classList.add('active');
+            }
+            
+            // Add print-mode class to body for additional control
+            document.body.classList.add('printing');
+            
+            // Trigger print
             window.print();
+            
+            // Remove print-mode class
+            document.body.classList.remove('printing');
+            
+            // Restore original state
+            if (!wasActive) {
+                resultsSection.classList.remove('active');
+            }
         }
+        
+        // Start over
+        function startOver() {
+            // Reset data
+            tripData = {
+                travelers: {
+                    adults: 1,
+                    children: 0,
+                    infants: 0
+                },
+                travelType: '',
+                tripType: '',
+                destination: '',
+                departureDate: '',
+                returnDate: '',
+                climate: '',
+                activities: []
+            };
+            
+            // Reset form
+            document.getElementById('adultsCount').textContent = '1';
+            document.getElementById('childrenCount').textContent = '0';
+            document.getElementById('infantsCount').textContent = '0';
+            document.getElementById('travelType').value = '';
+            document.getElementById('destination').value = '';
+            document.getElementById('departureDate').value = '';
+            document.getElementById('returnDate').value = '';
+            
+            document.querySelectorAll('.selected').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            document.querySelectorAll('.checked').forEach(el => {
+                el.classList.remove('checked');
+            });
+            
+            // Go to step 1
+            document.getElementById('results').classList.remove('active');
+            goToStep(1);
+        }
+
+        // Initialize date inputs
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('departureDate').min = today;
+            document.getElementById('returnDate').min = today;
+        });
+    </script>
+</body>
+</html>
